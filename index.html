@@ -196,7 +196,7 @@ button.row:hover{background:rgba(255,255,255,.02)}
 .offer:hover{border-color:var(--line-2);transform:translateY(-2px)}
 .offer-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .offer h3{font-size:17px;font-weight:800}
-.offer .tl{font-size:13px;color:var(--text-2)}
+.offer .tagl{font-size:13px;color:var(--text-2)}
 .stats{display:flex;gap:18px}
 .stats div b{display:block;font-size:15px;font-variant-numeric:tabular-nums}
 .stats div span{font-size:11px;color:var(--muted)}
@@ -681,7 +681,7 @@ function offerCard(c){
   const p = Math.min(100, Math.round(c.raised/c.target*100)), closed = c.status==="closed";
   return `<button class="offer" data-company="${c.id}">
     <div class="offer-top"><span class="pill flat">${esc(c.sector)}</span>${closed?`<span class="pill flat">Funded · closed ${fdate(c.closes)}</span>`:`<span class="pill ok">✓ Meets criteria</span>`}</div>
-    <div style="display:flex;gap:12px;align-items:center">${tile(c)}<div style="min-width:0"><h3>${esc(c.name)}</h3><p class="tl">${esc(c.tagline)}</p></div></div>
+    <div style="display:flex;gap:12px;align-items:center">${tile(c)}<div style="min-width:0"><h3>${esc(c.name)}</h3><p class="tagl">${esc(c.tagline)}</p></div></div>
     <div class="stats">${c.stats.slice(0,2).map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div>
     <div class="prog"><div class="track"><i style="width:${p}%;background:var(--signal)"></i></div>
       <div class="meta"><span><b>${compact(c.raised)}</b> of ${compact(c.target)} · ${c.investors.toLocaleString()} investors</span><span>${p}%</span></div></div>
