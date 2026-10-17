@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="OpenVenture compass mark">
+  <g>
+    <circle cx="50" cy="50" r="29" fill="none" stroke="#F2F5F2" stroke-width="8"/>
+    <path d="M50 4 L55.5 22 L44.5 22 Z M50 96 L44.5 78 L55.5 78 Z M96 50 L78 55.5 L78 44.5 Z M4 50 L22 44.5 L22 55.5 Z" fill="#F2F5F2"/>
+    <path d="M65.6 34.4 L44.3 44.3 L34.4 65.6 Z" fill="#4ACB55"/>
+    <path d="M65.6 34.4 L55.7 55.7 L34.4 65.6 Z" fill="#2E7D32"/>
+    <circle cx="50" cy="50" r="4.2" fill="#0B0D0B" stroke="#F2F5F2" stroke-width="1.6"/>
+  </g>
+</svg>
