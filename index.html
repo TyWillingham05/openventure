@@ -9,7 +9,8 @@
 <link rel="icon" type="image/svg+xml" href="brand/openventure-app-icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <style>
 /* Presenter stage holds one device frame (laptop browser or phone). The app adapts by its own width through container queries. */
 :root{
@@ -48,7 +49,7 @@ svg.i.fill{fill:currentColor;stroke:none}
 @media (prefers-reduced-motion: reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 
 /* ---------------- Presenter bar ---------------- */
-.stage{height:100%;display:flex;flex-direction:column}
+.stage{height:100%;height:100vh;height:100dvh;display:flex;flex-direction:column}
 .pbar{display:flex;align-items:center;gap:12px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid #151815;background:#080908;flex-shrink:0;flex-wrap:wrap}
 .pbar .who{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;margin-right:auto;min-width:0}
 .pbar .who svg{width:24px;height:24px;flex-shrink:0}
@@ -72,7 +73,7 @@ svg.i.fill{fill:currentColor;stroke:none}
 .sbar{height:46px;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 26px 6px;font-size:14px;font-weight:700}
 .sbar .icons{display:flex;gap:5px;align-items:center}
 .homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:36%;height:5px;border-radius:3px;background:#F2F5F2;opacity:.8;z-index:60}
-.native .floor{padding:0;align-items:stretch}
+.native .floor{padding:0 env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px);align-items:stretch}
 .native .app{height:100%}
 .native .pbar{display:none!important}
 .native .pbar{flex-wrap:nowrap;padding-block:8px;justify-content:flex-end}
@@ -87,7 +88,9 @@ svg.i.fill{fill:currentColor;stroke:none}
 .wm{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:20px;letter-spacing:-.01em}
 .wm svg{width:26px;height:26px}
 .wm b{font-weight:400;color:var(--signal)}
-.avatar{width:var(--tap);height:var(--tap);border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--text-2)}
+.topbar{gap:8px}.topbar .wm{min-width:0;overflow:hidden}.topbar .wm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topbar-r{display:flex;gap:6px;align-items:center;flex-shrink:0}
+@container app (max-width: 260px){.topbar .wm span{display:none}}
+.avatar{flex-shrink:0;width:var(--tap);height:var(--tap);border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--text-2)}
 .scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative}
 .view{padding:8px 16px 32px;display:flex;flex-direction:column;gap:20px;max-width:1080px;width:100%;margin:0 auto}
 .tabs{flex-shrink:0;display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:6px 4px 20px;background:var(--bg)}
@@ -98,7 +101,7 @@ svg.i.fill{fill:currentColor;stroke:none}
 
 @container app (min-width: 760px){
   .app-grid{display:grid;grid-template-columns:232px minmax(0,1fr)}
-  .side{display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--line);padding:18px 14px;min-height:0}
+  .side{display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--line);padding:18px 14px;min-height:0;overflow-y:auto}
   .side .wm{padding:2px 8px 18px}
   .nav{border:0;background:transparent;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;color:var(--muted);min-height:44px;padding:10px 12px;border-radius:10px;text-align:left}
   .nav:hover{background:var(--surface);color:var(--text)}
@@ -380,7 +383,7 @@ details.inl[open] summary svg{transform:rotate(180deg)}
 @container app (min-width: 900px){.terms-m{display:none}}
 .main > .demo-strip{display:none}
 @container app (min-width: 760px){.main > .demo-strip{display:block}}
-.demopill{border:1px solid rgba(242,184,75,.45);background:var(--caution-wash);color:var(--caution);font-weight:800;font-size:12px;min-height:32px;padding:0 12px;border-radius:999px;position:relative}
+.demopill{flex-shrink:0;border:1px solid rgba(242,184,75,.45);background:var(--caution-wash);color:var(--caution);font-weight:800;font-size:12px;min-height:32px;padding:0 12px;border-radius:999px;position:relative}
 .demopill::after{content:"";position:absolute;inset:-6px -4px}
 .wordsbtn{border:1px solid var(--line-2);background:transparent;border-radius:999px;min-height:var(--tap);padding:0 14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--text)}
 .app.no-tabs .tabs{display:none}
@@ -435,6 +438,8 @@ body.guiding:not(.native) .guide:not(.min) h2{font-size:20px}
 body.guiding:not(.native) .guide:not(.min) .gbody{font-size:16px}
 body.guiding:not(.native) .guide:not(.min) .gbtns{margin-top:4px}
 .toast-act{border:0;background:transparent;color:var(--signal);font-weight:800;min-height:var(--tap);padding:0 6px}
+/* Sideways phones: tour panel sits beside the app instead of under it */
+@media (orientation: landscape) and (max-height: 500px){.native .guide{left:auto;width:min(320px,42%);top:max(10px,env(safe-area-inset-top,0px));bottom:auto;max-height:calc(100% - 20px);overflow-y:auto}.native.guiding .floor{padding-bottom:0;padding-right:calc(min(320px,42%) + 20px)}}
 </style>
 </head>
 <body>
@@ -635,6 +640,8 @@ const S = {
 const $ = s => document.querySelector(s);
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function usd(n){ return (n<0?"−$":"$")+Math.abs(Math.round(n)).toLocaleString("en-US"); }
+function money(n){ return n%1 ? usd2(n) : usd(n); }
+function parseMoney(v, cents){ const t = String(v).replace(/[$,\s]/g,""); if (!t) return 0; if (!/^(\d+\.?\d*|\.\d+)$/.test(t)) return NaN; const n = Number(t); return Number.isFinite(n) && n>=0 && n<1e9 ? (cents ? Math.round(n*100)/100 : Math.round(n)) : NaN; }
 function usd2(n){ return (n<0?"−$":"$")+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
 function compact(n){ if(n>=1e6) return "$"+(n/1e6).toFixed(2).replace(/\.?0+$/,"")+"M"; if(n>=1e3) return "$"+Math.round(n/1e3)+"K"; return usd(n); }
 function fdate(iso, short){ const d=new Date(iso+"T12:00:00"); return d.toLocaleDateString("en-US", short?{month:"short",year:"2-digit"}:{month:"short",day:"numeric",year:"numeric"}); }
@@ -705,7 +712,8 @@ function focusKey(el){
 }
 function render(opts){
   opts = opts || {};
-  try { sessionStorage.setItem("ov-ob", JSON.stringify({ob:S.ob, browse:S.browse})); } catch(_){}
+  lastRender = performance.now();
+  try { sessionStorage.setItem("ov-ob", JSON.stringify({ob:S.ob, browse:S.browse, view:S.view, companyId:S.companyId, holdingId:S.holdingId, returnTo:S.returnTo, pending:S.pending, added:S.events.filter(e=>e.id.startsWith("ev-new-")), lastAmount:S.lastAmount||null, tlFilter:S.tlFilter, range:S.range, sort:S.sort, notify:S.notify})); } catch(_){}
   const app = $("#app"); if(!app) return;
   const fk = focusKey(document.activeElement);
   const sc0 = app.querySelector(".scroll, .ob");
@@ -725,7 +733,7 @@ function render(opts){
         </nav>
         <div class="main">
           ${demoStrip()}
-          <div class="topbar"><div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div><div style="display:flex;gap:6px;align-items:center"><button class="demopill" data-demo>Demo</button><button class="avatar" data-go="profile" aria-label="Profile">JE</button></div></div>
+          <div class="topbar"><div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div><div class="topbar-r"><button class="demopill" data-demo>Demo</button><button class="avatar" data-go="profile" aria-label="Profile">JE</button></div></div>
           <main class="scroll" id="scroll">${renderView()}</main>
           <nav class="tabs" aria-label="Main">${NAV.map(([v,l,i])=>`<button class="tab" data-go="${v}" ${k===v?'aria-current="page"':""}>${icon(i)}${l}</button>`).join("")}</nav>
         </div>
@@ -742,10 +750,11 @@ function render(opts){
   if (opts.focus){ const t = app.querySelector(opts.focus); if (t) t.focus({preventScroll:true}); }
   else if (fk){ try { const t = document.querySelector(fk); if (t) t.focus({preventScroll:true}); } catch(_){} }
   const u = $("#url-text"); if (u) u.textContent = "openventureinvestments.com/app/" + ({company:"companies/"+S.companyId, holding:"portfolio/"+S.holdingId, marketplace:"companies", onboard:"welcome"}[S.view] || S.view);
+  const cf = app.querySelector("[data-confirm][disabled]"); if (cf && S.modal && S.modal.arm){ const m = S.modal; setTimeout(()=>{ const b = S.modal===m && $("#app [data-confirm]"); if (b) b.disabled = false; }, Math.max(0, m.arm - performance.now())); }
   applySpot();
   watchChart();
 }
-let chartRO;
+let chartRO, lastRender = 0, lastPrimary = 0;
 function countUp(el, to){
   if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
   const t0 = performance.now(), dur = 650;
@@ -853,8 +862,8 @@ function vOnboard(){
     body = `<h1 class="h1" tabindex="-1" id="ob-h">Your yearly investing limit</h1>
       <p class="lead">Anyone can invest. The law caps how much each year.</p>
       <div class="fields2">
-        <div class="field"><label for="f-inc">Yearly income</label><div class="money"><span>$</span><input id="f-inc" class="input num" inputmode="numeric" value="${S.ob.income.toLocaleString()}" data-ob-num="income"></div></div>
-        <div class="field"><label for="f-nw">Net worth, not counting your home</label><div class="money"><span>$</span><input id="f-nw" class="input num" inputmode="numeric" value="${S.ob.nw.toLocaleString()}" data-ob-num="nw"></div></div>
+        <div class="field"><label for="f-inc">Yearly income</label><div class="money"><span>$</span><input id="f-inc" class="input num" inputmode="numeric" maxlength="11" autocomplete="off" value="${S.ob.income.toLocaleString()}" data-ob-num="income"></div></div>
+        <div class="field"><label for="f-nw">Net worth, not counting your home</label><div class="money"><span>$</span><input id="f-nw" class="input num" inputmode="numeric" maxlength="11" autocomplete="off" value="${S.ob.nw.toLocaleString()}" data-ob-num="nw"></div></div>
       </div>
       <div class="card stack" id="ob-limit">
         <div class="limit-big num" id="ob-limit-val" aria-live="polite">${usd(limit())}<span class="muted" style="font-size:16px;font-weight:700"> a year</span></div>
@@ -942,6 +951,7 @@ function vCompany(){
 const STEP_NAMES = ["Amount","Check the risks","Confirm","Done"];
 function modalHTML(){
   const m = S.modal; const c = co(m.companyId);
+  if (m.step!==3) m.arm = null; else if (!m.arm) m.arm = performance.now() + 400;
   const head = `<div class="sheet-head">
     ${m.step>1 && m.step<4 && !m.busy ? `<button class="iconbtn" data-step="${m.step-1}" aria-label="Back">${icon("back")}</button>` : `<span style="width:8px"></span>`}
     <div class="stepinfo"><span>${m.busy?"Sending…":`Step ${m.step} of 4 · ${STEP_NAMES[m.step-1]}`}</span><div class="sheet-steps" aria-hidden="true">${[1,2,3,4].map(i=>`<i class="${i<=m.step?"on":""}"></i>`).join("")}</div></div>
@@ -949,8 +959,8 @@ function modalHTML(){
   let body="", foot="";
   if (m.step===1){
     body = `<h2 class="sheet-title" tabindex="-1" id="sheet-h">How much in ${esc(c.name)}?</h2>
-      <div class="amts" role="group" aria-label="Amount" style="grid-template-columns:repeat(${amtList().length},1fr)">${amtList().map(a=>`<button class="amt" data-amt="${a}" aria-pressed="${!m.custom&&m.amount===a}">${usd(a)}</button>`).join("")}</div>
-      <div class="field"><label for="amt-in">Other amount</label><div class="money"><span>$</span><input id="amt-in" class="input num" inputmode="numeric" placeholder="Type an amount" value="${m.custom?esc(m.raw||m.amount):""}"></div></div>
+      <div class="amts" role="group" aria-label="Amount" style="grid-template-columns:repeat(${amtList().length},1fr)">${amtList().map(a=>`<button class="amt" data-amt="${a}" aria-pressed="${!m.custom&&m.amount===a}">${money(a)}</button>`).join("")}</div>
+      <div class="field"><label for="amt-in">Other amount</label><div class="money"><span>$</span><input id="amt-in" class="input num${m.bad?" bad":""}" inputmode="decimal" maxlength="9" autocomplete="off" ${m.bad?'aria-invalid="true" ':""}aria-describedby="amt-hint" placeholder="Type an amount" value="${m.custom?esc(m.raw||m.amount):""}"></div></div>
       <div id="amt-live">${amountLive()}</div>`;
     foot = `<button class="btn btn-primary btn-block" data-step="2" id="amt-next" ${amountOk()?"":"disabled"}>Next</button>`;
   }
@@ -975,7 +985,7 @@ function modalHTML(){
         <div class="kv"><span>Yearly tracking fee, 0.5%</span><span>about ${usd2(m.amount*0.005)} a year</span></div>
         <div class="kv"><span>Yearly limit left after</span><span>${usd(remaining()-m.amount)}</span></div></div>
       <div class="callout good" id="escrow-box"><b>Your money waits in escrow</b>It goes to a North Capital escrow account, never to OpenVenture. ${esc(c.name)} gets it only if the raise hits its goal by ${fdate(c.closes)}. Otherwise it all comes back. You can cancel until ${fdate(addDays(c.closes,-2))}.</div>`;
-    foot = m.busy ? "" : `<button class="btn btn-primary btn-block" data-confirm>Confirm ${usd2(m.amount+f)}</button>`;
+    foot = m.busy ? "" : `<button class="btn btn-primary btn-block" data-confirm ${performance.now()<m.arm?"disabled":""}>Confirm ${usd2(m.amount+f)}</button>`;
   }
   if (m.step===4){
     body = `<div class="success" role="status"><svg class="draw" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28"/><path d="M20 33l8 8 16-17"/></svg>
@@ -986,12 +996,12 @@ function modalHTML(){
   return `<div class="scrim"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h">${head}<div class="sheet-body">${body}</div><div class="sheet-foot">${foot}</div></div></div>`;
 }
 function amtList(){ const l=[25,100,250]; if (S.lastAmount && !l.includes(S.lastAmount)) l.push(S.lastAmount); return l; }
-function amountOk(){ const m=S.modal; return m.amount>=25 && m.amount<=remaining(); }
+function amountOk(){ const m=S.modal; return !m.bad && m.amount>=25 && m.amount<=remaining(); }
 function amountLive(){
   const m=S.modal, L=limit(), u=used(), a=m.amount||0, f=a?fee(a):0, left=L-u-a;
-  const over = a>remaining(), under = a>0 && a<25;
+  const over = !m.bad && a>remaining(), under = !m.bad && a>0 && a<25;
   const wUsed = Math.min(100,u/L*100), wNew = Math.max(0,Math.min(100-wUsed, a/L*100));
-  const echo = m.custom && m.raw && /[^0-9,$\s]/.test(m.raw) ? ` We read that as ${usd(a)}.` : "";
+  const echo = m.custom && m.raw && !m.bad && /\.\d{3}/.test(m.raw) ? ` We read that as ${usd2(a)}.` : "";
   return `<div class="receipt" id="receipt">
       <div class="kv"><span>Investment</span><span>${usd2(a)}</span></div>
       <div class="kv"><span>Fee (2% + $2)</span><span>${usd2(f)}</span></div>
@@ -1000,7 +1010,7 @@ function amountLive(){
     <div class="stack" style="gap:8px" id="limit-meter">
       <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700"><span>Your yearly limit</span><span class="muted num">${usd(L)}</span></div>
       <div class="track" aria-hidden="true"><i style="width:${wUsed}%;background:var(--muted)"></i><i style="width:${wNew}%;background:${over?"var(--loss)":"var(--signal)"}"></i></div>
-      <p class="hint ${over||under?"err":""}" id="amt-hint" aria-live="polite">${under?"The minimum is $25. Try $25 or more.": over?`That's over your limit. You have ${usd(remaining())} left this year.`:`Used ${usd(u)} · this ${usd(a)} · ${usd(Math.max(0,left))} left`}${echo}</p>
+      <p class="hint ${over||under||m.bad?"err":""}" id="amt-hint" aria-live="polite">${m.bad?"Enter an amount in dollars, like 25 or 25.50.": under?"The minimum is $25. Try $25 or more.": over?`That's over your limit. You have ${usd(remaining())} left this year.`:`Used ${usd(u)} · this ${money(a)} · ${usd(Math.max(0,left))} left`}${echo}</p>
     </div>`;
 }
 
@@ -1024,7 +1034,7 @@ function vPortfolio(){
     <p class="legend-m" aria-hidden="true"><span><i class="ok"></i>Paid to you</span><span><i class="bad"></i>Loss</span></p>
     <ul class="rows">
       <li><button class="hrow inline" data-go="profile" data-anchor="pr-limit"><span class="hl"><span class="hn">Yearly limit left</span></span><span class="hr">${usd(remaining())}${icon("right","sm")}</span></button></li>
-      ${S.pending.map((pd,ix)=>{const c=co(pd.companyId);return `<li class="hrow esc"><span class="hl"><span class="hn">${esc(c.name)}</span><span class="hs cau">In escrow · cancel by ${fdate(addDays(c.closes,-2))}</span></span><span class="hr">${usd(pd.amount)}<button class="cancel" data-cancel="${ix}">Cancel</button></span></li>`}).join("")}
+      ${S.pending.map((pd,ix)=>{const c=co(pd.companyId);return `<li class="hrow esc"><span class="hl"><span class="hn">${esc(c.name)}</span><span class="hs cau">In escrow · cancel by ${fdate(addDays(c.closes,-2))}</span></span><span class="hr">${money(pd.amount)}<button class="cancel" data-cancel="${ix}">Cancel</button></span></li>`}).join("")}
     </ul>
     <section aria-labelledby="hold-h"><h2 class="h2" id="hold-h">Holdings</h2>
       <ul class="rows" id="pf-holdings">${HOLDINGS.map(h=>{const ch=pct(h.indicated,h.invested);
@@ -1164,11 +1174,34 @@ function toast(msg, action){ S.toast = {msg, action}; render({keepScroll:true});
 /* =========================================================
    NAVIGATION + EVENTS
    ========================================================= */
+/* History: each view is a ?view= entry; an open sheet adds one entry so Back closes it. The guided tour replaces instead of pushing. */
+let skipPop = 0;
+function urlFor(){
+  const q = new URLSearchParams(location.search); q.delete("id");
+  if (S.view==="onboard") q.delete("view"); else q.set("view", S.view);
+  if (S.view==="company") q.set("id", S.companyId); if (S.view==="holding") q.set("id", S.holdingId);
+  if (S.guide.on) q.set("tour", S.guide.i+1); else q.delete("tour");
+  const qs = q.toString(); return location.pathname + (qs ? "?"+qs : "") + location.hash;
+}
+let histQ = null;
+function sheetDepth(){ const h = history.state; return h && h.ov ? h.sheet||0 : 0; }
+function hist(mode){ // "view": new view entry (replaces a sheet entry) · "sheet": a sheet opened · "tour": tour starts · "fix": update this entry in place
+  if (skipPop){ histQ = mode; return; }
+  try {
+    const cur = history.state, dep = sheetDepth(), u = urlFor();
+    const st = {ov:1, view:S.view, id:S.view==="company"?S.companyId:S.view==="holding"?S.holdingId:null, sheet: mode==="sheet" ? dep+1 : mode==="fix" ? dep : 0};
+    const same = cur && cur.ov && cur.view===st.view && cur.id===st.id;
+    const push = mode==="tour" || (!S.guide.on && (mode==="sheet" || (mode==="view" && dep===0 && !same)));
+    if (push) history.pushState(st, "", u); else history.replaceState(st, "", u);
+  } catch(_){}
+}
+function popSheet(){ if (sheetDepth() > 0){ skipPop++; history.back(); } }
 function go(view, opts){
   opts = opts || {};
   S.view = view; S.modal = null; S.info = null; S.toast = null; clearTimeout(toastTimer);
   if (opts.companyId) S.companyId = opts.companyId;
   if (opts.holdingId) S.holdingId = opts.holdingId;
+  if (!opts.noHist) hist("view");
   S.retFocus = null; render({ focus: view==="onboard" ? "#ob-h" : "#view-h" });
   const sc = $("#app .scroll, #app .ob"); if (sc) sc.scrollTop = 0;
   if (opts.anchor){ const el = document.getElementById(opts.anchor); if (el) el.scrollIntoView({block:"start"}); }
@@ -1178,16 +1211,31 @@ function openInvest(id, amount){
   const d = S.drafts[id];
   S.modal = d ? Object.assign({}, d, {step:1, busy:false}) : { companyId:id, step:1, amount: amount||25, custom:false, acks:[false,false,false,false], busy:false };
   if (amount) { S.modal.amount = amount; S.modal.custom = false; }
+  if (!S.guide.on) hist("sheet");
   render({keepScroll:true, focus:"#sheet-h"});
 }
-function closeModal(){ if (S.modal && S.modal.step<4) S.drafts[S.modal.companyId] = S.modal; S.modal=null; const rf=S.retFocus; S.retFocus=null; render({keepScroll:true, focus:rf}); }
-function openInfo(info){ if (!S.info) S.retFocus = focusKey(document.activeElement); S.info = info; render({keepScroll:true, focus:"#info-h"}); }
-function closeInfo(){ S.info = null; const rf = S.modal ? null : S.retFocus; if (!S.modal) S.retFocus = null; render({keepScroll:true, focus:rf || (S.modal?"#sheet-h":null)}); }
+function closeModal(fromPop){ if (!fromPop) popSheet(); if (S.modal && S.modal.step<4) S.drafts[S.modal.companyId] = S.modal; S.modal=null; const rf=S.retFocus; S.retFocus=null; render({keepScroll:true, focus:rf}); }
+function openInfo(info){ if (!S.info){ S.retFocus = focusKey(document.activeElement); if (!S.guide.on) hist("sheet"); } S.info = info; render({keepScroll:true, focus:"#info-h"}); }
+function closeInfo(fromPop){ if (!fromPop) popSheet(); S.info = null; const rf = S.modal ? null : S.retFocus; if (!S.modal) S.retFocus = null; render({keepScroll:true, focus:rf || (S.modal?"#sheet-h":null)}); }
+window.addEventListener("popstate", e => {
+  if (skipPop){ skipPop--; if (!skipPop && histQ){ const q = histQ; histQ = null; hist(q); } return; }
+  const st = e.state;
+  if (S.guide.on){ endGuide(true); S.modal = null; S.info = null; }
+  else if (S.info){ closeInfo(true); return; }
+  else if (S.modal){ closeModal(true); return; }
+  if (!st || !st.ov) return;
+  const v = VIEWS.includes(st.view) ? st.view : "marketplace";
+  go(v, {noHist:true, companyId: v==="company" && co(st.id) ? st.id : null, holdingId: v==="holding" && anyHolding(st.id) ? st.id : null});
+});
 function resetOnboard(){ S.ob.step=0; S.ob.savings=null; S.ob.verify="idle"; }
 function obStep(n){ S.ob.step = n; render({focus:"#ob-h"}); const ob=$("#app .ob"); if(ob) ob.scrollTop=0; }
 
+const PRIMARY = ".sheet-foot,.ob-foot,.investbar,[data-invest],[data-ob-next],[data-close-go],[data-confirm],[data-step],[data-jump-go],[data-ob-finish]";
 document.addEventListener("click", e => {
   const t = e.target.closest("button"); if (!t) return;
+  const now = performance.now(), primary = !!t.closest(PRIMARY);
+  if (e.detail && now-lastRender < 400 && (primary || now-lastPrimary < 450)) return; // a fast second tap would land on whatever the first tap just rendered
+  if (primary) lastPrimary = now;
   const d = t.dataset;
   if (d.toastAct != null){ const a = S.toast && S.toast.action; S.toast=null; clearTimeout(toastTimer); if (a) a.fn(); render({keepScroll:true}); return; }
   if (d.toastX != null){ S.toast=null; render({keepScroll:true}); return; }
@@ -1221,7 +1269,7 @@ document.addEventListener("click", e => {
   if (d.doc){ openInfo({type:"doc", name:d.doc, date:d.docdate}); return; }
   if (d.invest){ openInvest(d.invest); return; }
   if (d.close != null){ closeModal(); return; }
-  if (d.amt){ S.modal.amount = +d.amt; S.modal.custom=false; render({keepScroll:true}); return; }
+  if (d.amt){ S.modal.amount = +d.amt; S.modal.custom=false; S.modal.bad=false; render({keepScroll:true}); return; }
   if (d.step){ if (S.modal.busy) return; S.modal.step = +d.step; render({keepScroll:true, focus:"#sheet-h"}); return; }
   if (d.confirm != null){ confirmInvest(); return; }
   if (d.closeGo){ const v=d.closeGo; delete S.drafts[S.modal.companyId]; S.modal=null; go(v); return; }
@@ -1253,17 +1301,18 @@ document.addEventListener("focusin", e => {
   const tb = t.getBoundingClientRect(), bb = bar.getBoundingClientRect();
   if (tb.bottom > bb.top - 8 && !bar.contains(t)) sc.scrollTop += tb.bottom - bb.top + 16;
 });
-document.addEventListener("focusout", e => { const t = e.target; if (t.dataset && t.dataset.obNum) t.value = (S.ob[t.dataset.obNum]||0).toLocaleString(); });
+document.addEventListener("focusout", e => { const t = e.target; if (t.dataset && t.dataset.obNum){ t.value = (S.ob[t.dataset.obNum]||0).toLocaleString(); t.classList.remove("bad"); t.removeAttribute("aria-invalid"); } });
 document.addEventListener("input", e => {
   const t = e.target;
   if (t.id === "amt-in"){
-    const n = parseInt(t.value.replace(/[^0-9]/g,""),10) || 0;
-    S.modal.amount = n; S.modal.custom = true; S.modal.raw = t.value;
+    const n = parseMoney(t.value, true), bad = Number.isNaN(n);
+    S.modal.amount = bad ? 0 : n; S.modal.bad = bad; S.modal.custom = true; S.modal.raw = t.value;
+    t.classList.toggle("bad", bad); if (bad) t.setAttribute("aria-invalid","true"); else t.removeAttribute("aria-invalid");
     document.querySelectorAll(".amt").forEach(b=>b.setAttribute("aria-pressed","false"));
     $("#amt-live").innerHTML = amountLive(); $("#amt-next").disabled = !amountOk();
   }
   if (t.dataset.obNum){
-    S.ob[t.dataset.obNum] = parseInt(t.value.replace(/[^0-9]/g,""),10) || 0;
+    const n = parseMoney(t.value), bad = Number.isNaN(n); t.classList.toggle("bad", bad); if (bad){ t.setAttribute("aria-invalid","true"); return; } t.removeAttribute("aria-invalid"); S.ob[t.dataset.obNum] = n;
     $("#ob-limit-val").innerHTML = usd(limit())+`<span class="muted" style="font-size:16px;font-weight:700"> a year</span>`; $("#ob-calc").textContent = limitMath(S.ob.income,S.ob.nw);
   }
 });
@@ -1289,7 +1338,7 @@ function confirmInvest(){
     const c = co(m.companyId), evId = "ev-new-"+Date.now();
     S.pending.push({companyId:m.companyId, amount:m.amount, evId});
     S.events.unshift({ id:evId, date:TODAY, group:"mine", co:m.companyId, type:"In escrow", tone:"warn",
-      title:`You invested ${usd(m.amount)} in ${c.name}`, means:`<b>Waiting in escrow.</b> You can cancel until ${fdate(addDays(c.closes,-2))}.`,
+      title:`You invested ${money(m.amount)} in ${c.name}`, means:`<b>Waiting in escrow.</b> You can cancel until ${fdate(addDays(c.closes,-2))}.`,
       body:`Fee: ${usd2(fee(m.amount))}. North Capital holds the money until the raise closes on ${fdate(c.closes)}. If it misses its goal, the money comes back.` });
     delete S.drafts[m.companyId]; S.lastAmount = m.amount;
     m.busy = false; m.step = 4; render({keepScroll:true, focus:"#sheet-h"});
@@ -1324,8 +1373,8 @@ const GUIDE = [
     run(){ go("marketplace"); }, spot:null }
 ];
 let guideEl = null;
-function startGuide(){ S.guide.on = true; S.guide.min = false; guideStep(0); }
-function endGuide(){ S.guide.on = false; document.body.classList.remove("guiding"); document.body.style.removeProperty("--gh"); setTimeout(()=>render({keepScroll:true}),0); if (guideEl){ guideEl.remove(); guideEl=null; } document.querySelectorAll(".spot").forEach(el=>el.classList.remove("spot")); $("#guide-start").textContent="Start guided demo"; }
+function startGuide(){ const was = S.guide.on; S.guide.on = true; S.guide.i = 0; S.guide.min = false; if (!was) hist("tour"); guideStep(0); }
+function endGuide(noHist){ S.guide.on = false; if (!noHist) hist("fix"); document.body.classList.remove("guiding"); document.body.style.removeProperty("--gh"); setTimeout(()=>render({keepScroll:true}),0); if (guideEl){ guideEl.remove(); guideEl=null; } document.querySelectorAll(".spot").forEach(el=>el.classList.remove("spot")); $("#guide-start").textContent="Start guided demo"; }
 function guideStep(i){
   if (i<0) i=0; if (i>=GUIDE.length){ endGuide(); return; }
   S.guide.i = i; S.modal = null; S._spotDone = null;
@@ -1345,7 +1394,7 @@ function applySpot(){
       const er = el.getBoundingClientRect(), sr = sc.getBoundingClientRect();
       if (er.top >= sr.top && er.bottom <= sr.bottom) return;
       const top = el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop;
-      sc.scrollTo({top: Math.max(0, top - sc.clientHeight*0.15), behavior:"smooth"});
+      sc.scrollTo({top: Math.max(0, top - sc.clientHeight*0.15), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
     }, 60);
   }
 }
@@ -1380,20 +1429,31 @@ document.addEventListener("keydown", e => {
 /* =========================================================
    BOOT
    ========================================================= */
-const mq = window.matchMedia("(max-width: 640px)");
+const mq = window.matchMedia("(max-width: 640px), (hover: none) and (pointer: coarse) and (max-height: 500px)"); // phones, upright or sideways
 function setNative(){ S.native = mq.matches; document.body.classList.toggle("native", S.native); renderFrame(); render(); }
 mq.addEventListener ? mq.addEventListener("change", setNative) : mq.addListener(setNative);
 try { const saved = localStorage.getItem("ov-device"); if (saved==="phone"||saved==="laptop") S.device = saved; } catch(_){}
-const qp = new URLSearchParams(location.search);
-if (!qp.get("view") && !qp.get("tour")){ try { const sv = JSON.parse(sessionStorage.getItem("ov-ob")||"null"); if (sv && sv.ob){ Object.assign(S.ob, sv.ob, {verify: sv.ob.verify==="busy"?"idle":sv.ob.verify}); S.browse = !!sv.browse; } } catch(_){} }
-if (qp.get("device")==="phone" || qp.get("device")==="laptop") S.device = qp.get("device");
+const qp = new URLSearchParams(location.search), own = !!(history.state && history.state.ov), pick = (v, ok, d) => ok.includes(v) ? v : d;
 const VIEWS = ["onboard","marketplace","company","portfolio","holding","timeline","documents","profile"];
+if (own || (!qp.get("view") && !qp.get("tour"))){ try { const sv = JSON.parse(sessionStorage.getItem("ov-ob")||"null"); if (sv && sv.ob){
+  Object.assign(S.ob, sv.ob, {verify: sv.ob.verify==="busy"?"idle":sv.ob.verify}); S.browse = !!sv.browse;
+  S.view = pick(sv.view, VIEWS, S.view); if (co(sv.companyId)) S.companyId = sv.companyId; if (anyHolding(sv.holdingId)) S.holdingId = sv.holdingId; if (co(sv.returnTo)) S.returnTo = sv.returnTo;
+  if (Array.isArray(sv.pending)) S.pending = sv.pending.filter(p => p && co(p.companyId) && Number.isFinite(p.amount) && p.amount>0);
+  if (Array.isArray(sv.added)) S.events = sv.added.filter(e => e && /^ev-new-\d+$/.test(e.id) && co(e.co)).concat(EVENTS_BASE);
+  if (Number.isFinite(sv.lastAmount) && sv.lastAmount>=25) S.lastAmount = sv.lastAmount;
+  S.tlFilter = pick(sv.tlFilter, TL_FILTERS.map(f=>f[0]), S.tlFilter); S.range = pick(sv.range, ["12m","all"], S.range); S.sort = pick(sv.sort, ["az","close"], S.sort);
+  if (sv.notify && typeof sv.notify==="object") S.notify = sv.notify; } } catch(_){} }
+if (qp.get("device")==="phone" || qp.get("device")==="laptop") S.device = qp.get("device");
 let openInv = false;
-if (qp.get("view")){ const v = qp.get("view"); if (v==="invest"){ S.view="company"; openInv=true; } else S.view = VIEWS.includes(v) ? v : "marketplace"; }
+if (own){ const st = history.state; S.view = pick(st.view, VIEWS, S.view); if (st.view==="company" && co(st.id)) S.companyId = st.id; if (st.view==="holding" && anyHolding(st.id)) S.holdingId = st.id; }
+else if (qp.get("view")){ const v = qp.get("view"), id = qp.get("id"); if (v==="invest"){ S.view="company"; openInv=true; } else S.view = VIEWS.includes(v) ? v : "marketplace";
+  if (S.view==="company" && co(id)) S.companyId = id; if (S.view==="holding" && anyHolding(id)) S.holdingId = id; }
 if (S.view==="holding" && !S.holdingId) S.holdingId = "tidewater";
 setNative();
+const tourN = parseInt(qp.get("tour"),10), back = own ? history.state.sheet||0 : 0;
+if (back){ skipPop++; history.go(-back); } else hist("fix");
 if (openInv) openInvest("fieldnote");
-const tourN = parseInt(qp.get("tour"),10); if (tourN>=1 && tourN<=GUIDE.length){ S.guide.on = true; guideStep(tourN-1); }
+if (tourN>=1 && tourN<=GUIDE.length){ S.guide.on = true; guideStep(tourN-1); }
 })();
 </script>
 </body>
