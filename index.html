@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OpenVenture Click-Through</title>
-<meta name="description" content="OpenVenture concept demo: a private-company investing marketplace and Portfolio Dashboard. Fictional companies and figures.">
+<meta name="description" content="OpenVenture concept demo: real private-company investing, open to everyone, from $25. Fictional companies and figures.">
 <meta name="theme-color" content="#0B0D0B">
 <link rel="icon" type="image/svg+xml" href="brand/openventure-app-icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Presenter stage holds one device frame (laptop browser or phone). The app inside adapts by its own width via container queries. */
+/* Presenter stage holds one device frame (laptop browser or phone). The app adapts by its own width through container queries. */
 :root{
   --stage:#050605;
   --bg:#0B0D0B; --surface:#171A17; --surface-2:#1F231F; --line:#262B26; --line-2:#323832;
@@ -20,70 +20,78 @@
   --loss:#FF6B5E; --loss-wash:rgba(255,107,94,.12); --caution:#F2B84B; --caution-wash:rgba(242,184,75,.13);
   --display:"Libre Caslon Text", Georgia, "Times New Roman", serif;
   --ui:"Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --r:14px; --r-sm:10px;
+  --r:14px; --r-sm:10px; --tap:44px;
   color-scheme:dark;
+  accent-color:var(--signal);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--stage);color:var(--text);font-family:var(--ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
-button,input,select{font-family:inherit;color:inherit}
+body{margin:0;background:var(--stage);color:var(--text);font-family:var(--ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;caret-color:var(--signal)}
+::selection{background:var(--signal);color:var(--signal-ink)}
+*{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:8px}::-webkit-scrollbar-track{background:transparent}
+button,input,select,summary{font-family:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:6px}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:8px}
+[tabindex="-1"]:focus{outline:none}
 p{margin:0}
-h1,h2,h3{margin:0;text-wrap:balance}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:inherit}
+ul,ol{margin:0;padding:0}
+a{color:var(--signal);text-underline-offset:3px}
 .num{font-variant-numeric:tabular-nums}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 [hidden]{display:none!important}
-@media (prefers-reduced-motion: reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+svg.i{width:20px;height:20px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg.i.sm{width:14px;height:14px}
+svg.i.fill{fill:currentColor;stroke:none}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 
 /* ---------------- Presenter bar ---------------- */
 .stage{height:100%;display:flex;flex-direction:column}
-.pbar{display:flex;align-items:center;gap:14px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid #151815;background:#080908;flex-shrink:0;flex-wrap:wrap}
+.pbar{display:flex;align-items:center;gap:12px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid #151815;background:#080908;flex-shrink:0;flex-wrap:wrap}
 .pbar .who{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;margin-right:auto;min-width:0}
 .pbar .who svg{width:24px;height:24px;flex-shrink:0}
 .pbar .who small{color:var(--muted);font-weight:600;font-size:12px}
 .seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
-.seg button{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;padding:6px 14px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.seg button{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:13px;min-height:34px;padding:6px 14px;border-radius:999px;display:flex;align-items:center;gap:6px}
 .seg button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
-.seg svg{width:14px;height:14px}
-.pbtn{border:1px solid var(--line-2);background:transparent;color:var(--text);font-weight:700;font-size:12.5px;padding:7px 14px;border-radius:999px}
+.pbtn{border:1px solid var(--line-2);background:transparent;color:var(--text);font-weight:700;font-size:13px;min-height:36px;padding:7px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
 .pbtn.primary{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
-.jump{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:12.5px}
+.jump{background:var(--surface);border:1px solid var(--line);border-radius:999px;min-height:36px;padding:6px 12px;font-weight:600;font-size:13px}
 
 /* ---------------- Device frames ---------------- */
 .floor{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:18px 16px;position:relative}
-.laptop{width:min(1320px,100%);height:100%;display:flex;flex-direction:column;border-radius:14px;overflow:hidden;border:1px solid #2A2E2A;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.laptop{width:min(1320px,100%);height:100%;display:flex;flex-direction:column;border-radius:14px;overflow:hidden;border:1px solid #2A2E2A;box-shadow:0 24px 70px rgba(0,0,0,.55)}
 .chrome{height:40px;flex-shrink:0;background:#151715;display:flex;align-items:center;gap:14px;padding:0 14px;border-bottom:1px solid #222622}
 .dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;background:#3A3F3A;display:block}
 .url{flex:1;max-width:520px;margin:0 auto;background:#0D0F0D;border:1px solid #232723;border-radius:8px;height:26px;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px;color:var(--muted);overflow:hidden;white-space:nowrap}
-.url svg{width:12px;height:12px;flex-shrink:0}
-.phone{height:min(860px,100%);aspect-ratio:9/19.3;max-width:100%;border-radius:52px;padding:11px;background:#1a1c1a;box-shadow:0 0 0 2px #2c302c,0 30px 80px rgba(0,0,0,.7);position:relative;display:flex}
+.phone{height:min(880px,100%);aspect-ratio:9/19.3;max-width:100%;border-radius:52px;padding:11px;background:#1a1c1a;box-shadow:0 0 0 2px #2c302c,0 24px 70px rgba(0,0,0,.6);position:relative;display:flex}
 .phone .screen{flex:1;border-radius:42px;overflow:hidden;position:relative;display:flex;flex-direction:column;background:var(--bg)}
 .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:34%;height:28px;border-radius:20px;background:#000;z-index:60}
-.sbar{height:46px;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:700}
-.sbar span:last-child{letter-spacing:1px;font-size:11px}
+.sbar{height:46px;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 26px 6px;font-size:13px;font-weight:700}
+.sbar .icons{display:flex;gap:5px;align-items:center}
 .homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:36%;height:5px;border-radius:3px;background:#F2F5F2;opacity:.8;z-index:60}
 .native .floor{padding:0;align-items:stretch}
 .native .app{height:100%}
-.native .pbar .seg,.native .pbar .jump,.native .pbar .who small{display:none}
-.native .pbar{flex-wrap:nowrap;padding-block:8px}
+.native .pbar{display:none!important}
+.native .pbar{flex-wrap:nowrap;padding-block:8px;justify-content:flex-end}
 
 /* ---------------- App shell ---------------- */
 .app{flex:1;min-height:0;position:relative;display:flex;flex-direction:column;background:var(--bg);container-type:inline-size;container-name:app;overflow:hidden}
 .app-grid{flex:1;min-height:0;display:flex}
 .side{display:none}
 .main{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}
-.demo-strip{flex-shrink:0;font-size:11px;font-weight:600;color:var(--caution);background:var(--caution-wash);padding:5px 16px;text-align:center}
-.topbar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
-.wm{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:19px;font-weight:400;letter-spacing:-.01em}
+.demo-strip{flex-shrink:0;font-size:12px;font-weight:600;color:var(--caution);background:var(--caution-wash);padding:5px 16px;text-align:center}
+.topbar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:8px 16px}
+.wm{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:19px;letter-spacing:-.01em}
 .wm svg{width:26px;height:26px}
 .wm b{font-weight:400;color:var(--signal)}
-.avatar{width:32px;height:32px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--text-2)}
-.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
-.view{padding:6px 16px 28px;display:flex;flex-direction:column;gap:18px;max-width:1080px;width:100%;margin:0 auto;animation:fade .25s ease}
-@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
-.tabs{flex-shrink:0;display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:8px 4px 22px;background:var(--bg)}
-.tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-weight:700;color:var(--muted);padding:4px 6px;min-width:56px}
-.tab svg{width:22px;height:22px}
+.avatar{width:var(--tap);height:var(--tap);border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--text-2)}
+.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative}
+.view{padding:8px 16px 32px;display:flex;flex-direction:column;gap:20px;max-width:1080px;width:100%;margin:0 auto}
+.tabs{flex-shrink:0;display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:6px 4px 20px;background:var(--bg)}
+.tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted);min-height:52px;min-width:60px;padding:4px 4px}
+.tab svg.i{width:22px;height:22px}
 .tab[aria-current="page"]{color:var(--text)}
 .tab[aria-current="page"] svg{color:var(--signal)}
 
@@ -91,241 +99,323 @@ h1,h2,h3{margin:0;text-wrap:balance}
   .app-grid{display:grid;grid-template-columns:232px minmax(0,1fr)}
   .side{display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--line);padding:18px 14px;min-height:0}
   .side .wm{padding:2px 8px 18px}
-  .nav{border:0;background:transparent;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;color:var(--muted);padding:10px 12px;border-radius:10px;text-align:left}
-  .nav svg{width:20px;height:20px}
+  .nav{border:0;background:transparent;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;color:var(--muted);min-height:44px;padding:10px 12px;border-radius:10px;text-align:left}
   .nav:hover{background:var(--surface);color:var(--text)}
   .nav[aria-current="page"]{background:var(--surface);color:var(--text)}
   .nav[aria-current="page"] svg{color:var(--signal)}
-  .side-foot{margin-top:auto;font-size:11px;color:var(--muted);line-height:1.5;padding:0 8px}
-  .side-user{display:flex;align-items:center;gap:10px;padding:10px 8px;border-top:1px solid var(--line);margin-top:12px;font-size:13px;font-weight:700}
-  .side-user small{display:block;color:var(--muted);font-weight:600;font-size:11.5px}
+  .side-user{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 8px 4px;border-top:1px solid var(--line);font-size:13px;font-weight:700}
+  .side-user .avatar{width:34px;height:34px}
+  .side-user small{display:block;color:var(--muted);font-weight:600;font-size:12px}
   .topbar,.tabs{display:none}
-  .view{padding:24px 32px 48px;gap:22px}
+  .view{padding:28px 32px 56px;gap:24px}
 }
 
-/* ---------------- Shared components ---------------- */
-.eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--signal)}
-.h1{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.15;letter-spacing:-.01em}
-@container app (min-width: 760px){.h1{font-size:34px}}
+/* ---------------- Shared ---------------- */
+.h1{font-family:var(--display);font-size:30px;line-height:1.15;letter-spacing:-.01em}
+@container app (min-width: 760px){.h1{font-size:38px}}
+.lead{font-size:17px;color:var(--text-2);max-width:60ch}
 .sub{color:var(--muted);font-size:14px;max-width:62ch}
-.head{display:flex;flex-direction:column;gap:6px}
+.head{display:flex;flex-direction:column;gap:8px}
+.h2{font-size:15px;font-weight:800;letter-spacing:.05em;font-variant-caps:all-small-caps;color:var(--muted)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.btn{border:1px solid transparent;border-radius:999px;font-weight:800;font-size:14px;padding:12px 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,background .15s}
+.btn{border:1px solid transparent;border-radius:999px;font-weight:800;font-size:15px;min-height:48px;padding:12px 20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,background .15s}
 .btn:active{transform:scale(.98)}
 .btn-primary{background:var(--signal);color:var(--signal-ink)}
+.btn-primary:hover{background:#5ad865}
 .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;transform:none}
 .btn-ghost{background:transparent;border-color:var(--line-2);color:var(--text)}
+.btn-ghost:hover{background:var(--surface)}
 .btn-block{width:100%}
-.link{border:0;background:transparent;color:var(--signal);font-weight:700;font-size:13px;padding:0;text-align:left}
-.back{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:13px;padding:0;display:inline-flex;gap:6px;align-items:center;align-self:flex-start}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;border:1px solid var(--line);background:var(--surface);color:var(--text-2);font-weight:700;font-size:12.5px;padding:7px 13px;border-radius:999px}
+.link{border:0;background:transparent;color:var(--signal);font-weight:700;font-size:14px;padding:10px 0;min-height:var(--tap);text-align:left;display:inline-flex;align-items:center;gap:4px}
+.back{border:0;background:transparent;color:var(--text-2);font-weight:700;font-size:14px;min-height:var(--tap);padding:0 8px 0 0;display:inline-flex;gap:4px;align-items:center;align-self:flex-start}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--text-2);font-weight:700;font-size:13px;min-height:var(--tap);padding:8px 16px;border-radius:999px}
 .chip[aria-pressed="true"]{background:var(--signal-wash);border-color:rgba(74,203,85,.5);color:var(--signal)}
-.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;white-space:nowrap}
 .pill.ok{background:var(--signal-wash);color:var(--signal)}
 .pill.warn{background:var(--caution-wash);color:var(--caution)}
 .pill.bad{background:var(--loss-wash);color:var(--loss)}
 .pill.flat{background:var(--surface-2);color:var(--text-2)}
 .up{color:var(--signal)} .down{color:var(--loss)} .muted{color:var(--muted)}
-.callout{border-radius:var(--r);padding:14px 16px;font-size:13.5px;line-height:1.55;color:var(--text-2);display:flex;flex-direction:column;gap:6px}
+.callout{border-radius:var(--r);padding:16px;font-size:14px;line-height:1.55;color:var(--text-2);display:flex;flex-direction:column;gap:8px}
 .callout b{color:var(--text)}
 .callout.risk{background:var(--loss-wash);border:1px solid rgba(255,107,94,.35)}
-.callout.info{background:var(--surface);border:1px solid var(--line)}
 .callout.good{background:var(--signal-wash);border:1px solid rgba(74,203,85,.35)}
-.callout ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
-.track{height:7px;border-radius:4px;background:var(--surface-2);overflow:hidden;display:flex}
+.callout ul{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.track{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;display:flex}
 .track i{display:block;height:100%}
-.kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
 .kv:last-child{border-bottom:0}
-.kv span:first-child{color:var(--muted)}
-.kv span:last-child{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
-.section-t{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kv dt,.kv span:first-child{color:var(--muted)}
+.kv dd,.kv span:last-child{margin:0;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 .stack{display:flex;flex-direction:column;gap:12px}
-.list{display:flex;flex-direction:column}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);background:transparent;border-left:0;border-right:0;border-top:0;text-align:left;width:100%}
-.row:last-child{border-bottom:0}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 4px;min-height:64px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;width:100%}
+.list > :last-child .row,.row:last-child{border-bottom:0}
 button.row:hover{background:rgba(255,255,255,.02)}
-.row .n{font-weight:800;font-size:14.5px}
-.row .s{font-size:12px;color:var(--muted);margin-top:1px}
+.row .n{font-weight:800;font-size:15px}
+.row .s{font-size:13px;color:var(--muted);margin-top:1px}
 .row .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
-.row .v small{display:block;font-size:12px;font-weight:700}
-.logo-tile{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;color:#0B0D0B}
+.row .v small{display:flex;align-items:center;justify-content:flex-end;gap:2px;font-size:13px;font-weight:700}
+.logo-tile{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;color:#0B0D0B}
 .rleft{display:flex;align-items:center;gap:12px;min-width:0}
+details.more{border-top:1px solid var(--line)}
+details.more:last-of-type{border-bottom:1px solid var(--line)}
+details.more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px;font-weight:800;font-size:15px}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary svg{transition:transform .2s}
+details.more[open] summary svg{transform:rotate(180deg)}
+details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-height:1.65;max-width:65ch;display:flex;flex-direction:column;gap:10px}
+.checks{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checks li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text-2)}
+.checks li svg{color:var(--signal);margin-top:2px}
 
 /* Spotlight for guided demo */
-.spot{position:relative;z-index:5;outline:2px solid var(--signal);outline-offset:2px;border-radius:12px;animation:spot 1.6s ease-in-out infinite}
-@keyframes spot{0%,100%{box-shadow:0 0 0 0 rgba(74,203,85,.0)}50%{box-shadow:0 0 0 8px rgba(74,203,85,.18)}}
+.spot{position:relative;z-index:5;outline:2px solid var(--signal);outline-offset:6px;border-radius:12px;animation:spot 1.8s ease-in-out infinite}
+@keyframes spot{0%,100%{box-shadow:0 0 0 0 rgba(74,203,85,0)}50%{box-shadow:0 0 0 8px rgba(74,203,85,.18)}}
 
 /* ---------------- Onboarding ---------------- */
 .ob{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column}
-.ob-inner{max-width:520px;width:100%;margin:0 auto;padding:16px 20px 28px;display:flex;flex-direction:column;gap:18px;flex:1}
-.ob-steps{display:flex;gap:6px}
+.ob-inner{max-width:540px;width:100%;margin:0 auto;padding:16px 20px 24px;display:flex;flex-direction:column;gap:18px;flex:1}
+.ob-top{display:flex;align-items:center;gap:12px;min-height:var(--tap)}
+.ob-steps{flex:1;display:flex;gap:6px}
 .ob-steps i{flex:1;height:4px;border-radius:2px;background:var(--surface-2);display:block}
 .ob-steps i.on{background:var(--signal)}
-.ob-hero{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding-top:6px}
-.ob-hero svg{width:56px;height:56px}
-.ob-foot{margin-top:auto;display:flex;flex-direction:column;gap:10px}
-.edu{display:grid;gap:10px}
-.edu .card{display:flex;gap:12px;align-items:flex-start}
-.edu .ic{width:36px;height:36px;border-radius:10px;background:var(--signal-wash);color:var(--signal);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:800}
-.edu b{display:block;font-size:14.5px;margin-bottom:2px}
-.edu p{font-size:13px;color:var(--text-2)}
+.ob-count{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
+.ob-hero{display:flex;flex-direction:column;gap:14px;padding-top:4px}
+.ob-hero .mark{width:52px;height:52px}
+.hero-h{font-family:var(--display);font-size:34px;line-height:1.1;letter-spacing:-.015em}
+.hero-h em{font-style:normal;color:var(--signal)}
+.promise{display:flex;gap:10px;flex-wrap:wrap}
+.promise span{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+.promise span svg{color:var(--signal)}
+.ob-foot{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:8px}
+.learn{list-style:none;display:flex;flex-direction:column}
+.learn li{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.learn li:last-child{border-bottom:0}
+.learn .ic{width:40px;height:40px;border-radius:12px;background:var(--signal-wash);color:var(--signal);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.learn b{display:block;font-size:16px;margin-bottom:2px}
+.learn p{font-size:14px;color:var(--text-2)}
 .choice{display:grid;gap:10px}
-.choice button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;font-weight:700;font-size:14px}
+.choice button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:15px}
 .choice button[aria-pressed="true"]{border-color:var(--signal);background:var(--signal-wash)}
 .field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:12px;font-weight:700;color:var(--muted)}
-.input{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;font-size:15px;font-weight:700;width:100%}
-.input:focus{outline:none;border-color:var(--signal)}
+.field label{font-size:13px;font-weight:700;color:var(--muted)}
+.input{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;min-height:48px;font-size:16px;font-weight:700;width:100%}
+.input:focus{outline:2px solid var(--signal);outline-offset:0;border-color:var(--signal)}
 .money{position:relative}
 .money span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:700}
 .money .input{padding-left:26px}
 .fields2{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end}
-.verify{display:flex;align-items:center;gap:12px}
+.verify{display:flex;align-items:center;gap:12px;min-height:56px}
 .spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line-2);border-top-color:var(--signal);animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.calc{font-size:13.5px;color:var(--text-2);display:flex;flex-direction:column;gap:4px}
-.limit-big{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.calc{font-size:14px;color:var(--text-2)}
+.limit-big{font-size:40px;font-weight:800;letter-spacing:-.02em}
 
 /* ---------------- Marketplace ---------------- */
-.mk-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.mk-grid{display:grid;grid-template-columns:1fr;gap:12px;list-style:none}
 @container app (min-width: 760px){.mk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@container app (min-width: 1040px){.mk-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.offer{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;text-align:left;transition:border-color .15s,transform .15s}
+
+.offer{height:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:14px;text-align:left;transition:border-color .15s,transform .15s}
 .offer:hover{border-color:var(--line-2);transform:translateY(-2px)}
-.offer-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.offer h3{font-size:17px;font-weight:800}
-.offer .tagl{font-size:13px;color:var(--text-2)}
-.stats{display:flex;gap:18px}
-.stats div b{display:block;font-size:15px;font-variant-numeric:tabular-nums}
-.stats div span{font-size:11px;color:var(--muted)}
+.offer h2{font-size:18px;font-weight:800}
+.offer .tagl{font-size:14px;color:var(--text-2)}
+.from{display:flex;align-items:baseline;gap:8px}
+.from b{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--signal)}
+.from span{font-size:13px;color:var(--muted);font-weight:700}
 .prog{display:flex;flex-direction:column;gap:6px}
-.prog .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.prog .meta b{color:var(--text)}
-.offer-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.prog .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.offer-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);margin-top:auto}
 
 /* ---------------- Company ---------------- */
 .co-head{display:flex;gap:14px;align-items:center}
 .co-head .logo-tile{width:52px;height:52px;border-radius:14px;font-size:19px}
-.co-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
-@container app (min-width: 900px){.co-grid{grid-template-columns:minmax(0,1fr) 330px;align-items:start}.terms{position:sticky;top:0}}
-.co-sec{display:flex;flex-direction:column;gap:8px}
-.co-sec p{color:var(--text-2);font-size:14px;line-height:1.65;max-width:64ch}
-.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.checks li{display:flex;gap:10px;font-size:13.5px;color:var(--text-2)}
-.checks li::before{content:"✓";color:var(--signal);font-weight:800}
-.docs-mini{display:flex;flex-direction:column;gap:8px}
-.doc-btn{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:11px 14px;font-size:13.5px;font-weight:700;text-align:left;width:100%}
+.co-head .s{font-size:13px;color:var(--muted);font-weight:700}
+.co-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@container app (min-width: 900px){.co-grid{grid-template-columns:minmax(0,1fr) 320px;align-items:start}.terms{position:sticky;top:0}.investbar{display:none!important}}
+.facts{display:flex;gap:24px;flex-wrap:wrap}
+.facts div b{display:block;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.facts div span{font-size:13px;color:var(--muted)}
+.terms .fine{font-size:12px;color:var(--muted);line-height:1.5}
+.investbar{position:sticky;bottom:0;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:rgba(11,13,11,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.investbar .from b{font-size:22px}
+.co-grid .terms{display:none}
+@container app (min-width: 900px){.co-grid .terms{display:flex}}
+.doc-btn{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;min-height:var(--tap);font-size:14px;font-weight:700;text-align:left;width:100%}
 .doc-btn span:last-child{color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap}
-.terms .fine{font-size:11.5px;color:var(--muted);line-height:1.5}
+.docs-mini{display:flex;flex-direction:column;gap:8px;list-style:none}
 
-/* ---------------- Sheet / modal ---------------- */
-.scrim{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:40;display:flex;align-items:flex-end;justify-content:center;animation:fadein .18s ease}
+/* ---------------- Sheet ---------------- */
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.62);z-index:40;display:flex;align-items:flex-end;justify-content:center;animation:fadein .18s ease}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
-.sheet{background:var(--surface);border:1px solid var(--line-2);border-radius:22px 22px 0 0;width:100%;max-height:92%;display:flex;flex-direction:column;animation:up .22s ease}
+.sheet{background:var(--surface);border:1px solid var(--line-2);border-radius:22px 22px 0 0;width:100%;max-height:94%;display:flex;flex-direction:column;animation:up .24s cubic-bezier(.2,.8,.2,1)}
 @keyframes up{from{transform:translateY(24px)}to{transform:none}}
 @container app (min-width: 760px){.scrim{align-items:center}.sheet{border-radius:20px;max-width:480px;max-height:88%}}
-.sheet-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
-.sheet-steps{display:flex;gap:5px}.sheet-steps i{width:22px;height:4px;border-radius:2px;background:var(--line-2);display:block}.sheet-steps i.on{background:var(--signal)}
-.x{border:0;background:var(--surface-2);width:30px;height:30px;border-radius:50%;font-size:14px;color:var(--text-2)}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px 8px 12px;border-bottom:1px solid var(--line)}
+.sheet-head .stepinfo{flex:1;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
+.sheet-steps{display:flex;gap:5px}.sheet-steps i{flex:1;max-width:40px;height:4px;border-radius:2px;background:var(--line-2);display:block}.sheet-steps i.on{background:var(--signal)}
+.iconbtn{border:0;background:transparent;width:var(--tap);height:var(--tap);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-2)}
+.iconbtn:hover{background:var(--surface-2)}
 .sheet-body{padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.sheet-title{font-size:20px;font-weight:800;outline:none}
 .sheet-foot{padding:4px 18px 22px}
-.amts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.amt{border:1px solid var(--line);background:var(--surface-2);border-radius:12px;padding:12px 4px;font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.amts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.amt{border:1px solid var(--line);background:var(--surface-2);border-radius:12px;min-height:52px;font-weight:800;font-size:16px;font-variant-numeric:tabular-nums}
 .amt[aria-pressed="true"]{border-color:var(--signal);background:var(--signal-wash);color:var(--signal)}
-.receipt{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
-.receipt .kv{padding:7px 0}
-.receipt .tot span{color:var(--text)!important;font-size:15px}
-.hint{font-size:12px;color:var(--muted)}
+.receipt{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:6px 14px}
+.receipt .kv{padding:9px 0}
+.receipt .tot span{color:var(--text)!important;font-size:16px}
+.hint{font-size:13px;color:var(--muted)}
 .hint.err{color:var(--loss);font-weight:700}
-.ack{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--text-2);cursor:pointer}
+.ack{display:flex;gap:12px;align-items:flex-start;padding:12px 0;min-height:var(--tap);border-bottom:1px solid var(--line);font-size:14px;color:var(--text-2);cursor:pointer}
 .ack:last-child{border-bottom:0}
-.ack input{width:18px;height:18px;accent-color:var(--signal);margin-top:2px;flex-shrink:0}
+.ack input{width:22px;height:22px;margin-top:0;flex-shrink:0}
 .success{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:8px 0}
-.success svg{width:64px;height:64px}
-.success circle{fill:none;stroke:var(--signal);stroke-width:3;stroke-dasharray:180;stroke-dashoffset:180;animation:draw .5s ease forwards}
-.success path{fill:none;stroke:var(--signal);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .3s ease forwards .45s}
+.success svg.draw{width:64px;height:64px}
+.success circle{fill:none;stroke:var(--signal);stroke-width:3;stroke-dasharray:180;stroke-dashoffset:180;animation:draw .35s cubic-bezier(.2,.8,.2,1) forwards}
+.success path{fill:none;stroke:var(--signal);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .25s ease forwards .3s}
 @keyframes draw{to{stroke-dashoffset:0}}
 
 /* ---------------- Portfolio ---------------- */
-.pf-top{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.pf-top{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
 @container app (min-width: 900px){.pf-top{grid-template-columns:minmax(0,1fr) 300px;align-items:start}}
-.hero-v .lbl{font-size:13px;font-weight:700;color:var(--muted)}
-.hero-v .big{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:2px}
-@container app (min-width: 760px){.hero-v .big{font-size:52px}}
-.hero-v .delta{font-weight:800;font-size:14px;margin-top:6px}
-.hero-v .est{font-size:11.5px;color:var(--muted);margin-top:3px}
-.chart{width:100%;margin-top:6px}
+.hero-v .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:6px}
+@container app (min-width: 760px){.hero-v .big{font-size:56px}}
+.hero-v .delta{display:flex;align-items:center;gap:4px;font-weight:800;font-size:15px;margin-top:6px}
+.hero-v .est{font-size:13px;color:var(--muted);margin-top:4px}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
-.legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);flex-wrap:wrap}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:6px}
 .legend i{width:16px;height:0;border-top:2.5px solid var(--signal);display:block}
 .legend i.d{border-top:2px dashed var(--muted)}
-.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
-.tile span{font-size:11.5px;color:var(--muted);font-weight:700}
-.tile b{display:block;font-size:18px;font-variant-numeric:tabular-nums;margin-top:2px}
-.tiles.three{grid-template-columns:minmax(0,1fr)}
-@container app (min-width: 760px){.tiles.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.limit-card{display:flex;flex-direction:column;gap:10px}
-.limit-card .top{display:flex;justify-content:space-between;font-size:13px;font-weight:700}
-.limit-card .top span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
-.escrow-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--caution-wash);border:1px solid rgba(242,184,75,.35);border-radius:var(--r);padding:12px 14px}
-.lock{display:inline-block;margin-top:4px}
+.sums{display:flex;flex-direction:column}
+.sums .kv{font-size:15px}
+.meter{display:flex;flex-direction:column;gap:8px;padding-top:12px}
+.meter .top{display:flex;justify-content:space-between;font-size:14px;font-weight:700}
+.meter .top span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.escrow-item{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--caution-wash);border:1px solid rgba(242,184,75,.35);border-radius:var(--r);padding:12px 14px}
+.escrow-item .acts{display:flex;align-items:center;gap:8px}
+.cancel{border:1px solid rgba(242,184,75,.5);background:transparent;color:var(--caution);font-weight:800;font-size:13px;min-height:var(--tap);padding:0 14px;border-radius:999px}
+.lock{display:inline-flex;margin-top:4px}
 
 /* ---------------- Timeline ---------------- */
-.tl{position:relative;display:flex;flex-direction:column;gap:12px;padding-left:22px}
-.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
-.ev{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
-.ev::before{content:"";position:absolute;left:-21px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--dot,var(--muted))}
+.tl{position:relative;display:flex;flex-direction:column;gap:4px;padding-left:24px;list-style:none}
+.tl::before{content:"";position:absolute;left:6px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.ev{position:relative;padding:12px 0 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.ev:last-child{border-bottom:0}
+.ev::before{content:"";position:absolute;left:-23px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--dot,var(--muted))}
 .ev-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-.ev-date{font-size:12px;color:var(--muted);font-weight:700}
-.ev h3{font-size:15px;font-weight:800}
-.ev p{font-size:13.5px;color:var(--text-2)}
-.means{background:var(--bg);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--text-2)}
-.means b{color:var(--text)}
-.ev-delta{font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.ev-date{font-size:13px;color:var(--muted);font-weight:700}
+.ev .ev-t{font-size:16px;font-weight:800}
+.ev .means{font-size:15px;color:var(--text-2)}
+.ev .means b{color:var(--text)}
+.ev details summary{list-style:none;cursor:pointer;color:var(--signal);font-weight:700;font-size:14px;min-height:var(--tap);display:inline-flex;align-items:center;gap:4px}
+.ev details summary::-webkit-details-marker{display:none}
+.ev details[open] summary svg{transform:rotate(180deg)}
+.ev details p{font-size:14px;color:var(--text-2);padding-bottom:4px;max-width:65ch}
 
 /* ---------------- Toast ---------------- */
-.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:var(--surface-2);border:1px solid var(--line-2);padding:10px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:70;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:90%;text-align:center;animation:fadein .2s ease}
+.toast{position:absolute;left:50%;bottom:100px;transform:translateX(-50%);background:var(--surface-2);border:1px solid var(--line-2);padding:12px 16px;border-radius:12px;font-size:14px;font-weight:600;z-index:70;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:90%;text-align:center;animation:fadein .2s ease}
 
 /* ---------------- Guide panel ---------------- */
-.guide{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:min(370px,calc(100% - 36px));background:#101210;border:1px solid var(--line-2);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.6);z-index:100;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
-.guide .gtop{display:flex;justify-content:space-between;align-items:center}
-.guide .gstep{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
-.guide h2{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.2}
-.guide p{font-size:13.5px;color:var(--text-2);line-height:1.55}
+.guide{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:min(380px,calc(100% - 36px));background:#101210;border:1px solid var(--line-2);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.6);z-index:100;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.guide .gtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.guide .gstep{font-size:12px;font-weight:800;color:var(--signal)}
+.guide h2{font-family:var(--display);font-size:22px;line-height:1.2}
+.guide p{font-size:14px;color:var(--text-2);line-height:1.55}
 .guide .gbar{display:flex;gap:4px}.guide .gbar i{flex:1;height:3px;border-radius:2px;background:var(--line-2);display:block}.guide .gbar i.on{background:var(--signal)}
 .guide .gbtns{display:flex;gap:8px;justify-content:flex-end}
-.guide .nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.guide .nums div{background:var(--surface);border-radius:10px;padding:8px 10px}
-.guide .nums b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
-.guide .nums span{font-size:11px;color:var(--muted)}
-.guide .gfine{font-size:11px;color:var(--muted)}
-.guide.min{width:auto;padding:10px 14px}
-.native .guide{left:12px;right:12px;width:auto;bottom:12px}
+.guide .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.guide .nums div{background:var(--surface);border-radius:10px;padding:10px}
+.guide .nums b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.guide .nums span{font-size:12px;color:var(--muted)}
+.guide .gfine{font-size:12px;color:var(--muted)}
+.guide.min{padding:8px 8px 8px 14px;flex-direction:row;align-items:center}
+.guide.min .mintitle{flex:1;min-width:0;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.native .guide{left:10px;right:10px;width:auto;bottom:max(10px,env(safe-area-inset-bottom,0px));padding:12px 14px;gap:6px}
+.native .guide h2{font-size:18px}
+.native .guide .gbody{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.guide .bigstat{display:flex;flex-direction:column;gap:4px;margin-top:6px}.guide .bigstat b{font-size:44px;font-weight:800;color:var(--signal);letter-spacing:-.02em;line-height:1}.guide .bigstat span{font-size:14px;color:var(--text-2)}
+body.guiding #guide-start{display:none}
+.native.guiding .pbar{display:none}
+body.guiding:not(.native) .floor{padding-right:420px}
+.native.guiding .floor{padding-bottom:calc(var(--gh,0px) + 14px)}
+.input::placeholder{color:var(--muted);opacity:1}
+.proof{font-size:16px;color:var(--text-2);max-width:46ch}.proof b{color:var(--text)}
+.link.inline{display:inline;padding:13px 2px;margin:-13px -2px;min-height:0}
+@container app (min-width: 760px){.ob-foot{margin-top:16px}}
+.offer{position:relative}
+.offer-link{all:unset;cursor:pointer;display:inline-flex;align-items:center;min-height:44px}
+.offer-link::after{content:"";position:absolute;inset:0;border-radius:var(--r)}
+.offer-link:focus-visible{outline:none}.offer-link:focus-visible::after{outline:2px solid var(--signal);outline-offset:2px}
+.offer .fact{font-size:14px;color:var(--text-2)}.offer .fact b{color:var(--text);font-size:16px}
+.offer .sec{font-size:13px;color:var(--muted)}
+small.plain{display:block;font-size:12px;font-weight:600;color:var(--muted)}
+details.inl summary{list-style:none;cursor:pointer;font-weight:700;color:var(--text);min-height:var(--tap);display:inline-flex;align-items:center;gap:4px}
+details.inl summary::-webkit-details-marker{display:none}
+details.inl[open] summary svg{transform:rotate(180deg)}
+.plainlist{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.sect{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:10px}
+.words{display:flex;flex-direction:column;gap:12px}.words dt{font-weight:800}.words dd{margin:0;color:var(--text-2);font-size:14px}
+.toast{display:flex;align-items:center;gap:12px}
+.choice{border:0;margin:0;padding:0}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:15px;cursor:pointer}
+.opt:has(input:checked){border-color:var(--signal);background:var(--signal-wash)}
+.opt input{width:20px;height:20px;margin:0;flex-shrink:0}
+.founder{font-size:13px;color:var(--text-2);font-weight:600}
+.terms-top{display:flex;justify-content:space-between;align-items:center;margin:-10px -10px -6px 0}
+.defpill{border:0;background:transparent;padding:0;min-height:var(--tap);display:inline-flex;align-items:center;cursor:pointer}
+.defpill .pill svg{width:13px;height:13px}
+.legend .mk{width:11px;height:11px;border-radius:50%;border:2.5px solid;display:block}.legend .mk.ok{border-color:var(--signal)}.legend .mk.bad{border-color:var(--loss)}
+.guide .vs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.guide .vs div{background:var(--surface);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px}.guide .vs b{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.guide .vs span{font-size:12px;color:var(--muted)}.guide .vs .us{background:var(--signal-wash)}.guide .vs .us b{color:var(--signal)}
+.native .guide .pbtn{min-height:44px;min-width:64px;justify-content:center}
+.demo-strip .tour{border:0;background:transparent;color:var(--text);font-weight:800;font-size:12px;text-decoration:underline;text-underline-offset:3px;min-height:var(--tap);padding:0 6px}
+.native .demo-strip{display:flex;align-items:center;justify-content:center;gap:2px;padding:0 12px}
+.demo-note{font-size:13px;color:var(--caution);font-weight:600}
+.terms-m{display:flex;flex-direction:column;gap:4px}
+@container app (min-width: 900px){.terms-m{display:none}}
+.wordsbtn{border:1px solid var(--line-2);background:transparent;border-radius:999px;min-height:var(--tap);padding:0 14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;color:var(--text)}
+.app.no-tabs .tabs{display:none}
+.scroll{scroll-padding-bottom:96px}
+.kv.net dt{color:var(--text);font-weight:800}.kv.net dd{font-size:16px}
+.openmark{display:inline-flex;align-items:center;gap:5px;color:var(--signal);font-weight:700}
+.src{font-size:12px;color:var(--muted)}
+.input.bad{border-color:var(--loss);outline-color:var(--loss)}
+.idframe{border:2px dashed var(--line-2);border-radius:14px;aspect-ratio:1.6;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;width:100%}
+.idshot{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--signal);font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.view > dl.card{max-width:640px}
+.guide .gbar button{flex:1;height:24px;border:0;padding:10px 0;background:transparent;cursor:pointer;position:relative}
+.guide .gbar button::before{content:"";position:absolute;left:0;right:0;top:10px;height:4px;border-radius:2px;background:var(--line-2)}
+.guide .gbar button.on::before{background:var(--signal)}
+body.guiding:not(.native) .guide:not(.min){top:76px;bottom:auto;width:380px;gap:14px;justify-content:flex-start;padding:22px}
+body.guiding:not(.native) .pf-top{grid-template-columns:minmax(0,1fr)}
+body.guiding:not(.native) .guide:not(.min) h2{font-size:28px}
+body.guiding:not(.native) .guide:not(.min) .gbody{font-size:16px}
+body.guiding:not(.native) .guide:not(.min) .gbtns{margin-top:4px}
+.toast-act{border:0;background:transparent;color:var(--signal);font-weight:800;min-height:var(--tap);padding:0 6px}
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
-  <div class="pbar">
+  <div class="pbar" role="toolbar" aria-label="Demo controls">
     <div class="who"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>OpenVenture <small>Click-through demo</small></span></div>
     <div class="seg" role="group" aria-label="Device view">
-      <button id="dev-laptop" aria-pressed="true" data-device="laptop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg>Laptop</button>
-      <button id="dev-phone" aria-pressed="false" data-device="phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Phone</button>
+      <button id="dev-laptop" aria-pressed="true" data-device="laptop"><svg class="i sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg>Laptop</button>
+      <button id="dev-phone" aria-pressed="false" data-device="phone"><svg class="i sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Phone</button>
     </div>
-    <label for="jump" class="sr" hidden>Jump to screen</label>
-    <select id="jump" class="jump" aria-label="Jump to screen">
+    <select id="jump" class="jump" aria-label="Jump to a screen">
       <option value="">Jump to…</option>
-      <option value="onboard">Onboarding</option>
-      <option value="marketplace">Marketplace</option>
+      <option value="onboard">Welcome</option>
+      <option value="marketplace">Companies</option>
       <option value="company:fieldnote">Company profile</option>
-      <option value="invest">Invest flow</option>
-      <option value="portfolio">Portfolio Dashboard</option>
-      <option value="timeline">Ownership Timeline</option>
+      <option value="invest">Invest</option>
+      <option value="invest-done">Invest: done</option>
+      <option value="holding">Holding: Tidewater</option>
+      <option value="portfolio">Portfolio</option>
+      <option value="timeline">Timeline</option>
       <option value="documents">Documents</option>
-      <option value="profile">Profile, limits &amp; fees</option>
+      <option value="profile">Profile</option>
     </select>
     <button class="pbtn primary" id="guide-start">Start guided demo</button>
   </div>
@@ -353,7 +443,7 @@ button.row:hover{background:rgba(255,255,255,.02)}
    ========================================================= */
 const TODAY = "2029-10-17";
 const USER = { first:"Jordan", last:"Ellis", city:"Tampa, FL", income:48000, netWorth:31000 };
-const PRIOR_12MO = 500; // invested in Reg CF offerings in the last 12 months (Tidewater, Feb 2029)
+const PRIOR_12MO = 500;
 
 const CRITERIA = [
   "Incorporated in the U.S. and in good standing",
@@ -366,106 +456,111 @@ const CRITERIA = [
 
 const COMPANIES = [
   { id:"fieldnote", name:"Fieldnote AI", initials:"FN", color:"#7FD1A0", sector:"Construction tech",
-    tagline:"Voice-first daily logs and safety reports for construction crews.",
-    alumni:"Accelerator alumni · 2027 cohort", founded:2026, hq:"Tampa, FL",
-    stats:[["$1.1M","Annual revenue run rate"],["86","Paying contractors"],["+140%","Revenue growth, 12 mo"]],
-    security:"SAFE", terms:"$15M valuation cap · 20% discount", target:1500000, raised:1128000, investors:1412, closes:"2029-11-21", min:25, status:"open",
-    about:"Fieldnote lets superintendents speak their daily log into a phone at the end of a shift. It turns that into the structured reports general contractors, insurers and owners require, including safety incidents, weather delays and headcount, so nobody re-types notes at night.",
+    tagline:"Voice-first daily logs and safety reports for construction crews.", hq:"Tampa, FL", founder:"Founded by a former site superintendent",
+    facts:[["$1.1M","yearly revenue pace"],["86","paying contractors"],["+140%","growth, last 12 months"]],
+    security:"SAFE", securityPlainLong:"A SAFE turns into shares when the company raises a priced round.", terms:"$15M valuation cap · 20% discount",
+    target:1500000, raised:1128000, closes:"2029-11-21", min:25, status:"open",
+    about:"Superintendents speak their daily log into a phone at the end of a shift. Fieldnote turns it into the reports contractors, insurers and owners require: safety incidents, weather delays and headcount.",
     team:"Founded by a former site superintendent with 14 years in commercial construction and a speech-software engineer. Six full-time employees.",
-    use:"Hire two field-onboarding specialists, finish integrations with two major project-management tools, and expand sales from Florida into Georgia and the Carolinas.",
-    risks:["Most revenue comes from 10 contractors; losing two or three would hurt growth.","Larger construction-software companies could build a similar feature.","Construction spending falls when interest rates rise, which can slow sales."] },
+    use:"Two field-onboarding hires, integrations with two project-management tools, and sales in Georgia and the Carolinas.",
+    risks:["Most revenue comes from 10 contractors.","Larger construction-software companies could copy the feature.","Construction slows when interest rates rise."] },
   { id:"northbeam", name:"Northbeam Storage", initials:"NB", color:"#8FB8FF", sector:"Climate & energy",
-    tagline:"Battery storage leasing for small manufacturers cutting peak-hour power bills.",
-    alumni:"Accelerator alumni · 2026 cohort", founded:2025, hq:"Austin, TX",
-    stats:[["$640K","Annual revenue run rate"],["19","Sites installed"],["11 yrs","Avg. lease term"]],
-    security:"SAFE", terms:"$12M valuation cap", target:1200000, raised:684000, investors:903, closes:"2029-12-12", min:25, status:"open",
-    about:"Northbeam installs and leases battery systems that charge overnight and discharge during expensive peak hours. Customers pay a monthly lease that is lower than the savings on their power bill.",
+    tagline:"Battery leasing that cuts peak-hour power bills for small manufacturers.", hq:"Austin, TX", founder:"Founded by a battery-storage engineer",
+    facts:[["$640K","yearly revenue pace"],["19","sites installed"],["11 yrs","average lease"]],
+    security:"SAFE", securityPlainLong:"A SAFE turns into shares when the company raises a priced round.", terms:"$12M valuation cap",
+    target:1200000, raised:684000, closes:"2029-12-12", min:25, status:"open",
+    about:"Northbeam installs batteries that charge overnight and discharge during expensive peak hours. Customers pay a monthly lease lower than their power-bill savings.",
     team:"Founded by a utility-scale storage engineer and a former commercial-lending officer.",
-    use:"Fund the next 12 installations and build a monitoring team.",
-    risks:["The business needs equipment financing; higher interest rates raise its costs.","Utility rate changes could shrink customer savings.","Battery hardware can fail or underperform."] },
+    use:"The next 12 installations and a monitoring team.",
+    risks:["Higher interest rates raise equipment-financing costs.","Utility rate changes could shrink savings.","Batteries can fail or underperform."] },
   { id:"copperline", name:"Copperline Dental", initials:"CD", color:"#F2B84B", sector:"Healthcare software",
-    tagline:"Scheduling and insurance checks for independent dental offices.",
-    alumni:"Community-backed founder", founded:2024, hq:"Orlando, FL",
-    stats:[["$870K","Annual revenue run rate"],["212","Dental offices"],["96%","Annual customer retention"]],
-    security:"Preferred stock", terms:"$0.84 per share · $9.5M pre-money", target:1000000, raised:412000, investors:655, closes:"2030-01-30", min:25, status:"open",
-    about:"Copperline checks patients' insurance before each visit and fills cancelled slots from a waitlist automatically. It is built for single-location offices that cannot afford enterprise software.",
+    tagline:"Scheduling and insurance checks for independent dental offices.", hq:"Orlando, FL", founder:"Founded by a dental practice manager",
+    facts:[["$870K","yearly revenue pace"],["212","dental offices"],["96%","keep using it each year"]],
+    security:"Preferred stock", securityPlainLong:"Preferred stock gets paid before common stock if the company is sold.", terms:"$0.84 per share · $9.5M value before this raise",
+    target:1000000, raised:412000, closes:"2030-01-30", min:25, status:"open",
+    about:"Copperline checks each patient's insurance before the visit and fills cancelled slots from a waitlist, built for single-location offices.",
     team:"Founded by a practice manager and a healthcare-billing engineer. Twelve employees.",
-    use:"Add orthodontic offices and build a payments feature.",
-    risks:["Health-data rules (HIPAA) create compliance costs and liability.","Selling to many small offices is slow and costly.","Insurance-network changes can break integrations."] },
+    use:"Orthodontic offices and a payments feature.",
+    risks:["Health-data rules add compliance cost.","Selling to small offices is slow.","Insurance-network changes can break integrations."] },
   { id:"loam", name:"Loam Foods", initials:"LF", color:"#E39B7B", sector:"Consumer",
-    tagline:"Regenerative-farm pantry staples sold through 400 grocery stores.",
-    alumni:"Community-backed founder", founded:2023, hq:"Asheville, NC",
-    stats:[["$2.3M","Trailing 12-mo sales"],["400","Grocery stores"],["31%","Gross margin"]],
-    security:"Common stock", terms:"$1.10 per share · $14M pre-money", target:800000, raised:260000, investors:388, closes:"2030-02-14", min:25, status:"open",
-    about:"Loam buys grains and beans from farms using regenerative practices and sells them under its own brand in regional grocery chains.",
-    team:"Founded by a third-generation farmer and a former grocery-category buyer.",
+    tagline:"Regenerative-farm pantry staples sold in 400 grocery stores.", hq:"Asheville, NC", founder:"Founded by a third-generation farmer",
+    facts:[["$2.3M","sales, last 12 months"],["400","grocery stores"],["31%","gross margin"]],
+    security:"Common stock", securityPlainLong:"Common stock is paid after preferred stock if the company is sold.", terms:"$1.10 per share · $14M value before this raise",
+    target:800000, raised:260000, closes:"2030-02-14", min:25, status:"open",
+    about:"Loam buys grains and beans from farms using regenerative practices and sells them under its own brand.",
+    team:"Founded by a third-generation farmer and a former grocery buyer.",
     use:"Inventory for a new grocery chain and a second packing line.",
-    risks:["Low margins leave little room for crop or shipping cost spikes.","Grocery chains can drop products with little notice.","Common stock sits behind preferred investors if the company is sold."] },
+    risks:["Thin margins leave little room for cost spikes.","Stores can drop products with little notice.","Common stock is paid last if the company is sold."] },
   { id:"saltmarsh", name:"Saltmarsh Robotics", initials:"SR", color:"#B9A6F2", sector:"Robotics",
-    tagline:"Autonomous hull-cleaning robots for marinas and shipyards.",
-    alumni:"Accelerator alumni · 2026 cohort", founded:2025, hq:"Charleston, SC",
-    stats:[["$420K","Annual revenue run rate"],["7","Marinas"],["2","Pilot shipyards"]],
-    security:"SAFE", terms:"$10M valuation cap", target:900000, raised:900000, investors:1180, closes:"2029-09-30", min:25, status:"closed",
-    about:"Saltmarsh's robots clean boat hulls underwater, which cuts fuel use and replaces dangerous diver work.",
+    tagline:"Hull-cleaning robots for marinas and shipyards.", hq:"Charleston, SC", founder:"Founded by two robotics engineers",
+    facts:[["$420K","yearly revenue pace"],["7","marinas"],["2","pilot shipyards"]],
+    security:"SAFE", securityPlainLong:"A SAFE turns into shares when the company raises a priced round.", terms:"$10M valuation cap",
+    target:900000, raised:900000, closes:"2029-09-30", min:25, status:"closed",
+    about:"Saltmarsh's robots clean boat hulls underwater, cutting fuel use and replacing dangerous diver work.",
     team:"Founded by two marine-robotics engineers.", use:"Raise closed. Proceeds fund manufacturing.",
-    risks:["Hardware is expensive to build and service.","A small number of customers today."] }
+    risks:["Hardware is expensive to build and service.","Few customers today."] }
 ];
 
 const HOLDINGS = [
-  { id:"lumen", name:"Lumen Field Ops", initials:"LO", color:"#7FD1A0", sector:"Field-service software", status:"active",
-    security:"Series A Preferred", origSecurity:"SAFE · $10M valuation cap", invested:1000, date:"2028-03-14", indicated:1480,
-    basis:"Series A priced round · Dec 5, 2028", units:"1,562 Series A Preferred shares", own:"0.0080%",
-    liquidity:{label:"Resale window open · no active market", tone:"flat"} },
-  { id:"harborline", name:"Harborline Health", initials:"HH", color:"#8FB8FF", sector:"Clinic scheduling software", status:"active",
-    security:"Seed Preferred", origSecurity:"Seed Preferred · $0.80 per share", invested:800, date:"2028-09-20", indicated:800,
-    basis:"At cost · no new priced round yet", units:"1,000 Seed Preferred shares", own:"0.011%",
-    liquidity:{label:"Resale window open · no active market", tone:"flat"} },
-  { id:"tidewater", name:"Tidewater Freight", initials:"TF", color:"#E39B7B", sector:"Freight brokerage software", status:"active",
-    security:"Common stock", origSecurity:"Common · $1.00 per share", invested:500, date:"2029-02-10", indicated:340,
-    basis:"Series A priced at $0.68 per share · Aug 14, 2029", units:"500 common shares", own:"0.004%",
-    liquidity:{label:"Locked until Feb 10, 2030", tone:"warn"} }
+  { id:"lumen", name:"Lumen Field Ops", initials:"LO", color:"#7FD1A0", sector:"Field-service software",
+    security:"Series A Preferred", origSecurity:"SAFE, $10M valuation cap", invested:1000, date:"2028-03-14", indicated:1480,
+    basis:"Series A priced round, Dec 5, 2028", units:"1,562 Series A Preferred shares", own:"0.0080%", ownPlain:"0.008%, or 1 in 12,500", locked:null, sell:"You may transfer in limited cases. There's no active market." },
+  { id:"harborline", name:"Harborline Health", initials:"HH", color:"#8FB8FF", sector:"Clinic scheduling software",
+    security:"Seed Preferred", origSecurity:"Seed Preferred, $0.80 per share", invested:800, date:"2028-09-20", indicated:800,
+    basis:"At cost. No new priced round yet", units:"1,000 Seed Preferred shares", own:"0.011%", ownPlain:"0.011%, or 1 in 9,000", locked:null, sell:"You may transfer in limited cases. There's no active market." },
+  { id:"tidewater", name:"Tidewater Freight", initials:"TF", color:"#E39B7B", sector:"Freight software",
+    security:"Common stock", origSecurity:"Common, $1.00 per share", invested:500, date:"2029-02-10", indicated:340,
+    basis:"Series A priced at $0.68 per share, Aug 14, 2029", units:"500 common shares", own:"0.004%", ownPlain:"0.004%, or 1 in 25,000", locked:"2030-02-10", sell:"Locked until Feb 10, 2030 by the one-year Reg CF rule." }
 ];
 const PAST = [
-  { id:"brightpath", name:"Brightpath Payroll", initials:"BP", color:"#F2B84B", invested:250, date:"2028-04-02", payout:312, outcome:"Acquired · $312.00 paid to you", tone:"ok" },
-  { id:"pinecone", name:"Pinecone Labs", initials:"PL", color:"#B9A6F2", invested:100, date:"2028-05-10", payout:0, outcome:"Closed operations · $100.00 lost", tone:"bad" }
+  { id:"brightpath", name:"Brightpath Payroll", initials:"BP", color:"#F2B84B", invested:250, date:"2028-04-02", payout:312, outcome:"Acquired · paid you $312", tone:"ok" },
+  { id:"pinecone", name:"Pinecone Labs", initials:"PL", color:"#B9A6F2", invested:100, date:"2028-05-10", payout:0, outcome:"Closed · $100 lost", tone:"bad" }
 ];
 
-let EVENTS = [
-  { id:"ev-harbor-q3", date:"2029-10-02", tags:["update"], co:"harborline", type:"Issuer update", tone:"flat",
+const PLAIN = { "SAFE":"turns into shares later", "Preferred stock":"paid before common stock if sold", "Common stock":"paid after preferred stock if sold", "Series A Preferred":"paid before common stock if sold", "Seed Preferred":"paid before common stock if sold" };
+const GLOSSARY = [["SAFE","An agreement that turns your money into shares later, usually at the company's next priced round."],["Valuation cap","The highest company value your SAFE converts at, so early investors aren't overcharged."],["Priced round","New investors buy shares at a set price. That price updates your estimated value."],["Preferred stock","Shares paid back before common stock if the company is sold."],["Common stock","Ordinary shares, paid after preferred stock if the company is sold."],["Dilution","New shares make your percentage smaller."],["Escrow","A third-party account that holds your money until the raise closes."],["Form C","The company's official SEC filing for a crowdfunding raise."],["Funding round","A company raises new money from investors."],["Down round","A new round priced below what earlier investors paid."],["Series A","A company's first large priced round after its seed stage."],["Estimated value","What your shares would be worth at the company's latest priced round. It isn't a sale price."]];
+const DEF_ALIAS = { "In escrow":"Escrow", "Series A Preferred":"Preferred stock", "Seed Preferred":"Preferred stock" };
+function defFor(t){ return DEF_ALIAS[t] || t; }
+const EV_DOCS = { "ev-harbor-q3":"Q3 2029 update", "ev-tide-down":"Series A notice", "ev-pine-close":"Notice of dissolution", "ev-bright-acq":"Acquisition payout statement", "ev-lumen-a":"Series A conversion notice", "ev-tide-buy":"Subscription agreement", "ev-harbor-buy":"Subscription agreement", "ev-pine-buy":"SAFE agreement", "ev-bright-buy":"SAFE agreement", "ev-lumen-buy":"SAFE agreement" };
+const EVENTS_BASE = [
+  { id:"ev-harbor-q3", date:"2029-10-02", group:"updates", co:"harborline", type:"Company update", tone:"flat",
     title:"Harborline Health posted its Q3 update",
-    body:"Revenue grew 18% from last quarter to $412K, and the company signed its first 40-clinic health system. Runway is about 20 months.",
-    means:"<b>No change to your value.</b> Updates like this don't change your indicated value unless there is a new priced round." },
-  { id:"ev-tide-down", date:"2029-08-14", tags:["round"], co:"tidewater", type:"Down round", tone:"bad", delta:-160,
-    title:"Tidewater Freight raised a Series A below your price",
-    body:"New investors paid $0.68 per share. You paid $1.00 per share in February.",
-    means:"<b>Your indicated value fell from $500 to $340 (−32%).</b> You still own 500 shares, now valued at the new price. Down rounds are common in early-stage companies." },
-  { id:"ev-pine-close", date:"2029-06-30", tags:["closure"], co:"pinecone", type:"Company closed", tone:"bad", delta:-100,
+    means:"<b>No change to your value.</b> Updates don't move it unless there's a new priced round.",
+    body:"Revenue grew 18% from last quarter to $412K, and the company signed its first 40-clinic health system. It has about 20 months of cash." },
+  { id:"ev-harbor-lock", date:"2029-09-20", group:"updates", co:"harborline", type:"Lock ended", tone:"flat",
+    title:"Harborline Health: your one-year lock ended",
+    means:"<b>You may now transfer these shares in limited cases.</b> There's still no market to sell them.",
+    body:"Reg CF shares can't be resold for one year. Plan to hold for years." },
+  { id:"ev-tide-down", date:"2029-08-14", group:"value", co:"tidewater", type:"Down round", tone:"bad", delta:-160,
+    title:"Tidewater Freight raised money below your price",
+    means:"<b>Your value fell from $500 to $340.</b> You still own 500 shares, now priced at $0.68 instead of $1.00.",
+    body:"New investors paid $0.68 per share in a Series A. Down rounds are common for young companies." },
+  { id:"ev-pine-close", date:"2029-06-30", group:"value", co:"pinecone", type:"Company closed", tone:"bad", delta:-100,
     title:"Pinecone Labs shut down",
-    body:"The company ran out of cash before raising its next round and closed. There were no assets left for shareholders.",
-    means:"<b>Your $100 investment is a total loss.</b> It moves to Past holdings. Your tax documents will reflect the loss; ask a tax professional how it applies to you." },
-  { id:"ev-bright-acq", date:"2029-05-22", tags:["distribution"], co:"brightpath", type:"Acquisition · cash paid", tone:"ok", delta:62,
-    title:"Brightpath Payroll was acquired, and you were paid $312.00",
-    body:"A larger payroll company bought Brightpath for $6.24M. Your SAFE had a $5M valuation cap, so your $250 converted and paid out at 1.25×.",
-    means:"<b>$312.00 was sent to your bank account on Jun 5, 2029.</b> That is a $62.00 gain. No success fee was charged." },
-  { id:"ev-lumen-lock", date:"2029-03-14", tags:["liquidity"], co:"lumen", type:"Resale window", tone:"flat",
-    title:"Lumen Field Ops: your one-year resale restriction ended",
-    body:"Reg CF shares can't be resold for one year. That year is over.",
-    means:"<b>You may now transfer these shares in limited cases, but there is no active market to sell them.</b> Plan to hold for years." },
-  { id:"ev-tide-buy", date:"2029-02-10", tags:["invest"], co:"tidewater", type:"You invested", tone:"flat",
-    title:"You invested $500 in Tidewater Freight",
-    body:"500 common shares at $1.00. Fee paid: $12.00 (2% + $2).", means:"<b>Locked until Feb 10, 2030</b> under the Reg CF one-year resale rule." },
-  { id:"ev-lumen-a", date:"2028-12-05", tags:["round","dilution"], co:"lumen", type:"Priced round · SAFE converted", tone:"ok", delta:480,
-    title:"Lumen Field Ops raised a $3.7M Series A, and your SAFE converted",
-    body:"Investors valued Lumen at $14.8M before the round. Your SAFE had a $10M cap, so your $1,000 converted at the cap price into 1,562 Series A Preferred shares.",
-    means:"<b>Your indicated value rose from $1,000 to $1,480.</b> The new money also diluted every owner by 20%: your stake went from about 0.0100% to 0.0080% of the company. You own a smaller slice of a more valuable company." },
-  { id:"ev-harbor-buy", date:"2028-09-20", tags:["invest"], co:"harborline", type:"You invested", tone:"flat",
-    title:"You invested $800 in Harborline Health", body:"1,000 Seed Preferred shares at $0.80. Fee paid: $18.00.", means:"Held in escrow until the raise closed on Sep 20, 2028." },
-  { id:"ev-pine-buy", date:"2028-05-10", tags:["invest"], co:"pinecone", type:"You invested", tone:"flat",
-    title:"You invested $100 in Pinecone Labs", body:"SAFE with an $8M valuation cap. Fee paid: $4.00.", means:"Your smallest investment, and a reminder that some companies fail." },
-  { id:"ev-bright-buy", date:"2028-04-02", tags:["invest"], co:"brightpath", type:"You invested", tone:"flat",
-    title:"You invested $250 in Brightpath Payroll", body:"SAFE with a $5M valuation cap. Fee paid: $7.00.", means:"Your position appeared in the Portfolio Dashboard the day the raise closed." },
-  { id:"ev-lumen-buy", date:"2028-03-14", tags:["invest"], co:"lumen", type:"You invested", tone:"flat",
-    title:"You invested $1,000 in Lumen Field Ops", body:"SAFE with a $10M valuation cap. Fee paid: $22.00.", means:"Your first OpenVenture investment." }
+    means:"<b>Your $100 is a total loss.</b> Your tax documents will show it.",
+    body:"The company ran out of cash before its next round and had nothing left for shareholders. Ask a tax professional how the loss applies to you." },
+  { id:"ev-bright-acq", date:"2029-05-22", group:"value", co:"brightpath", type:"Acquired", tone:"ok", delta:62,
+    title:"Brightpath Payroll was acquired and paid you $312",
+    means:"<b>$312 went to your bank on Jun 5, 2029,</b> a $62 gain on $250.",
+    body:"A larger payroll company bought Brightpath for $6.24M. Your SAFE's $5M cap turned your $250 into $312. No success fee was charged." },
+  { id:"ev-lumen-lock", date:"2029-03-14", group:"updates", co:"lumen", type:"Lock ended", tone:"flat",
+    title:"Lumen Field Ops: your one-year lock ended",
+    means:"<b>You may now transfer these shares in limited cases.</b> There's still no market to sell them.",
+    body:"Reg CF shares can't be resold for one year. Plan to hold for years." },
+  { id:"ev-tide-buy", date:"2029-02-10", group:"mine", co:"tidewater", type:"You invested", tone:"flat",
+    title:"You invested $500 in Tidewater Freight", means:"<b>Locked until Feb 10, 2030.</b>", body:"500 common shares at $1.00. Fee: $12.00." },
+  { id:"ev-lumen-a", date:"2028-12-05", group:"value", co:"lumen", type:"Funding round", tone:"ok", delta:480,
+    title:"Lumen Field Ops raised $3.7M, and your SAFE became shares",
+    means:"<b>Your value rose from $1,000 to $1,480.</b> New money also shrank everyone's slice by 20%: you own a smaller piece of a more valuable company.",
+    body:"Investors valued Lumen at $14.8M before the round. Your SAFE's $10M cap turned your $1,000 into 1,562 Series A Preferred shares. Your stake went from about 0.0100% to 0.0080%." },
+  { id:"ev-harbor-buy", date:"2028-09-20", group:"mine", co:"harborline", type:"You invested", tone:"flat",
+    title:"You invested $800 in Harborline Health", means:"Held in escrow until the raise closed.", body:"1,000 Seed Preferred shares at $0.80. Fee: $18.00." },
+  { id:"ev-pine-buy", date:"2028-05-10", group:"mine", co:"pinecone", type:"You invested", tone:"flat",
+    title:"You invested $100 in Pinecone Labs", means:"Your smallest investment.", body:"SAFE with an $8M valuation cap. Fee: $4.00." },
+  { id:"ev-bright-buy", date:"2028-04-02", group:"mine", co:"brightpath", type:"You invested", tone:"flat",
+    title:"You invested $250 in Brightpath Payroll", means:"It appeared in your portfolio the day the raise closed.", body:"SAFE with a $5M valuation cap. Fee: $7.00." },
+  { id:"ev-lumen-buy", date:"2028-03-14", group:"mine", co:"lumen", type:"You invested", tone:"flat",
+    title:"You invested $1,000 in Lumen Field Ops", means:"Your first OpenVenture investment.", body:"SAFE with a $10M valuation cap. Fee: $22.00." }
 ];
 
 const VALUE_SERIES = [
@@ -475,21 +570,21 @@ const VALUE_SERIES = [
 ];
 
 const DOCS = {
-  lumen:[["Form C offering statement","Feb 2028"],["Subscription agreement (SAFE)","Mar 2028"],["Series A conversion notice","Dec 2028"],["Annual report (Form C-AR)","Apr 2029"]],
-  harborline:[["Form C offering statement","Aug 2028"],["Subscription agreement","Sep 2028"],["Annual report (Form C-AR)","Apr 2029"],["Q3 2029 investor update","Oct 2029"]],
-  tidewater:[["Form C offering statement","Jan 2029"],["Subscription agreement","Feb 2029"],["Series A notice to shareholders","Aug 2029"]],
-  brightpath:[["Subscription agreement (SAFE)","Apr 2028"],["Acquisition and payout statement","Jun 2029"],["Form 1099-B (2029)","Feb 2030 (expected)"]],
-  pinecone:[["Subscription agreement (SAFE)","May 2028"],["Notice of dissolution","Jun 2029"]]
+  lumen:[["Form C offering statement","Feb 2028"],["SAFE agreement","Mar 2028"],["Series A conversion notice","Dec 2028"],["Annual report","Apr 2029"]],
+  harborline:[["Form C offering statement","Aug 2028"],["Subscription agreement","Sep 2028"],["Annual report","Apr 2029"],["Q3 2029 update","Oct 2029"]],
+  tidewater:[["Form C offering statement","Jan 2029"],["Subscription agreement","Feb 2029"],["Series A notice","Aug 2029"]],
+  brightpath:[["SAFE agreement","Apr 2028"],["Acquisition payout statement","Jun 2029"],["Form 1099-B (2029)","Feb 2030"]],
+  pinecone:[["SAFE agreement","May 2028"],["Notice of dissolution","Jun 2029"]]
 };
 
 /* =========================================================
    STATE
    ========================================================= */
 const S = {
-  device:"laptop", native:false, view:"portfolio", companyId:"fieldnote", holdingId:null,
-  mkFilter:"All", tlFilter:"all", range:"all",
+  device:"laptop", native:false, view:"onboard", companyId:"fieldnote", holdingId:null,
+  tlFilter:"all", range:"all", sort:"az", browse:false, info:null, returnTo:null, notify:{},
   ob:{ step:0, savings:null, verify:"idle", income:USER.income, nw:USER.netWorth },
-  modal:null, pending:[], toast:null,
+  modal:null, drafts:{}, pending:[], events:EVENTS_BASE.slice(), toast:null,
   guide:{ on:false, i:0, min:false }
 };
 
@@ -498,37 +593,44 @@ const S = {
    ========================================================= */
 const $ = s => document.querySelector(s);
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-function usd(n, d){ d = d==null ? (Math.round(n)===n ? 0 : 2) : d; const s = Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d}); return (n<0?"−$":"$")+s; }
-function usd2(n){ return usd(n,2); }
-function compact(n){ if(n>=1e6) return "$"+(n/1e6).toFixed(n%1e6===0?0:2).replace(/\.?0+$/,"")+"M"; if(n>=1e3) return "$"+Math.round(n/1e3)+"K"; return usd(n); }
+function usd(n){ return (n<0?"−$":"$")+Math.abs(Math.round(n)).toLocaleString("en-US"); }
+function usd2(n){ return (n<0?"−$":"$")+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function compact(n){ if(n>=1e6) return "$"+(n/1e6).toFixed(2).replace(/\.?0+$/,"")+"M"; if(n>=1e3) return "$"+Math.round(n/1e3)+"K"; return usd(n); }
 function fdate(iso, short){ const d=new Date(iso+"T12:00:00"); return d.toLocaleDateString("en-US", short?{month:"short",year:"2-digit"}:{month:"short",day:"numeric",year:"numeric"}); }
-function pct(a,b){ return ((a-b)/b*100); }
-function signPct(p){ return (p>=0?"+":"−")+Math.abs(p).toFixed(1)+"%"; }
-function arrow(n){ return n>0?"▲":n<0?"▼":"•"; }
+function addDays(iso, n){ const d=new Date(iso+"T12:00:00"); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+function pct(a,b){ return (a-b)/b*100; }
 function fee(a){ return Math.round((a*0.02+2)*100)/100; }
-function regcfLimit(income, nw){
-  const hi = Math.max(income, nw);
-  if (income >= 124000 && nw >= 124000) return Math.min(Math.round(hi*0.10), 124000);
-  return Math.max(2500, Math.round(hi*0.05));
-}
+function regcfLimit(income, nw){ const hi=Math.max(income,nw); if(income>=124000 && nw>=124000) return Math.min(Math.round(hi*0.10),124000); return Math.max(2500, Math.round(hi*0.05)); }
 function limit(){ return regcfLimit(S.ob.income, S.ob.nw); }
 function used(){ return PRIOR_12MO + S.pending.reduce((s,p)=>s+p.amount,0); }
 function remaining(){ return Math.max(0, limit()-used()); }
 function co(id){ return COMPANIES.find(c=>c.id===id); }
 function anyHolding(id){ return HOLDINGS.find(h=>h.id===id) || PAST.find(h=>h.id===id); }
-function totals(){ const cost=HOLDINGS.reduce((s,h)=>s+h.invested,0), ind=HOLDINGS.reduce((s,h)=>s+h.indicated,0); return {cost, ind}; }
+function totals(){ return { cost:HOLDINGS.reduce((s,h)=>s+h.invested,0), ind:HOLDINGS.reduce((s,h)=>s+h.indicated,0) }; }
 function cumulativeInvested(){ return HOLDINGS.reduce((s,h)=>s+h.invested,0)+PAST.reduce((s,h)=>s+h.invested,0); }
-function tile(h){ return `<div class="logo-tile" style="background:${h.color}">${esc(h.initials)}</div>`; }
+function tile(h){ return `<div class="logo-tile" style="background:${h.color}" aria-hidden="true">${esc(h.initials)}</div>`; }
 
-const ICON = {
-  market:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
-  portfolio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg>',
-  timeline:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18"/><circle cx="6" cy="7" r="2"/><circle cx="6" cy="17" r="2"/><path d="M11 7h9M11 17h9M11 12h6"/></svg>',
-  docs:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
-  profile:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'
+const P = {
+  market:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  portfolio:'<path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/>',
+  timeline:'<path d="M6 3v18"/><circle cx="6" cy="7" r="2"/><circle cx="6" cy="17" r="2"/><path d="M11 7h9M11 17h9M11 12h6"/>',
+  docs:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  profile:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>', x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>', down:'<path d="M6 9l6 6 6-6"/>', right:'<path d="M9 5l7 7-7 7"/>',
+  lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  open:'<path d="M3 12h4l3-8 4 16 3-8h4"/>', coin:'<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.6 0-2.7.9-2.7 2s1 1.7 2.7 2 2.7.9 2.7 2-1.1 2-2.7 2c-1.1 0-2.1-.5-2.6-1.5M12 6.5v11"/>',
+  eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  door:'<path d="M4 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17"/><path d="M2 21h20M12 12h.01"/>',
+  shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>', layers:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.9.7c0 1.7-2.4 2.1-2.4 3.6M12 17h.01"/>', up:'<path d="M6 15l6-6 6 6"/>',
+  split:'<circle cx="12" cy="12" r="9"/><path d="M12 3v9l7 5"/>'
 };
-const NAV = [["marketplace","Marketplace","market"],["portfolio","Portfolio","portfolio"],["timeline","Timeline","timeline"],["documents","Documents","docs"],["profile","Profile","profile"]];
+function icon(name, cls){ return `<svg class="i ${cls||""}" viewBox="0 0 24 24" aria-hidden="true">${P[name]}</svg>`; }
+function tri(n){ return n>0 ? `<svg class="i sm fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6l7 11H5z"/></svg>` : n<0 ? `<svg class="i sm fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18L5 7h14z"/></svg>` : ""; }
+function trend(n, txt){ return `${tri(n)}<span class="sr">${n>0?"Up":"Down"} </span>${txt}`; }
+
+const NAV = [["marketplace","Companies","market"],["portfolio","Portfolio","portfolio"],["timeline","Timeline","timeline"],["documents","Documents","docs"],["profile","Profile","profile"]];
 function navKey(){ return S.view==="company" ? "marketplace" : S.view==="holding" ? "portfolio" : S.view; }
 
 /* =========================================================
@@ -537,493 +639,577 @@ function navKey(){ return S.view==="company" ? "marketplace" : S.view==="holding
 function renderFrame(){
   const floor = $("#floor");
   const app = `<div class="app" id="app"></div>`;
-  if (S.native){
-    floor.innerHTML = app;
-  } else if (S.device === "laptop"){
-    floor.innerHTML = `<div class="laptop"><div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
-      <div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span id="url-text">openventureinvestments.com/app</span></div><div style="width:47px"></div></div>${app}</div>`;
+  if (S.native) floor.innerHTML = app;
+  else if (S.device === "laptop"){
+    floor.innerHTML = `<div class="laptop"><div class="chrome"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="url">${icon("lock","sm")}<span id="url-text">openventureinvestments.com/app</span></div><div style="width:47px"></div></div>${app}</div>`;
   } else {
-    floor.innerHTML = `<div class="phone"><div class="screen"><div class="notch"></div><div class="sbar"><span>9:41</span><span>●●● ▲ ▮</span></div>${app}<div class="homebar"></div></div></div>`;
+    floor.innerHTML = `<div class="phone"><div class="screen"><div class="notch" aria-hidden="true"></div>
+      <div class="sbar" aria-hidden="true"><span>9:41</span><span class="icons">
+        <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#F2F5F2"/><rect x="5" y="5" width="3" height="7" rx="1" fill="#F2F5F2"/><rect x="10" y="2" width="3" height="10" rx="1" fill="#F2F5F2"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#F2F5F2"/></svg>
+        <svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="#F2F5F2" opacity=".5"/><rect x="2" y="2" width="17" height="8" rx="2" fill="#F2F5F2"/><rect x="24" y="4" width="2" height="4" rx="1" fill="#F2F5F2" opacity=".5"/></svg>
+      </span></div>${app}<div class="homebar" aria-hidden="true"></div></div></div>`;
   }
   document.querySelectorAll("[data-device]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.device===S.device)));
 }
 
 /* =========================================================
-   RENDER
+   RENDER (focus is restored after every render)
    ========================================================= */
-function render(){
+function focusKey(el){
+  if (!el || el===document.body) return null;
+  if (el.id) return "#"+el.id;
+  const attrs = [...el.attributes].filter(a=>a.name.startsWith("data-")).map(a=>`[${a.name}="${a.value}"]`).join("");
+  return attrs ? el.tagName.toLowerCase()+attrs : null;
+}
+function render(opts){
+  opts = opts || {};
   const app = $("#app"); if(!app) return;
-  const keepScroll = app.querySelector(".scroll") ? app.querySelector(".scroll").scrollTop : 0;
+  const fk = focusKey(document.activeElement);
+  const sc0 = app.querySelector(".scroll, .ob");
+  const keep = sc0 ? sc0.scrollTop : 0;
   if (S.view === "onboard"){
-    app.innerHTML = renderOnboard() + modalHTML() + toastHTML();
+    app.innerHTML = vOnboard() + toastHTML();
   } else {
     const k = navKey();
     app.innerHTML = `
       <div class="app-grid">
-        <aside class="side">
+        <nav class="side" aria-label="Main">
           <div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div>
-          ${NAV.map(([v,l,i])=>`<button class="nav" data-go="${v}" ${k===v?'aria-current="page"':""}>${ICON[i]}${l}</button>`).join("")}
-          <p class="side-foot">Concept demo with fictional companies and figures. OpenVenture Portal, LLC is not yet registered with the SEC or a FINRA member, and no securities are offered.</p>
-          <div class="side-user"><div class="avatar">JE</div><div>${USER.first} ${USER.last}<small>${USER.city}</small></div></div>
-        </aside>
+          ${NAV.map(([v,l,i])=>`<button class="nav" data-go="${v}" ${k===v?'aria-current="page"':""}>${icon(i)}${l}</button>`).join("")}
+          <button class="nav" data-words>${icon("help")}Words to know</button>
+          <div class="side-user"><div class="avatar" aria-hidden="true">JE</div><div>${USER.first} ${USER.last}<small>${USER.city}</small></div></div>
+        </nav>
         <div class="main">
-          <div class="demo-strip">Concept demo · fictional companies · not an offer of securities</div>
-          <div class="topbar"><div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div><button class="avatar" data-go="profile" aria-label="Profile" style="border:1px solid var(--line-2)">JE</button></div>
-          <div class="scroll" id="scroll">${renderView()}</div>
-          <nav class="tabs">${NAV.map(([v,l,i])=>`<button class="tab" data-go="${v}" ${k===v?'aria-current="page"':""}>${ICON[i]}${l}</button>`).join("")}</nav>
+          ${demoStrip()}
+          <div class="topbar"><div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div><div style="display:flex;gap:4px;align-items:center"><button class="iconbtn" data-words aria-label="Words to know">${icon("help")}</button><button class="avatar" data-go="profile" aria-label="Profile">JE</button></div></div>
+          <main class="scroll" id="scroll">${renderView()}</main>
+          <nav class="tabs" aria-label="Main">${NAV.map(([v,l,i])=>`<button class="tab" data-go="${v}" ${k===v?'aria-current="page"':""}>${icon(i)}${l}</button>`).join("")}</nav>
         </div>
-      </div>` + modalHTML() + toastHTML();
-    if (S._keepScroll) { const sc = app.querySelector(".scroll"); if (sc) sc.scrollTop = keepScroll; }
+      </div>` + toastHTML();
   }
-  S._keepScroll = false;
-  const u = $("#url-text"); if (u) u.textContent = "openventureinvestments.com/app/" + (S.view==="company" ? "offerings/"+S.companyId : S.view==="holding" ? "portfolio/"+S.holdingId : S.view);
+  if (S.modal) app.insertAdjacentHTML("beforeend", modalHTML());
+  if (S.info) app.insertAdjacentHTML("beforeend", infoSheetHTML());
+  app.classList.toggle("no-tabs", S.view==="company");
+  const bg = app.querySelector(".app-grid, .ob"); if (bg){ if (S.modal || S.info) bg.setAttribute("inert",""); else bg.removeAttribute("inert"); }
+  if (opts.keepScroll){ const sc = app.querySelector(".scroll, .ob"); if (sc) sc.scrollTop = keep; }
+  if (opts.focus){ const t = app.querySelector(opts.focus); if (t) t.focus({preventScroll:true}); }
+  else if (fk){ try { const t = document.querySelector(fk); if (t) t.focus({preventScroll:true}); } catch(_){} }
+  const u = $("#url-text"); if (u) u.textContent = "openventureinvestments.com/app/" + ({company:"raises/"+S.companyId, holding:"portfolio/"+S.holdingId, marketplace:"raises", onboard:"welcome"}[S.view] || S.view);
   applySpot();
+  watchChart();
+}
+let chartRO;
+function watchChart(){
+  const ch = $("#chart"); if (!ch || !window.ResizeObserver) return;
+  if (chartRO) chartRO.disconnect();
+  chartRO = new ResizeObserver(()=>{ const w = Math.round(ch.clientWidth); if (w && Math.abs(w-(S.chartW||0))>4){ S.chartW = w; ch.innerHTML = chartSVG(); } });
+  chartRO.observe(ch);
 }
 function renderView(){
-  switch(S.view){
-    case "marketplace": return vMarketplace();
-    case "company": return vCompany();
-    case "portfolio": return vPortfolio();
-    case "holding": return vHolding();
-    case "timeline": return vTimeline();
-    case "documents": return vDocuments();
-    case "profile": return vProfile();
-  }
-  return "";
+  return ({ marketplace:vMarketplace, company:vCompany, portfolio:vPortfolio, holding:vHolding, timeline:vTimeline, documents:vDocuments, profile:vProfile }[S.view] || (()=>""))();
 }
 
 /* ---------------- Onboarding ---------------- */
-function renderOnboard(){
+function limitMath(inc, nw){
+  const hi = Math.max(inc,nw);
+  if (inc>=124000 && nw>=124000) return `Your income and net worth are both $124,000 or more, so your limit is 10% of ${usd(hi)}, up to $124,000.`;
+  return `It's the larger of $2,500 or 5% of your income or net worth (5% of ${usd(hi)} is ${usd(Math.round(hi*0.05))}).`;
+}
+function vOnboard(){
   const st = S.ob.step, steps = 5;
-  const bar = `<div class="ob-steps">${Array.from({length:steps},(_,i)=>`<i class="${i<=st?"on":""}"></i>`).join("")}</div>`;
+  const top = `<div class="ob-top">${st>0?`<button class="iconbtn" data-ob-back aria-label="Back">${icon("back")}</button>`:""}
+    <div class="ob-steps" aria-hidden="true">${Array.from({length:steps},(_,i)=>`<i class="${i<=st?"on":""}"></i>`).join("")}</div>
+    <span class="ob-count">Step ${st+1} of ${steps}</span></div>`;
   let body = "", foot = "";
   if (st === 0){
-    body = `<div class="ob-hero"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>
-      <div class="eyebrow">Welcome to OpenVenture</div>
-      <h1 class="h1">Private-company investing, explained and followed.</h1></div>
-      <div class="callout risk" id="ob-risk"><b>Before anything else, the risks.</b>
-        <ul><li>Investing in startups is speculative. You could lose all the money you invest.</li>
-        <li>You generally can't sell for at least a year, and there may never be a buyer.</li>
-        <li>OpenVenture doesn't give investment advice or recommend any company.</li></ul></div>
-      <p class="sub">We'll walk you through how this works, check your identity, and set your yearly investment limit. It takes about four minutes.</p>`;
-    foot = `<button class="btn btn-primary btn-block" data-ob-next>I understand. Continue</button>`;
+    body = `<div class="ob-hero" id="ob-hero"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>
+      <h1 class="hero-h" tabindex="-1" id="ob-h">Real private companies. <em>Open to you.</em></h1>
+      <p class="proof"><b>Only about 18.5%</b> of U.S. households can join accredited-only deals. Every raise here is open to you, from $25. <span class="src">(SEC, 2023)</span></p></div>
+      <div class="callout risk" id="ob-risk"><b>Risks first</b>
+        <ul><li>Startups are risky. You could lose all you invest.</li>
+        <li>You can't sell for at least a year, and maybe never.</li>
+        <li>We don't give investment advice.</li></ul></div>`;
+    foot = `<button class="btn btn-primary btn-block" data-ob-next>I understand. Let's start</button>${S.native?`<button class="btn btn-ghost btn-block" data-tour>Take the 2-minute tour</button>`:""}`;
   }
   if (st === 1){
-    body = `<div class="head"><div class="eyebrow">Venture, Explained · 1 of 3</div><h1 class="h1">Three things to know</h1></div>
-      <div class="edu">
-        <div class="card"><div class="ic">1</div><div><b>What you'd own</b><p>A small piece of a private company, usually a SAFE (which turns into shares later), preferred stock, or common stock. Each profile tells you which.</p></div></div>
-        <div class="card"><div class="ic">2</div><div><b>Why you can't sell right away</b><p>Reg CF shares are locked for one year. After that there's usually no market, so plan to hold for 5–10 years, or until a sale or IPO that may never come.</p></div></div>
-        <div class="card"><div class="ic">3</div><div><b>Dilution</b><p>When a company raises more money, your slice gets smaller. Your Timeline explains every time that happens, and what it means for you.</p></div></div>
-      </div>`;
+    body = `<h1 class="h1" tabindex="-1" id="ob-h">Three things to know</h1>
+      <ol class="learn">
+        <li><div class="ic">${icon("layers")}</div><div><b>What you'd own</b><p>A small piece of a private company. Each company page says what kind, in plain words.</p></div></li>
+        <li><div class="ic">${icon("lock")}</div><div><b>Why you can't sell right away</b><p>Shares are locked for a year, and there's usually no market after. Plan to hold for years.</p></div></li>
+        <li><div class="ic">${icon("split")}</div><div><b>Your slice can shrink</b><p>When a company raises more money, your share gets smaller. Your Timeline explains each time.</p></div></li>
+      </ol>`;
     foot = `<button class="btn btn-primary btn-block" data-ob-next>Got it</button>`;
   }
   if (st === 2){
     const sv = S.ob.savings;
-    body = `<div class="head"><div class="eyebrow">A quick check</div><h1 class="h1">Do you have an emergency fund?</h1>
-      <p class="sub">Money for startups should be money you won't need soon. Do you have about three months of expenses saved, and no high-interest debt?</p></div>
-      <div class="choice">
-        <button data-savings="yes" aria-pressed="${sv==="yes"}">Yes, I have savings set aside</button>
-        <button data-savings="no" aria-pressed="${sv==="no"}">Not yet</button>
-      </div>
-      ${sv==="no" ? `<div class="callout info"><b>We'd suggest building savings first.</b> You can still browse companies and learn. Nothing here is going anywhere.</div>` : ""}`;
-    foot = `<button class="btn btn-primary btn-block" data-ob-next ${sv?"":"disabled"}>Continue</button>`;
+    body = `<h1 class="h1" tabindex="-1" id="ob-h">Do you have an emergency fund?</h1>
+      <p class="lead">Invest only money you won't need soon.</p>
+      <fieldset class="choice"><legend class="sr">Emergency fund</legend>
+        <label class="opt"><input type="radio" name="sav" id="sav-yes" value="yes" ${sv==="yes"?"checked":""}><span>Yes, I have savings set aside</span></label>
+        <label class="opt"><input type="radio" name="sav" id="sav-no" value="no" ${sv==="no"?"checked":""}><span>Not yet</span></label></fieldset>
+      ${sv==="no" ? `<p class="card" role="status"><b>We'd suggest saving first.</b> You can look around now and finish setting up later.</p>` : ""}`;
+    foot = sv==="no" ? `<div class="stack"><button class="btn btn-primary btn-block" data-browse>Look around first</button><button class="btn btn-ghost btn-block" data-ob-next>Continue setup anyway</button></div>`
+      : `<button class="btn btn-primary btn-block" data-ob-next ${sv?"":"disabled"}>Continue</button>`;
   }
   if (st === 3){
-    const v = S.ob.verify;
-    body = `<div class="head"><div class="eyebrow">Verify your identity</div><h1 class="h1">Confirm it's you</h1>
-      <p class="sub">Federal rules require us to verify every investor. Checks are run by North Capital, our identity and escrow provider.</p></div>
+    const v = S.ob.verify, edit = v==="fail";
+    const status = v==="idle" ? `<span class="muted">Encrypted. We never sell your data.</span>`
+      : v==="busy" ? `<div class="spin" aria-hidden="true"></div><span><b>Checking with North Capital…</b></span>`
+      : v==="fail" ? `<div class="stack" style="gap:8px"><span class="pill bad">Not verified yet</span><span id="dob-err">Your date of birth didn't match our records. Fix it above and try again, or upload a photo ID.</span></div>`
+      : v==="photo" ? `<div class="stack" style="gap:10px;width:100%"><div class="idframe" aria-hidden="true">${S.ob.photo?`<div class="idshot">${icon("check")}<span>ID photo ready</span></div>`:`<span>Place your ID inside the frame</span>`}</div>${S.ob.photo?"":`<button class="btn btn-ghost btn-block" data-photo-take>Take photo</button>`}</div>`
+      : `<span class="pill ok">${icon("check","sm")}Verified</span><span>You're all set.</span>`;
+    const ro = edit ? "" : "readonly";
+    body = `<h1 class="h1" tabindex="-1" id="ob-h">Confirm it's you</h1>
+      <p class="lead">The law requires a quick identity check. North Capital runs it for us.</p>
       <div class="stack">
-        <div class="fields2"><div class="field"><label for="f-first">First name</label><input id="f-first" class="input" value="Jordan" readonly></div>
-        <div class="field"><label for="f-last">Last name</label><input id="f-last" class="input" value="Ellis" readonly></div></div>
-        <div class="fields2"><div class="field"><label for="f-dob">Date of birth</label><input id="f-dob" class="input" value="••/••/1999" readonly></div>
-        <div class="field"><label for="f-ssn">SSN</label><input id="f-ssn" class="input" value="•••-••-4821" readonly></div></div>
-        <div class="field"><label for="f-addr">Home address</label><input id="f-addr" class="input" value="•••• Bayshore Blvd, Tampa, FL" readonly></div>
+        <div class="fields2"><div class="field"><label for="f-first">First name</label><input id="f-first" class="input" value="Jordan" ${ro}></div>
+        <div class="field"><label for="f-last">Last name</label><input id="f-last" class="input" value="Ellis" ${ro}></div></div>
+        <div class="fields2"><div class="field"><label for="f-dob">Date of birth</label><input id="f-dob" class="input${edit?" bad":""}" value="${edit?"03/14/1999":"••/••/1999"}" ${ro} ${edit?'aria-invalid="true" aria-describedby="dob-err"':""}></div>
+        <div class="field"><label for="f-ssn">Social Security number</label><input id="f-ssn" class="input" value="•••-••-7316" readonly></div></div>
       </div>
-      <div class="card verify">${v==="idle"?`<span class="muted" style="font-size:13px">Your details are encrypted. We never sell investor data.</span>`: v==="busy" ? `<div class="spin"></div><span style="font-size:13.5px;font-weight:700">Checking with North Capital…</span>` : `<span class="pill ok">✓ Verified</span><span style="font-size:13.5px">Identity and AML checks passed.</span>`}</div>`;
-    foot = v==="done" ? `<button class="btn btn-primary btn-block" data-ob-next>Continue</button>` : `<button class="btn btn-primary btn-block" data-verify ${v==="busy"?"disabled":""}>Verify my identity</button>`;
+      <div class="card verify" role="status">${status}</div>
+      ${v==="idle" ? `<button class="link" data-verify-fail>Demo: see what happens if a check fails</button>` : ""}`;
+    foot = v==="done" ? `<button class="btn btn-primary btn-block" data-ob-next>Continue</button>`
+      : v==="fail" ? `<div class="stack"><button class="btn btn-primary btn-block" data-verify>Try again</button><button class="btn btn-ghost btn-block" data-verify-upload>Upload a photo ID instead</button></div>`
+      : v==="photo" ? `<button class="btn btn-primary btn-block" data-photo-use ${S.ob.photo?"":"disabled"}>Use this photo</button>`
+      : `<button class="btn btn-primary btn-block" data-verify ${v==="busy"?"disabled":""}>Verify me</button>`;
   }
   if (st === 4){
-    const L = limit(), hi = Math.max(S.ob.income,S.ob.nw), both = S.ob.income>=124000 && S.ob.nw>=124000;
-    body = `<div class="head"><div class="eyebrow">Your yearly limit</div><h1 class="h1">How much you can invest</h1>
-      <p class="sub">Regulation Crowdfunding limits how much non-accredited investors can put into all crowdfunding offerings over any 12 months, on every platform combined.</p></div>
+    body = `<h1 class="h1" tabindex="-1" id="ob-h">Your yearly investing limit</h1>
+      <p class="lead">Anyone can invest here. The law sets a yearly cap so no one puts in too much.</p>
       <div class="fields2">
-        <div class="field"><label for="f-inc">Annual income</label><div class="money"><span>$</span><input id="f-inc" class="input num" inputmode="numeric" value="${S.ob.income.toLocaleString()}" data-ob-num="income"></div></div>
-        <div class="field"><label for="f-nw">Net worth (not counting your home)</label><div class="money"><span>$</span><input id="f-nw" class="input num" inputmode="numeric" value="${S.ob.nw.toLocaleString()}" data-ob-num="nw"></div></div>
+        <div class="field"><label for="f-inc">Yearly income</label><div class="money"><span>$</span><input id="f-inc" class="input num" inputmode="numeric" value="${S.ob.income.toLocaleString()}" data-ob-num="income"></div></div>
+        <div class="field"><label for="f-nw">Net worth, not counting your home</label><div class="money"><span>$</span><input id="f-nw" class="input num" inputmode="numeric" value="${S.ob.nw.toLocaleString()}" data-ob-num="nw"></div></div>
       </div>
       <div class="card stack" id="ob-limit">
-        <span class="section-t">Your 12-month limit</span>
-        <div class="limit-big num" id="ob-limit-val">${usd(L)}</div>
-        <div class="calc" id="ob-calc">${limitMath(S.ob.income,S.ob.nw)}</div>
+        <div class="limit-big num" id="ob-limit-val" aria-live="polite">${usd(limit())}<span class="muted" style="font-size:16px;font-weight:700"> a year</span></div>
+        <p class="calc" id="ob-calc">${limitMath(S.ob.income,S.ob.nw)}</p>
       </div>`;
-    foot = `<button class="btn btn-primary btn-block" data-ob-finish>Finish and see my portfolio</button>`;
+    foot = `<button class="btn btn-primary btn-block" data-ob-finish>${S.returnTo?"Back to "+esc(co(S.returnTo).name):"See the companies"}</button>`;
   }
-  return `<div class="ob"><div class="ob-inner">${bar}${body}<div class="ob-foot">${foot}</div></div></div>`;
-}
-function limitMath(inc, nw){
-  const hi = Math.max(inc,nw);
-  if (inc>=124000 && nw>=124000) return `Both are $124,000 or more, so your limit is 10% of ${usd(hi)}, capped at $124,000.`;
-  const five = Math.round(hi*0.05);
-  return `Because your income or net worth is under $124,000, your limit is the greater of $2,500 or 5% of ${usd(hi)} (${usd(five)}).<br><span class="muted">Accredited investors have no limit.</span>`;
+  const look = (st>0 && !(st===2 && S.ob.savings==="no")) ? `<button class="link" data-browse style="align-self:center">Look around first</button>` : "";
+  return `<main class="ob">${demoStrip()}<div class="ob-inner">${top}${body}<div class="ob-foot">${foot}${look}</div></div></main>`;
 }
 
 /* ---------------- Marketplace ---------------- */
 function vMarketplace(){
-  const sectors = ["All", ...new Set(COMPANIES.map(c=>c.sector))];
-  const list = COMPANIES.filter(c => S.mkFilter==="All" || c.sector===S.mkFilter);
+  const list = COMPANIES.filter(c=>c.status==="open").slice().sort((a,b)=> S.sort==="close" ? a.closes.localeCompare(b.closes) : a.name.localeCompare(b.name));
   return `<div class="view">
-    <div class="head"><div class="eyebrow">Marketplace</div><h1 class="h1">Companies raising now</h1>
-      <p class="sub">Every company here meets OpenVenture's published eligibility criteria, applied the same way to all. Meeting them is not a recommendation and doesn't predict returns. <button class="link" data-go="profile" data-anchor="pr-criteria">See the criteria</button></p></div>
-    <div class="chips" role="group" aria-label="Filter by sector">${sectors.map(s=>`<button class="chip" data-mk="${esc(s)}" aria-pressed="${S.mkFilter===s}">${esc(s)}</button>`).join("")}</div>
-    <div class="mk-grid">${list.map(offerCard).join("")}</div>
+    <div class="head" id="mk-head"><h1 class="h1" tabindex="-1" id="view-h">Companies</h1>
+      <p class="lead">Every company here is open to every investor, from $25. Elsewhere, deals like these are often for the 18.5% who are accredited.</p>
+      <p class="sub">All meet our published criteria, applied the same way to each. That isn't a recommendation. <button class="link inline" data-criteria>See the criteria</button></p></div>
+    <div class="chips" role="group" aria-label="Sort raises"><button class="chip" data-sort="az" aria-pressed="${S.sort!=="close"}">A to Z</button><button class="chip" data-sort="close" aria-pressed="${S.sort==="close"}">Closing date</button></div>
+    <ul class="mk-grid">${list.map(c=>`<li>${offerCard(c)}</li>`).join("")}</ul>
   </div>`;
 }
 function offerCard(c){
-  const p = Math.min(100, Math.round(c.raised/c.target*100)), closed = c.status==="closed";
-  return `<button class="offer" data-company="${c.id}">
-    <div class="offer-top"><span class="pill flat">${esc(c.sector)}</span>${closed?`<span class="pill flat">Funded · closed ${fdate(c.closes)}</span>`:`<span class="pill ok">✓ Meets criteria</span>`}</div>
-    <div style="display:flex;gap:12px;align-items:center">${tile(c)}<div style="min-width:0"><h3>${esc(c.name)}</h3><p class="tagl">${esc(c.tagline)}</p></div></div>
-    <div class="stats">${c.stats.slice(0,2).map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div>
-    <div class="prog"><div class="track"><i style="width:${p}%;background:var(--signal)"></i></div>
-      <div class="meta"><span><b>${compact(c.raised)}</b> of ${compact(c.target)} · ${c.investors.toLocaleString()} investors</span><span>${p}%</span></div></div>
-    <div class="offer-foot"><span>${esc(c.security)} · min ${usd(c.min)}</span><span>${closed?"Closed":"Closes "+fdate(c.closes)}</span></div>
-  </button>`;
+  const p = Math.min(100, Math.round(c.raised/c.target*100));
+  return `<article class="offer">
+    <div class="rleft">${tile(c)}<div style="min-width:0"><h2><button class="offer-link" data-company="${c.id}">${esc(c.name)}</button></h2><p class="tagl">${esc(c.tagline)}</p></div></div>
+    <p class="fact"><b>${c.facts[0][0]}</b> ${esc(c.facts[0][1])}</p>
+    <div class="prog"><div class="track" aria-hidden="true"><i style="width:${p}%;background:var(--muted)"></i></div>
+      <div class="meta"><span>${compact(c.raised)} of ${compact(c.target)} raised</span><span>Closes ${fdate(c.closes)}</span></div></div>
+    <div class="offer-foot"><span>Min $25</span><span>${esc(c.security)} · ${esc(PLAIN[c.security])}</span></div>
+  </article>`;
 }
 
 /* ---------------- Company ---------------- */
 function vCompany(){
-  const c = co(S.companyId), p = Math.min(100, Math.round(c.raised/c.target*100)), closed = c.status==="closed";
+  const c = co(S.companyId) || COMPANIES[0], p = Math.min(100, Math.round(c.raised/c.target*100)), closed = c.status==="closed";
+  const more = (title, inner) => `<details class="more"><summary>${title}${icon("down")}</summary><div class="body">${inner}</div></details>`;
+  const base = ["You could lose all you invest. Most startups fail.","You can't sell for a year, and maybe never."];
+  const termsDl = `<dl><div class="kv"><dt>What you get</dt><dd><button class="link inline" data-def="${esc(defFor(c.security))}">${esc(c.security)}</button><small class="plain">${esc(PLAIN[c.security])}</small></dd></div>
+          <div class="kv"><dt>Minimum</dt><dd>$25</dd></div>
+          <div class="kv"><dt>Fee</dt><dd>${usd2(fee(25))}<small class="plain">at $25 (2% + $2)</small></dd></div>
+          <div class="kv"><dt>Yearly tracking fee</dt><dd>0.5%<small class="plain">about $0.13 a year at $25</small></dd></div>
+          <div class="kv"><dt>Closes</dt><dd>${fdate(c.closes)}</dd></div></dl>`;
+  const investBtn = closed ? `<button class="btn btn-ghost btn-block" disabled>This raise is closed</button>`
+    : S.browse ? `<button class="btn btn-primary btn-block" data-finish-setup id="invest-btn">Finish setup to invest</button>`
+    : `<button class="btn btn-primary btn-block" data-invest="${c.id}" id="invest-btn">Invest</button>`;
   return `<div class="view">
-    <button class="back" data-go="marketplace">← Marketplace</button>
-    <div class="co-head">${tile(c)}<div><div class="eyebrow" style="color:var(--muted)">${esc(c.sector)} · ${esc(c.hq)}</div><h1 class="h1">${esc(c.name)}</h1></div></div>
-    <p class="sub" style="font-size:15px;color:var(--text-2)">${esc(c.tagline)}</p>
+    <button class="back" data-go="marketplace">${icon("back")}Companies</button>
+    <div class="co-head">${tile(c)}<div><h1 class="h1" tabindex="-1" id="view-h">${esc(c.name)}</h1><p class="s">${esc(c.sector)} · ${esc(c.hq)}</p></div></div>
+    <p class="lead">${esc(c.tagline)}</p>
     <div class="co-grid">
       <div class="stack" style="gap:20px">
         <div class="callout risk" id="risk-first"><b>Risks first</b>
-          <ul><li>You could lose your entire investment. Most startups fail.</li><li>You can't resell for one year, and there may never be a market.</li>${c.risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
-          <button class="link" data-doc="Form C risk factors">Read all risk factors in the Form C →</button></div>
-        <div class="co-sec"><span class="section-t">The business</span><p>${esc(c.about)}</p></div>
-        <div class="tiles three">${c.stats.map(s=>`<div class="tile"><span>${s[1]}</span><b>${s[0]}</b></div>`).join("")}</div>
-        <div class="co-sec"><span class="section-t">Team</span><p>${esc(c.team)}</p></div>
-        <div class="co-sec"><span class="section-t">How they'll use the money</span><p>${esc(c.use)}</p></div>
-        <div class="co-sec" id="co-criteria"><span class="section-t">Published criteria this company meets</span>
-          <ul class="checks">${CRITERIA.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-          <p style="font-size:12.5px;color:var(--muted)">${esc(c.alumni)}. Meeting the criteria is not an endorsement or a prediction of results.</p></div>
-        <div class="co-sec"><span class="section-t">Documents</span><div class="docs-mini">
-          <button class="doc-btn" data-doc="Form C offering statement"><span>Form C offering statement (SEC filing)</span><span>PDF</span></button>
-          <button class="doc-btn" data-doc="CPA-reviewed financial statements"><span>CPA-reviewed financial statements</span><span>PDF</span></button>
-          <button class="doc-btn" data-doc="Investor update plan"><span>Investor update plan (quarterly)</span><span>PDF</span></button></div></div>
+          <ul>${base.concat(c.risks[0]).map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
+          <details class="inl"><summary>See all ${c.risks.length+2} risks${icon("down","sm")}</summary><ul>${c.risks.slice(1).map(r=>`<li>${esc(r)}</li>`).join("")}</ul></details></div>
+        <div class="facts">${c.facts.map(s=>`<div><b>${s[0]}</b><span>${s[1]}</span></div>`).join("")}</div>
+        <section class="card terms-m" aria-labelledby="tm-h"><div class="terms-top"><h2 class="h2" id="tm-h">The terms</h2><button class="wordsbtn" data-words>${icon("help","sm")}Words</button></div>${termsDl}<p class="fine">Your money waits in North Capital escrow until the raise closes.</p></section>
+        <div>
+          ${more("About the company", `<p>${esc(c.about)}</p><p><b>Team.</b> ${esc(c.team)}</p><p><b>The money will pay for:</b> ${esc(c.use)}</p>`)}
+          ${more("Terms in detail", `<p><b>${esc(c.security)}:</b> ${esc(c.securityPlainLong)}</p><p>${esc(c.terms)}.${c.terms.includes("cap")?" A valuation cap sets the highest company value your money converts at, so you're not overcharged if the company grows fast.":""}</p><p>Closes ${fdate(c.closes)}. Fee: 2% + $2 per investment (${usd2(fee(25))} at $25), plus a yearly tracking fee of 0.5% (about $0.13 at $25).</p><div class="prog"><div class="track" aria-hidden="true"><i style="width:${p}%;background:var(--muted)"></i></div><div class="meta"><span>${usd(c.raised)} raised of ${usd(c.target)}</span><span>${p}%</span></div></div>`)}
+          ${more("Published criteria it meets", `<ul class="checks">${CRITERIA.map(x=>`<li>${icon("check","sm")}${esc(x)}</li>`).join("")}</ul><p class="muted">Meeting the criteria isn't an endorsement.</p>`)}
+          ${more("Documents", `<ul class="docs-mini"><li><button class="doc-btn" data-doc="Form C offering statement" data-docdate="Oct 2029"><span>Form C offering statement</span><span>PDF</span></button></li><li><button class="doc-btn" data-doc="Financial statements" data-docdate="Sep 2029"><span>Financial statements</span><span>PDF</span></button></li></ul>`)}
+        </div>
       </div>
-      <div class="card terms stack">
-        <span class="section-t">Investment terms</span>
-        <div><div class="kv"><span>Security</span><span>${esc(c.security)}</span></div>
-          <div class="kv"><span>Terms</span><span>${esc(c.terms)}</span></div>
-          <div class="kv"><span>Minimum</span><span>${usd(c.min)}</span></div>
-          <div class="kv"><span>Raise target</span><span>${usd(c.target)}</span></div>
-          <div class="kv"><span>Closes</span><span>${fdate(c.closes)}</span></div>
-          <div class="kv"><span>Your fee</span><span>2% + $2</span></div></div>
-        <div class="prog"><div class="track"><i style="width:${p}%;background:var(--signal)"></i></div>
-          <div class="meta"><span><b>${usd(c.raised)}</b> raised</span><span>${p}%</span></div></div>
-        ${closed ? `<button class="btn btn-ghost btn-block" disabled>This raise is closed</button>` : `<button class="btn btn-primary btn-block" data-invest="${c.id}" id="invest-btn">Invest in ${esc(c.name)}</button>`}
-        <p class="fine">Your money is held by North Capital in escrow until the raise closes. You can cancel up to 48 hours before the close date. The company pays OpenVenture 6% of the money it raises.</p>
-      </div>
+      <aside class="card terms stack" aria-label="Investment terms">
+        <div class="terms-top"><span class="h2">The terms</span><button class="wordsbtn" data-words>${icon("help","sm")}Words</button></div>
+        ${termsDl}
+        ${investBtn}
+        <p class="fine">Your money waits in North Capital escrow until the raise closes. Cancel up to 48 hours before.</p>
+      </aside>
     </div>
-  </div>`;
+  </div>
+  ${closed ? "" : `<div class="investbar"><div><b>$25 minimum</b><span class="muted"> · ${usd2(fee(25))} fee</span></div>${S.browse?`<button class="btn btn-primary" data-finish-setup id="invest-bar-btn">Finish setup</button>`:`<button class="btn btn-primary" data-invest="${c.id}" id="invest-bar-btn">Invest</button>`}</div>`}`;
 }
 
 /* ---------------- Invest sheet ---------------- */
+const STEP_NAMES = ["Amount","Check the risks","Confirm","Done"];
 function modalHTML(){
-  const m = S.modal; if(!m) return "";
-  const c = co(m.companyId);
-  const dots = `<div class="sheet-steps">${[1,2,3,4].map(i=>`<i class="${i<=m.step?"on":""}"></i>`).join("")}</div>`;
+  const m = S.modal; const c = co(m.companyId);
+  const head = `<div class="sheet-head">
+    ${m.step>1 && m.step<4 ? `<button class="iconbtn" data-step="${m.step-1}" aria-label="Back">${icon("back")}</button>` : `<span style="width:8px"></span>`}
+    <div class="stepinfo"><span>Step ${m.step} of 4 · ${STEP_NAMES[m.step-1]}</span><div class="sheet-steps" aria-hidden="true">${[1,2,3,4].map(i=>`<i class="${i<=m.step?"on":""}"></i>`).join("")}</div></div>
+    <button class="iconbtn" data-close aria-label="Close">${icon("x")}</button></div>`;
   let body="", foot="";
   if (m.step===1){
-    body = `<div><div class="section-t">Investing in</div><h2 style="font-size:19px;font-weight:800;margin-top:2px">${esc(c.name)}</h2></div>
-      <div class="amts" role="group" aria-label="Amount">${[25,100,250,500].map(a=>`<button class="amt" data-amt="${a}" aria-pressed="${!m.custom&&m.amount===a}">${usd(a)}</button>`).join("")}</div>
-      <div class="field"><label for="amt-in">Or enter an amount</label><div class="money"><span>$</span><input id="amt-in" class="input num" inputmode="numeric" placeholder="Custom amount" value="${m.custom?m.amount:""}"></div></div>
+    body = `<h2 class="sheet-title" tabindex="-1" id="sheet-h">How much in ${esc(c.name)}?</h2>
+      <div class="amts" role="group" aria-label="Amount" style="grid-template-columns:repeat(${amtList().length},1fr)">${amtList().map(a=>`<button class="amt" data-amt="${a}" aria-pressed="${!m.custom&&m.amount===a}">${usd(a)}</button>`).join("")}</div>
+      <div class="field"><label for="amt-in">Other amount</label><div class="money"><span>$</span><input id="amt-in" class="input num" inputmode="numeric" placeholder="Type an amount" value="${m.custom?esc(m.raw||m.amount):""}"></div></div>
       <div id="amt-live">${amountLive()}</div>`;
-    foot = `<button class="btn btn-primary btn-block" data-step="2" id="amt-next" ${amountOk()?"":"disabled"}>Review risks</button>`;
+    foot = `<button class="btn btn-primary btn-block" data-step="2" id="amt-next" ${amountOk()?"":"disabled"}>Next</button>`;
   }
   if (m.step===2){
-    const A = [["You could lose your entire investment, and most startups fail."],["You can't resell for one year, and there may never be a buyer after that."],["You've read the Form C and the risks for "+c.name+"."],["OpenVenture isn't giving you investment advice or recommending this company."]];
-    body = `<h2 style="font-size:19px;font-weight:800">Before you confirm</h2><div>${A.map((a,i)=>`<label class="ack"><input type="checkbox" data-ack="${i}" ${m.acks[i]?"checked":""}><span>${esc(a[0])}</span></label>`).join("")}</div>`;
-    foot = `<button class="btn btn-primary btn-block" data-step="3" ${m.acks.every(Boolean)?"":"disabled"}>Continue</button>`;
+    const A = ["I could lose all of this money.","I can't sell for a year, and maybe never.","I've read the risks and terms above.","OpenVenture isn't telling me to invest."];
+    const n = m.acks.filter(Boolean).length;
+    body = `<h2 class="sheet-title" tabindex="-1" id="sheet-h">Before you confirm</h2>
+      <details class="more" open><summary>${esc(c.name)}: its own risks and terms${icon("down")}</summary><div class="body">
+        <ul class="plainlist">${c.risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul>
+        <p><b>${esc(c.security)}:</b> ${esc(c.securityPlainLong)} ${esc(c.terms)}.</p></div></details>
+      <div>${A.map((a,i)=>`<label class="ack"><input type="checkbox" data-ack="${i}" id="ack-${i}" ${m.acks[i]?"checked":""}><span>${esc(a)}</span></label>`).join("")}</div>
+      ${n<4?`<p class="hint" aria-live="polite">Check all 4 to continue (${n} of 4).</p>`:""}`;
+    foot = `<button class="btn btn-primary btn-block" data-step="3" ${n===4?"":"disabled"}>Next</button>`;
   }
   if (m.step===3){
     const f = fee(m.amount);
-    body = m.busy ? `<div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 0"><div class="spin" style="width:34px;height:34px"></div><p style="font-weight:700">Sending ${usd2(m.amount+f)} to escrow…</p></div>` :
-      `<h2 style="font-size:19px;font-weight:800">Confirm your investment</h2>
-      <div class="receipt"><div class="kv"><span>Company</span><span>${esc(c.name)}</span></div><div class="kv"><span>Security</span><span>${esc(c.security)}</span></div>
+    body = m.busy ? `<div role="status" style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 0"><div class="spin" style="width:34px;height:34px" aria-hidden="true"></div><p><b>Sending ${usd2(m.amount+f)} to escrow…</b></p></div>` :
+      `<h2 class="sheet-title" tabindex="-1" id="sheet-h">Confirm ${usd2(m.amount+f)}</h2>
+      <div class="receipt"><div class="kv"><span>What you're buying</span><span><button class="link inline" data-def="${esc(defFor(c.security))}">${esc(c.security)}</button><small class="plain">${esc(PLAIN[c.security])}</small></span></div>
         <div class="kv"><span>Investment</span><span>${usd2(m.amount)}</span></div><div class="kv"><span>Fee (2% + $2)</span><span>${usd2(f)}</span></div>
-        <div class="kv tot"><span>Total from checking ••4821</span><span>${usd2(m.amount+f)}</span></div></div>
-      <div class="callout good" id="escrow-box"><b>Where your money goes</b>Your ${usd2(m.amount+f)} goes by bank transfer to a North Capital escrow account for this raise, never to OpenVenture. It's released to ${esc(c.name)} only if the raise reaches its target by ${fdate(c.closes)}. If it doesn't, or you cancel up to 48 hours before the close, you get it all back.</div>`;
+        <div class="kv tot"><span>Total from checking ••4821</span><span>${usd2(m.amount+f)}</span></div>
+        <div class="kv"><span>Yearly tracking fee, 0.5%</span><span>about ${usd2(m.amount*0.005)} a year</span></div>
+        <div class="kv"><span>Yearly limit left after</span><span>${usd(remaining()-m.amount)}</span></div></div>
+      <div class="callout good" id="escrow-box"><b>Your money waits in escrow</b>It goes to a North Capital escrow account, never to OpenVenture. ${esc(c.name)} gets it only if the raise hits its goal by ${fdate(c.closes)}. Otherwise it all comes back. You can cancel until ${fdate(addDays(c.closes,-2))}.</div>`;
     foot = m.busy ? "" : `<button class="btn btn-primary btn-block" data-confirm>Confirm ${usd2(m.amount+f)}</button>`;
   }
   if (m.step===4){
-    body = `<div class="success"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28"/><path d="M20 33l8 8 16-17"/></svg>
-      <h2 style="font-size:21px;font-weight:800">Your ${usd2(m.amount)} is in escrow</h2>
-      <p class="sub" style="text-align:center">If ${esc(c.name)} reaches its target by ${fdate(c.closes)}, your investment closes and becomes a holding in your portfolio. You'll get a notice either way.</p></div>`;
-    foot = `<div class="stack"><button class="btn btn-primary btn-block" data-close-go="portfolio">See it in my portfolio</button><button class="btn btn-ghost btn-block" data-close-go="marketplace">Back to Marketplace</button></div>`;
+    body = `<div class="success" role="status"><svg class="draw" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28"/><path d="M20 33l8 8 16-17"/></svg>
+      <h2 class="sheet-title" tabindex="-1" id="sheet-h">${usd2(m.amount)} is waiting in escrow</h2>
+      <p class="sub" style="text-align:center">It becomes yours if ${esc(c.name)} hits its goal by ${fdate(c.closes)}. You can cancel until ${fdate(addDays(c.closes,-2))}.</p></div>`;
+    foot = `<div class="stack"><button class="btn btn-primary btn-block" data-close-go="portfolio">See my portfolio</button><button class="btn btn-ghost btn-block" data-close-go="marketplace">Back to companies</button></div>`;
   }
-  return `<div class="scrim" data-scrim><div class="sheet" role="dialog" aria-modal="true" aria-label="Invest in ${esc(c.name)}">
-    <div class="sheet-head">${dots}<button class="x" data-close aria-label="Close">✕</button></div>
-    <div class="sheet-body">${body}</div><div class="sheet-foot">${foot}</div></div></div>`;
+  return `<div class="scrim"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h">${head}<div class="sheet-body">${body}</div><div class="sheet-foot">${foot}</div></div></div>`;
 }
+function amtList(){ const l=[25,100,250]; if (S.lastAmount && !l.includes(S.lastAmount)) l.push(S.lastAmount); return l; }
 function amountOk(){ const m=S.modal; return m.amount>=25 && m.amount<=remaining(); }
 function amountLive(){
   const m=S.modal, L=limit(), u=used(), a=m.amount||0, f=a?fee(a):0, left=L-u-a;
   const over = a>remaining(), under = a>0 && a<25;
   const wUsed = Math.min(100,u/L*100), wNew = Math.max(0,Math.min(100-wUsed, a/L*100));
+  const echo = m.custom && m.raw && /[^0-9,$\s]/.test(m.raw) ? ` We read that as ${usd(a)}.` : "";
   return `<div class="receipt" id="receipt">
       <div class="kv"><span>Investment</span><span>${usd2(a)}</span></div>
-      <div class="kv"><span>OpenVenture fee (2% + $2)</span><span>${usd2(f)}</span></div>
-      <div class="kv tot"><span>Total charged</span><span>${usd2(a+f)}</span></div></div>
+      <div class="kv"><span>Fee (2% + $2)</span><span>${usd2(f)}</span></div>
+      <div class="kv tot"><span>Total today</span><span>${usd2(a+f)}</span></div>
+      <div class="kv"><span>Yearly tracking fee, 0.5%</span><span>about ${usd2(a*0.005)} a year</span></div></div>
     <div class="stack" style="gap:8px" id="limit-meter">
-      <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700"><span>Your 12-month limit</span><span class="muted num">${usd(L)}</span></div>
-      <div class="track"><i style="width:${wUsed}%;background:var(--muted)"></i><i style="width:${wNew}%;background:${over?"var(--loss)":"var(--signal)"}"></i></div>
-      <div class="hint ${over||under?"err":""}">${under?"The minimum is $25.": over?`That's over your limit. You have ${usd(remaining())} left this year.`:`Already used ${usd(u)} · this investment ${usd(a)} · ${usd(Math.max(0,left))} left after`}</div>
+      <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700"><span>Your yearly limit</span><span class="muted num">${usd(L)}</span></div>
+      <div class="track" aria-hidden="true"><i style="width:${wUsed}%;background:var(--muted)"></i><i style="width:${wNew}%;background:${over?"var(--loss)":"var(--signal)"}"></i></div>
+      <p class="hint ${over||under?"err":""}" id="amt-hint" aria-live="polite">${under?"The minimum is $25. Try $25 or more.": over?`That's over your limit. You have ${usd(remaining())} left this year.`:`Used earlier ${usd(u)} · this ${usd(a)} · ${usd(Math.max(0,left))} left`}${echo}</p>
     </div>`;
 }
 
 /* ---------------- Portfolio ---------------- */
 function vPortfolio(){
-  const t = totals(), d = t.ind - t.cost, p = pct(t.ind,t.cost), L = limit();
-  const distributions = PAST.reduce((s,h)=>s+h.payout,0), losses = PAST.filter(h=>h.payout===0).reduce((s,h)=>s+h.invested,0);
+  const t = totals(), d = t.ind - t.cost, L = limit();
+  const paid = PAST.reduce((s,h)=>s+h.payout,0);
+  const esc$ = S.pending.reduce((s,x)=>s+x.amount,0), allIn = cumulativeInvested(), net = t.ind + paid - allIn;
   return `<div class="view">
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Your portfolio</h1><p class="demo-note">Demo: Jordan, two years in</p></div>
     <div class="pf-top">
-      <div class="stack" id="pf-hero">
-        <div class="hero-v"><div class="lbl">Indicated value · active holdings</div>
-          <div class="big num">${usd2(t.ind)}</div>
-          <div class="delta ${d>=0?"up":"down"} num">${arrow(d)} ${usd2(Math.abs(d))} (${signPct(p)}) vs. ${usd2(t.cost)} invested</div>
-          <div class="est">An estimate based on each company's latest priced round. It isn't a price you could sell at today.</div></div>
+      <section class="stack" id="pf-hero" aria-labelledby="pf-val">
+        <div class="hero-v"><p class="muted" id="pf-val" style="font-weight:700">Estimated value</p>
+          <div class="big num">${usd(t.ind)}</div>
+          <p class="delta ${net>=0?"up":"down"} num">${trend(net, `${usd(Math.abs(net))} net, after payouts and losses`)}</p>
+          ${esc$ ? `<p class="delta muted num">Plus ${usd(esc$)} waiting in escrow</p>` : ""}
+          <p class="est">Based on each company's <button class="link inline" data-def="Priced round">latest priced round</button>. Not a price you could sell at today.</p></div>
         <div class="chart" id="chart">${chartSVG()}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-          <div class="chips" role="group" aria-label="Chart range"><button class="chip" data-range="all" aria-pressed="${S.range==="all"}">Since first investment</button><button class="chip" data-range="12m" aria-pressed="${S.range==="12m"}">Last 12 months</button></div>
-          <div class="legend"><span><i></i>Indicated value</span><span><i class="d"></i>Amount invested</span></div></div>
-        <p style="font-size:12px;color:var(--muted)">Private companies don't have a daily price. Your value moves only when something real happens, like a new priced round, so the line steps instead of wiggling.</p>
-      </div>
-      <div class="stack">
-        <div class="tiles">
-          <div class="tile"><span>Invested (active)</span><b>${usd(t.cost)}</b></div>
-          <div class="tile"><span>Cash paid to you</span><b class="up">${usd2(distributions)}</b></div>
-          <div class="tile"><span>Realized losses</span><b class="down">${usd(-losses)}</b></div>
-          <div class="tile"><span>Holdings</span><b>${HOLDINGS.length} active</b><span>plus ${PAST.length} past</span></div>
-        </div>
-        <div class="card limit-card" id="pf-limit"><div class="top"><span>12-month investing limit</span><span>${usd(used())} of ${usd(L)}</span></div>
-          <div class="track"><i style="width:${Math.min(100,used()/L*100)}%;background:var(--signal)"></i></div>
-          <span style="font-size:12px;color:var(--muted)">${usd(remaining())} left through Feb 2030 · counts every crowdfunding platform</span></div>
-      </div>
+        <div class="legend" aria-hidden="true"><span><i></i>Estimated value</span><span><i class="d"></i>Money in current holdings</span><span><b class="mk ok"></b>Paid out to your bank</span><span><b class="mk bad"></b>Closed or down round</span></div>
+        <div class="chips" role="group" aria-label="Chart range"><button class="chip" data-range="all" aria-pressed="${S.range==="all"}">Since first investment</button><button class="chip" data-range="12m" aria-pressed="${S.range==="12m"}">Last 12 months</button></div>
+      </section>
+      <section class="card" aria-label="Summary">
+        <dl class="sums">
+          <div class="kv"><dt>Put in, all time</dt><dd>${usd(allIn)}</dd></div>
+          <div class="kv"><dt>Paid back to you</dt><dd>${usd(paid)}</dd></div>
+          <div class="kv"><dt>Worth now</dt><dd>${usd(t.ind)}</dd></div>
+          <div class="kv net"><dt>Net result</dt><dd class="${net>=0?"up":"down"}">${net>=0?"+":""}${usd(net)}</dd></div></dl>
+        <div class="meter" id="pf-limit"><div class="top"><span>Yearly limit used</span><span>${usd(used())} of ${usd(L)}</span></div>
+          <div class="track" aria-hidden="true"><i style="width:${Math.min(100,used()/L*100)}%;background:var(--signal)"></i></div></div>
+      </section>
     </div>
-    ${S.pending.length ? `<div class="stack"><span class="section-t">In escrow</span>${S.pending.map(p=>{const c=co(p.companyId);return `<div class="escrow-item"><div class="rleft">${tile(c)}<div><div style="font-weight:800">${esc(c.name)}</div><div style="font-size:12px;color:var(--text-2)">Held by North Capital until the raise closes ${fdate(c.closes)}</div></div></div><div style="text-align:right;font-weight:800" class="num">${usd2(p.amount)}<div class="pill warn" style="margin-top:4px">Pending</div></div></div>`}).join("")}</div>` : ""}
-    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span class="section-t">Holdings</span><button class="link" data-go="timeline">See the Timeline →</button></div>
-      <div class="list" id="pf-holdings">${HOLDINGS.map(h=>{const ch=pct(h.indicated,h.invested);return `<button class="row" data-holding="${h.id}">
-        <div class="rleft">${tile(h)}<div style="min-width:0"><div class="n">${esc(h.name)}</div><div class="s">${esc(h.security)} · invested ${fdate(h.date)}</div>
-        <span class="pill ${h.liquidity.tone} lock">${h.liquidity.tone==="warn"?ICON.lock:""} ${esc(h.liquidity.label)}</span></div></div>
-        <div class="v">${usd(h.indicated)}<small class="${ch>0?"up":ch<0?"down":"muted"}">${ch===0?"At cost":arrow(ch)+" "+signPct(ch).replace(/^[+−]/,"")}</small></div></button>`}).join("")}</div></div>
-    <div class="card"><span class="section-t">Past holdings</span>
-      <div class="list">${PAST.map(h=>`<button class="row" data-holding="${h.id}"><div class="rleft">${tile(h)}<div><div class="n">${esc(h.name)}</div><div class="s">Invested ${usd(h.invested)} · ${fdate(h.date)}</div></div></div>
-        <div class="v"><span class="pill ${h.tone}">${esc(h.outcome)}</span></div></button>`).join("")}</div></div>
+    ${S.pending.length ? `<section class="stack" aria-labelledby="esc-h"><h2 class="h2" id="esc-h">Waiting in escrow</h2>${S.pending.map((pd,ix)=>{const c=co(pd.companyId);return `<div class="escrow-item"><div class="rleft">${tile(c)}<div><div style="font-weight:800">${esc(c.name)} · ${usd(pd.amount)}</div><div style="font-size:13px;color:var(--text-2)">Cancel until ${fdate(addDays(c.closes,-2))}</div></div></div><div class="acts"><button class="cancel" data-cancel="${ix}">Cancel</button></div></div>`}).join("")}</section>` : ""}
+    <section aria-labelledby="hold-h"><div style="display:flex;justify-content:space-between;align-items:center"><h2 class="h2" id="hold-h">Holdings</h2><button class="link" data-go="timeline">Timeline${icon("right","sm")}</button></div>
+      <ul class="list" id="pf-holdings" style="list-style:none">${HOLDINGS.map(h=>{const ch=pct(h.indicated,h.invested);return `<li><button class="row" data-holding="${h.id}">
+        <div class="rleft">${tile(h)}<div style="min-width:0"><div class="n">${esc(h.name)}</div><div class="s">${esc(h.security)} · ${esc(PLAIN[h.security])}</div>
+        ${h.locked?`<span class="pill warn lock">${icon("lock","sm")}Locked until ${fdate(h.locked)}</span>`:""}</div></div>
+        <div class="v">${usd(h.indicated)}<small class="${ch>0?"up":ch<0?"down":"muted"}">${ch===0?"Same as you paid":trend(ch, Math.abs(ch).toFixed(0)+"%")}</small></div></button></li>`}).join("")}</ul></section>
+    <section aria-labelledby="past-h"><h2 class="h2" id="past-h">Past holdings</h2>
+      <ul class="list" style="list-style:none">${PAST.map(h=>`<li><button class="row" data-holding="${h.id}"><div class="rleft">${tile(h)}<div><div class="n">${esc(h.name)}</div><div class="s">Put in ${usd(h.invested)}</div></div></div>
+        <div class="v"><span class="pill ${h.tone}">${esc(h.outcome)}</span></div></button></li>`).join("")}</ul></section>
   </div>`;
 }
 function chartSVG(){
   let pts = VALUE_SERIES.map(([d,c,i])=>({t:new Date(d+"T12:00:00").getTime(), d, c, i}));
   if (S.range==="12m"){
-    const start = new Date("2028-10-17T12:00:00").getTime();
-    const before = pts.filter(p=>p.t<=start).pop();
+    const start = new Date("2028-10-17T12:00:00").getTime(), before = pts.filter(p=>p.t<=start).pop();
     pts = [{t:start, d:"2028-10-17", c:before.c, i:before.i}, ...pts.filter(p=>p.t>start)];
   }
-  const appW = ($("#app")||{}).clientWidth || 1000, narrow = appW < 760;
-  const W = narrow ? 360 : 640, H = narrow ? 210 : 220, L = narrow ? 36 : 44, R = 12, T = 14, B = 26;
+  const appW = ($("#app")||{}).clientWidth || 1000;
+  const W = Math.max(300, Math.round(S.chartW || (appW < 760 ? appW-32 : 640))), narrow = W < 520;
+  const H = narrow ? 190 : 230, L = 46, R = 14, T = 26, B = 26, fs = 12;
   const t0=pts[0].t, t1=pts[pts.length-1].t, maxV=3500;
   const x=t=>L+(t-t0)/(t1-t0)*(W-L-R), y=v=>T+(1-v/maxV)*(H-T-B);
   const step = key => pts.map((p,k)=> k===0 ? `M${x(p.t).toFixed(1)} ${y(p[key]).toFixed(1)}` : `H${x(p.t).toFixed(1)} V${y(p[key]).toFixed(1)}`).join(" ");
-  const grid = [0,1000,2000,3000].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${v===0?"$0":"$"+v/1000+"K"}</text>`).join("");
-  const ticks = (S.range==="12m" ? ["2028-10-17","2029-02-10","2029-06-01","2029-10-17"] : ["2028-03-14","2028-09-01","2029-03-01","2029-10-17"]).map(d=>{const t=new Date(d+"T12:00:00").getTime();return `<text x="${x(t)}" y="${H-6}" text-anchor="${t===t0?"start":t===t1?"end":"middle"}" font-size="11" fill="var(--muted)">${d===TODAY?"Today":fdate(d,true)}</text>`}).join("");
-  const evDots = pts.slice(1,-1).filter((p,k,arr)=>true).map(p=>`<circle cx="${x(p.t)}" cy="${y(p.i)}" r="3.5" fill="var(--bg)" stroke="var(--signal)" stroke-width="2"><title>${fdate(p.d)}: ${usd(p.i)} indicated</title></circle>`).join("");
+  const grid = [0,1000,2000,3000].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="${fs}" fill="var(--muted)">${v===0?"$0":"$"+v/1000+"K"}</text>`).join("");
+  const ticks = (S.range==="12m" ? ["2028-10-17","2029-06-01","2029-10-17"] : ["2028-03-14","2028-11-01","2029-10-17"]).map(d=>{const t=new Date(d+"T12:00:00").getTime();return `<text x="${x(t)}" y="${H-6}" text-anchor="${t===t0?"start":t===t1?"end":"middle"}" font-size="${fs}" fill="var(--muted)">${d===TODAY?"Today":new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",year:"numeric"})}</text>`}).join("");
+  const at = d => pts.find(p=>p.d===d);
+  const red = ["2029-06-30","2029-08-14"].map(at).filter(Boolean).map(pt=>`<circle cx="${x(pt.t)}" cy="${y(pt.i)}" r="5" fill="var(--bg)" stroke="var(--loss)" stroke-width="2.5"/>`).join("");
+  const pay = at("2029-05-22");
+  const payMark = pay ? (()=>{ const cx=x(pay.t), cy=y(pay.i); return `<circle cx="${cx}" cy="${cy}" r="6" fill="var(--signal)"/><path d="M${cx-3} ${cy} l2.2 2.2 4-4.4" stroke="#06210A" stroke-width="1.8" fill="none" stroke-linecap="round"/><text x="${cx}" y="${T-10}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--signal)">$312 to your bank</text><line x1="${cx}" x2="${cx}" y1="${T-6}" y2="${cy-8}" stroke="var(--signal)" stroke-width="1" stroke-dasharray="2 3"/>`; })() : "";
   const last = pts[pts.length-1];
-  const area = step("i") + ` V${y(0)} H${x(t0)} Z`;
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Indicated value over time compared with amount invested">
-    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ACB55" stop-opacity=".22"/><stop offset="1" stop-color="#4ACB55" stop-opacity="0"/></linearGradient></defs>
-    ${grid}<path d="${area}" fill="url(#ga)"/>
+  const table = `<div class="sr"><table><caption>Estimated value and money in current holdings</caption><tr><th>Date</th><th>Estimated value</th><th>Money in</th></tr>${pts.map(p=>`<tr><td>${fdate(p.d)}</td><td>${usd(p.i)}</td><td>${usd(p.c)}</td></tr>`).join("")}</table></div>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="max-width:100%;height:auto" aria-hidden="true">
+    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ACB55" stop-opacity=".2"/><stop offset="1" stop-color="#4ACB55" stop-opacity="0"/></linearGradient></defs>
+    ${grid}<path d="${step("i")} V${y(0)} H${x(t0)} Z" fill="url(#ga)"/>
     <path d="${step("c")}" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="5 5"/>
-    <path d="${step("i")}" fill="none" stroke="var(--signal)" stroke-width="2.8" stroke-linejoin="round"/>
-    ${evDots}<circle cx="${x(last.t)}" cy="${y(last.i)}" r="5" fill="var(--signal)"/>${ticks}</svg>`;
+    <path d="${step("i")}" fill="none" stroke="var(--signal)" stroke-width="3" stroke-linejoin="round"/>
+    ${red}${payMark}<circle cx="${x(last.t)}" cy="${y(last.i)}" r="5" fill="var(--signal)"/>${ticks}</svg>${table}`;
 }
 
-/* ---------------- Holding detail ---------------- */
+/* ---------------- Holding ---------------- */
 function vHolding(){
-  const h = anyHolding(S.holdingId), active = HOLDINGS.includes(h);
-  const evs = EVENTS.filter(e=>e.co===h.id);
-  const docs = DOCS[h.id]||[];
-  const head = `<button class="back" data-go="portfolio">← Portfolio</button>
-    <div class="co-head">${tile(h)}<div><div class="eyebrow" style="color:var(--muted)">${active?esc(h.sector):"Past holding"}</div><h1 class="h1">${esc(h.name)}</h1></div></div>`;
+  const h = anyHolding(S.holdingId) || HOLDINGS[2], active = HOLDINGS.includes(h);
+  const evs = S.events.filter(e=>e.co===h.id), docs = DOCS[h.id]||[];
   let summary;
   if (active){
     const ch = pct(h.indicated,h.invested);
-    summary = `<div class="hero-v"><div class="lbl">Indicated value</div><div class="big num">${usd2(h.indicated)}</div>
-      <div class="delta ${ch>0?"up":ch<0?"down":"muted"} num">${ch===0?"At cost":arrow(ch)+" "+usd2(Math.abs(h.indicated-h.invested))+" ("+signPct(ch)+")"} vs. ${usd2(h.invested)} invested</div></div>
-      <div class="card"><div class="kv"><span>You own</span><span>${esc(h.units)}</span></div><div class="kv"><span>Est. share of company</span><span>${esc(h.own)}</span></div>
-      <div class="kv"><span>Originally bought</span><span>${esc(h.origSecurity)}</span></div><div class="kv"><span>Value based on</span><span>${esc(h.basis)}</span></div>
-      <div class="kv"><span>Can I sell?</span><span class="${h.liquidity.tone==="warn"?"":"muted"}" style="color:${h.liquidity.tone==="warn"?"var(--caution)":"var(--text-2)"}">${esc(h.liquidity.label)}</span></div></div>`;
+    summary = `<div class="hero-v"><p class="muted" style="font-weight:700">Estimated value</p><div class="big num">${usd(h.indicated)}</div>
+      <p class="delta ${ch>0?"up":ch<0?"down":"muted"} num">${ch===0?"Same as you paid":trend(ch, `${usd(Math.abs(h.indicated-h.invested))} (${Math.abs(ch).toFixed(0)}%)`)}</p></div>
+      <dl class="card"><div class="kv"><dt>You put in</dt><dd>${usd(h.invested)} on ${fdate(h.date)}</dd></div><div class="kv"><dt>You own</dt><dd>${esc(h.units)}<small class="plain">${esc(PLAIN[h.security])}</small></dd></div><div class="kv"><dt>Share of the company</dt><dd>about ${esc(h.ownPlain)}</dd></div>
+      <div class="kv"><dt>Value based on</dt><dd>${esc(h.basis)}</dd></div><div class="kv"><dt>Can I sell?</dt><dd style="color:${h.locked?"var(--caution)":"var(--text-2)"}">${esc(h.sell)}</dd></div></dl>
+      <button class="btn btn-ghost" data-notify="${h.id}" aria-pressed="${!!S.notify[h.id]}" style="align-self:flex-start">${S.notify[h.id]?`${icon("check","sm")}You'll hear about its next raise`:"Tell me about its next raise"}</button>`;
   } else {
-    summary = `<div class="hero-v"><div class="lbl">Outcome</div><div class="big num ${h.payout>h.invested?"up":h.payout===0?"down":""}">${h.payout?usd2(h.payout):"$0.00"}</div>
-      <div class="delta muted">on ${usd2(h.invested)} invested ${fdate(h.date)}</div></div><span class="pill ${h.tone}" style="align-self:flex-start">${esc(h.outcome)}</span>`;
+    summary = `<div class="hero-v"><p class="muted" style="font-weight:700">Result</p><div class="big num ${h.payout>h.invested?"up":h.payout===0?"down":""}">${usd(h.payout)}</div>
+      <p class="delta muted">back on ${usd(h.invested)} put in on ${fdate(h.date)}</p></div>`;
   }
-  return `<div class="view">${head}${summary}
-    <div class="stack"><span class="section-t">What's happened</span><div class="tl">${evs.map(evCard).join("")}</div></div>
-    <div class="stack"><span class="section-t">Documents</span><div class="docs-mini">${docs.map(d=>`<button class="doc-btn" data-doc="${esc(d[0])}"><span>${esc(d[0])}</span><span>${esc(d[1])}</span></button>`).join("")}</div></div>
+  return `<div class="view">
+    <button class="back" data-go="portfolio">${icon("back")}Portfolio</button>
+    <div class="co-head">${tile(h)}<h1 class="h1" tabindex="-1" id="view-h">${esc(h.name)}</h1></div>
+    ${summary}
+    <section aria-labelledby="hap-h"><h2 class="h2" id="hap-h">What's happened</h2><ol class="tl">${evs.map(e=>evItem(e,3)).join("")}</ol></section>
+    <section aria-labelledby="hdoc-h" class="stack"><h2 class="h2" id="hdoc-h">Documents</h2><ul class="docs-mini">${docs.map(d=>`<li><button class="doc-btn" data-doc="${esc(d[0])}" data-docdate="${esc(d[1])}"><span>${esc(d[0])}</span><span>${esc(d[1])}</span></button></li>`).join("")}</ul></section>
   </div>`;
 }
 
 /* ---------------- Timeline ---------------- */
-const TL_FILTERS = [["all","All"],["round","Funding rounds"],["dilution","Dilution"],["distribution","Payouts"],["closure","Closures"],["update","Issuer updates"],["liquidity","Resale"],["invest","Your investments"]];
-function evCard(e){
+const TL_FILTERS = [["all","All"],["value","Value changes"],["updates","Updates"],["mine","My investments"]];
+function evItem(e, lvl){
+  lvl = lvl || 3;
   const h = anyHolding(e.co) || co(e.co);
   const dot = e.tone==="ok"?"var(--signal)":e.tone==="bad"?"var(--loss)":e.tone==="warn"?"var(--caution)":"var(--muted)";
-  return `<article class="ev" id="${e.id}" style="--dot:${dot}">
-    <div class="ev-top"><span class="ev-date">${fdate(e.date)} · ${esc(h?h.name:"")}</span><span class="pill ${e.tone}">${esc(e.type)}</span></div>
-    <h3>${esc(e.title)}</h3><p>${esc(e.body)}</p>
-    <div class="means">${e.means}</div>
-    ${e.delta!=null?`<span class="ev-delta ${e.delta>0?"up":"down"}">${arrow(e.delta)} ${usd(Math.abs(e.delta))} ${e.tags.includes("distribution")?"gain":"change in indicated value"}</span>`:""}
-  </article>`;
+  const doc = EV_DOCS[e.id], term = GLOSSARY.find(g=>g[0]===defFor(e.type));
+  const pill = term ? `<button class="defpill" data-def="${esc(defFor(e.type))}" aria-label="${esc(e.type)}: what does this mean?"><span class="pill ${e.tone}">${esc(e.type)}${icon("help","sm")}</span></button>` : `<span class="pill ${e.tone}">${esc(e.type)}</span>`;
+  return `<li class="ev" id="${e.id}" style="--dot:${dot}">
+    <div class="ev-top"><span class="ev-date">${fdate(e.date)} · ${esc(h?h.name:"")}</span>${pill}</div>
+    <h${lvl} class="ev-t">${esc(e.title)}</h${lvl}><p class="means">${e.means}</p>
+    <details><summary>What happened${icon("down","sm")}</summary><p>${esc(e.body)}</p>${doc?`<button class="link" data-doc="${esc(doc)}" data-docdate="${fdate(e.date)}">${icon("docs","sm")}Open the ${esc(doc.toLowerCase())}</button>`:""}</details>
+  </li>`;
 }
 function vTimeline(){
-  const list = EVENTS.filter(e => S.tlFilter==="all" || e.tags.includes(S.tlFilter));
+  const list = S.events.filter(e => S.tlFilter==="all" || e.group===S.tlFilter);
   return `<div class="view">
-    <div class="head"><div class="eyebrow">Ownership Timeline</div><h1 class="h1">Everything that happened to what you own</h1>
-      <p class="sub">Funding rounds, dilution, payouts, closures and company updates, in order and in plain English, including the bad news.</p></div>
-    <div class="chips" role="group" aria-label="Filter events">${TL_FILTERS.map(([k,l])=>`<button class="chip" data-tl="${k}" aria-pressed="${S.tlFilter===k}">${l}</button>`).join("")}</div>
-    <div class="tl">${list.map(evCard).join("") || `<p class="muted">Nothing of this type yet.</p>`}</div>
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Timeline</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">Everything that happened to what you own, in plain English. Good news and bad.</p></div>
+    <div class="chips" role="group" aria-label="Show">${TL_FILTERS.map(([k,l])=>`<button class="chip" data-tl="${k}" aria-pressed="${S.tlFilter===k}">${l}</button>`).join("")}</div>
+    <ol class="tl">${list.map(e=>evItem(e,2)).join("") || `<li class="muted">Nothing here yet.</li>`}</ol>
   </div>`;
 }
 
 /* ---------------- Documents ---------------- */
 function vDocuments(){
-  const groups = [...HOLDINGS, ...PAST];
   return `<div class="view">
-    <div class="head"><div class="eyebrow">Documents</div><h1 class="h1">Every document, in one place</h1>
-      <p class="sub">Offering statements, agreements, annual reports and tax forms for each company you've invested in. We keep records for at least five years.</p></div>
-    ${groups.map(h=>`<div class="stack" style="gap:8px"><div class="rleft">${tile(h)}<span style="font-weight:800">${esc(h.name)}</span></div>
-      <div class="docs-mini">${(DOCS[h.id]||[]).map(d=>`<button class="doc-btn" data-doc="${esc(d[0])}"><span>${esc(d[0])}</span><span>${esc(d[1])}</span></button>`).join("")}</div></div>`).join("")}
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Documents</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">Every agreement, report and tax form, kept for at least five years.</p></div>
+    ${[...HOLDINGS, ...PAST].map(h=>`<section class="stack" style="gap:8px" aria-labelledby="d-${h.id}"><div class="rleft">${tile(h)}<h2 id="d-${h.id}" style="font-weight:800;font-size:16px">${esc(h.name)}</h2></div>
+      <ul class="docs-mini">${(DOCS[h.id]||[]).map(d=>`<li><button class="doc-btn" data-doc="${esc(d[0])}" data-docdate="${esc(d[1])}"><span>${esc(d[0])}</span><span>${esc(d[1])}</span></button></li>`).join("")}</ul></section>`).join("")}
   </div>`;
 }
 
 /* ---------------- Profile ---------------- */
 function vProfile(){
   const L = limit(), cum = cumulativeInvested(), track = Math.round(cum*0.005*100)/100;
+  const sect = (id, title, inner) => `<section class="sect" id="${id}" aria-labelledby="${id}-h"><h2 class="h2" id="${id}-h">${title}</h2>${inner}</section>`;
   return `<div class="view">
-    <div class="head"><div class="eyebrow">Profile</div><h1 class="h1">${USER.first} ${USER.last}</h1><p class="sub">Verified investor · ${USER.city} · member since Mar 2028</p></div>
-    <div class="card stack" id="pr-limit"><span class="section-t">Your investing limit</span>
-      <div class="limit-big num">${usd(L)} <span style="font-size:14px;color:var(--muted);font-weight:700">per 12 months</span></div>
-      <div class="calc">${limitMath(S.ob.income,S.ob.nw)}</div>
-      <div class="track"><i style="width:${Math.min(100,used()/L*100)}%;background:var(--signal)"></i></div>
-      <span style="font-size:12.5px;color:var(--muted)">${usd(used())} used · ${usd(remaining())} left · update your income or net worth any time</span></div>
-    <div class="card" id="pr-fees"><span class="section-t">Fees, in plain view</span>
-      <div class="kv"><span>Each investment</span><span>2% + $2 (shown in dollars first)</span></div>
-      <div class="kv"><span>Tracking & administration</span><span>0.5% a year of what you've invested</span></div>
-      <div class="kv"><span>Your tracking fee this year</span><span>${usd2(track)} on ${usd(cum)}</span></div>
-      <div class="kv"><span>Success fee on gains</span><span>Not charged. Only added if securities counsel confirms it's compliant</span></div>
-      <div class="kv"><span>Paid by companies</span><span>6% of money raised</span></div></div>
-    <div class="card" id="pr-security"><span class="section-t">Security</span>
-      <div class="kv"><span>Two-step sign-in</span><span class="up">On · authenticator app</span></div>
-      <div class="kv"><span>Signed-in devices</span><span>iPhone 17 · MacBook Air</span></div>
-      <div class="kv"><span>Your data</span><span>Encrypted. Never sold.</span></div></div>
-    <div class="card stack" id="pr-criteria"><span class="section-t">Published eligibility criteria</span>
-      <p style="font-size:13.5px;color:var(--text-2)">Every company must meet all of these before it can raise on OpenVenture. Securities counsel reviews the criteria, and we apply them the same way to every company.</p>
-      <ul class="checks">${CRITERIA.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-      <p style="font-size:12.5px;color:var(--muted)">Meeting the criteria is not an endorsement or recommendation and doesn't predict returns.</p></div>
-    <div class="card"><span class="section-t">About OpenVenture</span>
-      <div class="kv"><span>Funding portal</span><span>OpenVenture Portal, LLC · SEC and FINRA registration pending</span></div>
-      <div class="kv"><span>Escrow & identity checks</span><span>North Capital</span></div>
-      <div class="kv"><span>Support</span><span>support@openventureinvestments.com · reply within 4 business hours</span></div>
-      <div class="kv"><span>Complaints</span><span>Chief Compliance Officer · compliance@openventureinvestments.com</span></div></div>
-    <button class="btn btn-ghost" data-replay style="align-self:flex-start">Replay onboarding</button>
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">${USER.first} ${USER.last}</h1><p class="sub">${S.browse?"Looking around · setup not finished":"Verified investor"} · ${USER.city}</p></div>
+    ${sect("pr-limit","Your yearly limit", `<div class="limit-big num">${usd(L)}</div><p class="calc">${limitMath(S.ob.income,S.ob.nw)}</p>
+      <div class="track" aria-hidden="true"><i style="width:${Math.min(100,used()/L*100)}%;background:var(--signal)"></i></div><p class="sub">${usd(used())} used · ${usd(remaining())} left</p>`)}
+    ${sect("pr-fees","Fees", `<dl><div class="kv"><dt>Each investment</dt><dd>2% + $2</dd></div><div class="kv"><dt>Yearly tracking fee</dt><dd>0.5% of what you've put in</dd></div>
+      <div class="kv"><dt>Your tracking fee this year</dt><dd>${usd2(track)}</dd></div><div class="kv"><dt>Paid by companies</dt><dd>6% of money raised</dd></div></dl><p class="sub">The tracking fee is charged on everything you've put in through OpenVenture, as our fee schedule sets out.</p>`)}
+    ${sect("pr-words","Words to know", `<dl class="words">${GLOSSARY.map(([w,dfn])=>`<div><dt>${esc(w)}</dt><dd>${esc(dfn)}</dd></div>`).join("")}</dl>`)}
+    ${sect("pr-criteria","Our published criteria", `<p class="calc">Every company must meet all of these, the same way. Securities lawyers will review them before launch.</p>
+      <ul class="checks">${CRITERIA.map(x=>`<li>${icon("check","sm")}${esc(x)}</li>`).join("")}</ul><p class="sub">Meeting them isn't an endorsement.</p>`)}
+    ${sect("pr-security","Security", `<dl><div class="kv"><dt>Two-step sign-in</dt><dd class="up">On</dd></div><div class="kv"><dt>Your data</dt><dd>Encrypted, never sold</dd></div></dl>`)}
+    ${sect("pr-help","Help and complaints", `<dl><div class="kv"><dt>Support</dt><dd>support@openventureinvestments.com</dd></div><div class="kv"><dt>Our goal</dt><dd>A reply within 4 business hours</dd></div>
+      <div class="kv"><dt>Complaints</dt><dd>Chief Compliance Officer</dd></div><div class="kv"><dt>Funding portal</dt><dd>OpenVenture Portal, LLC · planned SEC funding portal</dd></div></dl>`)}
+    <button class="btn btn-ghost" data-replay style="align-self:flex-start">Replay the welcome</button>
   </div>`;
 }
 
-function toastHTML(){ return S.toast ? `<div class="toast" role="status">${esc(S.toast)}</div>` : ""; }
+function demoStrip(){ return `<p class="demo-strip">${S.native?"Demo · fictional · not an offer":"Demo · fictional companies · not an offer of securities"}${S.native && !S.guide.on ? ` <button class="tour" data-tour>Take the tour</button>` : ""}</p>`; }
+function docSummary(n){
+  const R = [[/Form C/,"The company's official SEC filing: the business, its risks, its finances and the terms."],[/agreement/i,"What you bought, at what price, and your rights as an investor."],[/annual report/i,"The company's yearly results, which Reg CF requires it to file."],[/update/i,"The company's latest progress and how much cash it has."],[/conversion|Series A/,"How your SAFE turned into shares, and at what price."],[/payout|Acquisition/,"What you were paid when the company was sold."],[/1099/,"Your tax form for the payout."],[/dissolution/,"Notice that the company closed, and what was left for shareholders."],[/Financial/,"The company's CPA-reviewed financial statements."]];
+  const hit = R.find(([re])=>re.test(n)); return hit ? hit[1] : "A document about your investment.";
+}
+function infoSheetHTML(){
+  const f = S.info; let title, body;
+  if (f.type==="doc"){ title=f.name; body=`<p class="muted">${esc(f.date||"")} · PDF</p><p>${esc(docSummary(f.name))}</p><button class="btn btn-ghost btn-block" disabled>Download PDF (in the live app)</button>`; }
+  else if (f.type==="def"){ const g = GLOSSARY.find(x=>x[0]===f.term) || [f.term,""]; title=g[0]; body=`<p class="lead">${esc(g[1])}</p><button class="link" data-words>All words to know</button>`; }
+  else if (f.type==="criteria"){ title="Our published criteria"; body=`<p class="calc">Every company must meet all of these, the same way.</p><ul class="checks">${CRITERIA.map(x=>`<li>${icon("check","sm")}${esc(x)}</li>`).join("")}</ul><p class="sub">Meeting them isn't an endorsement.</p>`; }
+  else { title="Words to know"; body=`<dl class="words">${GLOSSARY.map(([w,dfn])=>`<div><dt>${esc(w)}</dt><dd>${esc(dfn)}</dd></div>`).join("")}</dl>`; }
+  return `<div class="scrim"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="info-h"><div class="sheet-head"><span style="width:8px"></span><div class="stepinfo"></div><button class="iconbtn" data-close-info aria-label="Close">${icon("x")}</button></div><div class="sheet-body"><h2 class="sheet-title" tabindex="-1" id="info-h">${esc(title)}</h2>${body}</div></div></div>`;
+}
+function toastHTML(){ return S.toast ? `<div class="toast" role="status"><span>${esc(S.toast.msg)}</span>${S.toast.action?`<button class="toast-act" data-toast-act>${esc(S.toast.action.label)}</button><button class="iconbtn" data-toast-x aria-label="Dismiss">${icon("x","sm")}</button>`:""}</div>` : ""; }
 let toastTimer;
-function toast(msg){ S.toast = msg; S._keepScroll = true; render(); clearTimeout(toastTimer); toastTimer = setTimeout(()=>{ S.toast=null; S._keepScroll=true; render(); }, 2600); }
+function toast(msg, action){ S.toast = {msg, action}; render({keepScroll:true}); clearTimeout(toastTimer); if (!action) toastTimer = setTimeout(()=>{ S.toast=null; render({keepScroll:true}); }, 4500); }
 
 /* =========================================================
    NAVIGATION + EVENTS
    ========================================================= */
 function go(view, opts){
   opts = opts || {};
-  S.view = view; S.modal = opts.keepModal ? S.modal : null;
+  S.view = view; S.modal = null; S.info = null; S.toast = null; clearTimeout(toastTimer);
   if (opts.companyId) S.companyId = opts.companyId;
   if (opts.holdingId) S.holdingId = opts.holdingId;
-  render();
-  const sc = $("#app .scroll"); if (sc) sc.scrollTop = 0;
-  const ob = $("#app .ob"); if (ob) ob.scrollTop = 0;
+  render({ focus: view==="onboard" ? "#ob-h" : "#view-h" });
+  const sc = $("#app .scroll, #app .ob"); if (sc) sc.scrollTop = 0;
   if (opts.anchor){ const el = document.getElementById(opts.anchor); if (el) el.scrollIntoView({block:"start"}); }
 }
+function openInvest(id, amount){
+  S.toast = null; clearTimeout(toastTimer);
+  const d = S.drafts[id];
+  S.modal = d ? Object.assign({}, d, {step:1, busy:false}) : { companyId:id, step:1, amount: amount||25, custom:false, acks:[false,false,false,false], busy:false };
+  if (amount) { S.modal.amount = amount; S.modal.custom = false; }
+  render({keepScroll:true, focus:"#sheet-h"});
+}
+function closeModal(){ if (S.modal && S.modal.step<4) S.drafts[S.modal.companyId] = S.modal; S.modal=null; render({keepScroll:true}); }
 function resetOnboard(){ S.ob.step=0; S.ob.savings=null; S.ob.verify="idle"; }
-function openInvest(id, amount){ S.modal = { companyId:id, step:1, amount: amount||100, custom:false, acks:[false,false,false,false], busy:false }; S._keepScroll = true; render(); }
+function obStep(n){ S.ob.step = n; render({focus:"#ob-h"}); const ob=$("#app .ob"); if(ob) ob.scrollTop=0; }
 
 document.addEventListener("click", e => {
-  const t = e.target.closest("button, [data-scrim], .ack"); if (!t) return;
-  if (t.matches("[data-scrim]") && e.target === t){ S.modal=null; S._keepScroll=true; render(); return; }
+  const t = e.target.closest("button"); if (!t) return;
   const d = t.dataset;
-  if (d.device){ S.device = d.device; renderFrame(); render(); return; }
+  if (d.toastAct != null){ const a = S.toast && S.toast.action; S.toast=null; clearTimeout(toastTimer); if (a) a.fn(); render({keepScroll:true}); return; }
+  if (d.toastX != null){ S.toast=null; render({keepScroll:true}); return; }
+  if (d.tour != null){ startGuide(); return; }
+  if (d.browse != null){ S.browse = true; go("marketplace"); toast("You're looking around. Finish setup when you're ready to invest."); return; }
+  if (d.finishSetup != null){ S.returnTo = S.companyId; S.ob.step = 3; S.ob.verify = "idle"; go("onboard"); return; }
+  if (d.criteria != null){ S.info = {type:"criteria"}; render({keepScroll:true, focus:"#info-h"}); return; }
+  if (d.words != null){ S.info = {type:"words"}; render({keepScroll:true, focus:"#info-h"}); return; }
+  if (d.def){ S.info = {type:"def", term:d.def}; render({keepScroll:true, focus:"#info-h"}); return; }
+  if (d.closeInfo != null){ S.info = null; render({keepScroll:true}); return; }
+  if (d.waitlist != null){ toast("Thanks. In the live app, you'd be on the list."); return; }
+  if (d.sort){ S.sort = d.sort; render({keepScroll:true}); return; }
+  if (d.verifyFail != null){ S.ob.verify="fail"; render({keepScroll:true, focus:"#f-dob"}); return; }
+  if (d.verifyUpload != null){ S.ob.verify="photo"; S.ob.photo=false; render({keepScroll:true, focus:"[data-photo-take]"}); return; }
+  if (d.photoTake != null){ S.ob.photo=true; render({keepScroll:true, focus:"[data-photo-use]"}); return; }
+  if (d.photoUse != null){ S.ob.verify="busy"; render({keepScroll:true}); setTimeout(()=>{ S.ob.verify="done"; render({keepScroll:true, focus:"[data-ob-next]"}); }, 1300); return; }
+  if (d.notify){ S.notify[d.notify] = !S.notify[d.notify]; render({keepScroll:true}); return; }
+  if (d.device){ S.device = d.device; try{ localStorage.setItem("ov-device", d.device); }catch(_){} renderFrame(); render(); return; }
   if (t.id === "guide-start"){ startGuide(); return; }
+  if (d.gNext != null){ S.guideFocus = true; guideStep(S.guide.i+1); return; }
+  if (d.gTo != null){ S.guideFocus = true; guideStep(+d.gTo); return; }
+  if (d.gBack != null){ S.guideFocus = true; guideStep(S.guide.i-1); return; }
+  if (d.gExit != null){ endGuide(); return; }
+  if (d.gMin != null){ S.guide.min = !S.guide.min; renderGuide(); return; }
   if (d.go){ go(d.go, {anchor:d.anchor}); return; }
   if (d.company){ go("company", {companyId:d.company}); return; }
   if (d.holding){ go("holding", {holdingId:d.holding}); return; }
-  if (d.mk){ S.mkFilter = d.mk; S._keepScroll=true; render(); return; }
-  if (d.tl){ S.tlFilter = d.tl; S._keepScroll=true; render(); return; }
-  if (d.range){ S.range = d.range; S._keepScroll=true; render(); return; }
-  if (d.doc){ toast(`Demo document: "${d.doc}". In the live app this opens the PDF.`); return; }
+  if (d.tl){ S.tlFilter = d.tl; render({keepScroll:true}); return; }
+  if (d.range){ S.range = d.range; render({keepScroll:true}); return; }
+  if (d.doc){ S.info = {type:"doc", name:d.doc, date:d.docdate}; render({keepScroll:true, focus:"#info-h"}); return; }
   if (d.invest){ openInvest(d.invest); return; }
-  if (d.close != null){ S.modal=null; S._keepScroll=true; render(); return; }
-  if (d.amt){ S.modal.amount = +d.amt; S.modal.custom=false; S._keepScroll=true; render(); return; }
-  if (d.step){ S.modal.step = +d.step; S._keepScroll=true; render(); return; }
+  if (d.close != null){ closeModal(); return; }
+  if (d.amt){ S.modal.amount = +d.amt; S.modal.custom=false; render({keepScroll:true}); return; }
+  if (d.step){ S.modal.step = +d.step; render({keepScroll:true, focus:"#sheet-h"}); return; }
   if (d.confirm != null){ confirmInvest(); return; }
-  if (d.closeGo){ const v=d.closeGo; S.modal=null; go(v); return; }
-  if (d.obNext != null){ S.ob.step++; render(); return; }
-  if (d.savings){ S.ob.savings = d.savings; render(); return; }
-  if (d.verify != null){ S.ob.verify="busy"; render(); setTimeout(()=>{ S.ob.verify="done"; render(); }, 1300); return; }
-  if (d.obFinish != null){ go("portfolio"); toast("You're verified. Your limit is "+usd(limit())+" for the next 12 months."); return; }
+  if (d.closeGo){ const v=d.closeGo; delete S.drafts[S.modal.companyId]; S.modal=null; go(v); return; }
+  if (d.cancel != null){ const ix = +d.cancel, pd = S.pending.splice(ix,1)[0], evObj = S.events.find(ev=>ev.id===pd.evId); S.events = S.events.filter(ev=>ev.id!==pd.evId);
+    toast(`Canceled. ${usd2(pd.amount+fee(pd.amount))} is on its way back.`, {label:"Undo", fn(){ S.pending.splice(ix,0,pd); if (evObj) S.events.unshift(evObj); }}); return; }
+  if (d.obNext != null){ obStep(S.ob.step+1); return; }
+  if (d.obBack != null){ obStep(Math.max(0,S.ob.step-1)); return; }
+  if (d.verify != null){ S.ob.verify="busy"; render({keepScroll:true}); setTimeout(()=>{ S.ob.verify="done"; render({keepScroll:true, focus:"[data-ob-next]"}); }, 1300); return; }
+  if (d.obFinish != null){ S.browse = false; if (S.returnTo){ const rid = S.returnTo; S.returnTo = null; go("company",{companyId:rid}); openInvest(rid); return; } go("marketplace"); toast("You're verified. The rest of the demo shows Jordan two years in."); return; }
   if (d.replay != null){ resetOnboard(); go("onboard"); return; }
-  if (d.gNext != null){ guideStep(S.guide.i+1); return; }
-  if (d.gBack != null){ guideStep(S.guide.i-1); return; }
-  if (d.gExit != null){ endGuide(); return; }
-  if (d.gMin != null){ S.guide.min = !S.guide.min; renderGuide(); return; }
 });
 document.addEventListener("change", e => {
   const t = e.target;
-  if (t.matches("[data-ack]")){ S.modal.acks[+t.dataset.ack] = t.checked; S._keepScroll=true; render(); }
+  if (t.name === "sav"){ S.ob.savings = t.value; render({keepScroll:true}); return; }
+  if (t.matches("[data-ack]")){ S.modal.acks[+t.dataset.ack] = t.checked; render({keepScroll:true}); }
   if (t.id === "jump"){ const v = t.value; t.value=""; if(!v) return; if (S.guide.on) endGuide();
     if (v==="invest"){ go("company",{companyId:"fieldnote"}); openInvest("fieldnote"); }
     else if (v==="onboard"){ resetOnboard(); go("onboard"); }
+    else if (v==="holding"){ go("holding",{holdingId:"tidewater"}); }
+    else if (v==="invest-done"){ go("company",{companyId:"fieldnote"}); openInvest("fieldnote",25); S.modal.step=4; render({keepScroll:true, focus:"#sheet-h"}); }
     else if (v.startsWith("company:")) go("company",{companyId:v.split(":")[1]});
     else go(v); }
 });
+document.addEventListener("focusin", e => {
+  const t = e.target, sc = t.closest && t.closest(".scroll"); if (!sc) return;
+  const bar = sc.querySelector(".investbar"); if (!bar || getComputedStyle(bar).display==="none") return;
+  const tb = t.getBoundingClientRect(), bb = bar.getBoundingClientRect();
+  if (tb.bottom > bb.top - 8 && !bar.contains(t)) sc.scrollTop += tb.bottom - bb.top + 16;
+});
+document.addEventListener("focusout", e => { const t = e.target; if (t.dataset && t.dataset.obNum) t.value = (S.ob[t.dataset.obNum]||0).toLocaleString(); });
 document.addEventListener("input", e => {
   const t = e.target;
   if (t.id === "amt-in"){
     const n = parseInt(t.value.replace(/[^0-9]/g,""),10) || 0;
-    S.modal.amount = n; S.modal.custom = true;
+    S.modal.amount = n; S.modal.custom = true; S.modal.raw = t.value;
     document.querySelectorAll(".amt").forEach(b=>b.setAttribute("aria-pressed","false"));
     $("#amt-live").innerHTML = amountLive(); $("#amt-next").disabled = !amountOk();
   }
   if (t.dataset.obNum){
-    const n = parseInt(t.value.replace(/[^0-9]/g,""),10) || 0;
-    S.ob[t.dataset.obNum] = n;
-    $("#ob-limit-val").textContent = usd(limit()); $("#ob-calc").innerHTML = limitMath(S.ob.income,S.ob.nw);
+    S.ob[t.dataset.obNum] = parseInt(t.value.replace(/[^0-9]/g,""),10) || 0;
+    $("#ob-limit-val").innerHTML = usd(limit())+`<span class="muted" style="font-size:16px;font-weight:700"> a year</span>`; $("#ob-calc").textContent = limitMath(S.ob.income,S.ob.nw);
   }
 });
-document.addEventListener("keydown", e => { if (e.key==="Escape" && S.modal){ S.modal=null; S._keepScroll=true; render(); } });
+document.addEventListener("keydown", e => {
+  if (S.modal || S.info){
+    if (e.key==="Escape"){ if (S.info){ S.info=null; render({keepScroll:true}); } else closeModal(); return; }
+    if (e.key==="Tab"){
+      const sheets = document.querySelectorAll(".sheet"), sheet = sheets[sheets.length-1]; if (!sheet) return;
+      const f = [...sheet.querySelectorAll('button:not([disabled]),input:not([disabled]),summary'), ...(S.guide.on && guideEl ? guideEl.querySelectorAll("button") : [])];
+      if (!f.length) return;
+      const first=f[0], last=f[f.length-1];
+      if (!f.includes(document.activeElement)){ e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  }
+});
 
 function confirmInvest(){
-  const m = S.modal; m.busy = true; S._keepScroll=true; render();
+  const m = S.modal; m.busy = true; render({keepScroll:true});
   setTimeout(()=>{
     if (!S.modal) return;
-    S.pending.push({companyId:m.companyId, amount:m.amount});
-    const c = co(m.companyId);
-    EVENTS.unshift({ id:"ev-new-"+Date.now(), date:TODAY, tags:["invest"], co:m.companyId, type:"In escrow", tone:"warn",
-      title:`You committed ${usd2(m.amount)} to ${c.name}`, body:`Fee: ${usd2(fee(m.amount))}. Funds are held by North Capital until the raise closes on ${fdate(c.closes)}.`,
-      means:"<b>You can cancel up to 48 hours before the close.</b> If the raise misses its target, your money comes back." });
-    m.busy = false; m.step = 4; S._keepScroll=true; render();
+    const c = co(m.companyId), evId = "ev-new-"+Date.now();
+    S.pending.push({companyId:m.companyId, amount:m.amount, evId});
+    S.events.unshift({ id:evId, date:TODAY, group:"mine", co:m.companyId, type:"In escrow", tone:"warn",
+      title:`You put ${usd2(m.amount)} into ${c.name}`, means:`<b>Waiting in escrow.</b> You can cancel until ${fdate(addDays(c.closes,-2))}.`,
+      body:`Fee: ${usd2(fee(m.amount))}. North Capital holds the money until the raise closes on ${fdate(c.closes)}. If it misses its goal, the money comes back.` });
+    delete S.drafts[m.companyId]; S.lastAmount = m.amount;
+    m.busy = false; m.step = 4; render({keepScroll:true, focus:"#sheet-h"});
   }, 1400);
 }
 
@@ -1031,62 +1217,78 @@ function confirmInvest(){
    GUIDED DEMO
    ========================================================= */
 const GUIDE = [
-  { title:"Risk comes first", body:"A new investor sees the risks in plain English before any company. Most investing apps do the opposite. Our plan puts risk first on purpose.",
+  { title:"Open to everyone", body:"Only about 18.5% of U.S. households can join accredited-only deals. Here, every raise is open to you, from $25.",
+    run(){ resetOnboard(); go("onboard"); }, spot:"#ob-hero" },
+  { title:"Risks, right up front", body:"Before any company, you see what can go wrong, in plain words.",
     run(){ resetOnboard(); go("onboard"); }, spot:"#ob-risk" },
-  { title:"Every investor knows their limit", body:"Reg CF caps how much non-accredited investors can put in over 12 months. Jordan earns $48,000, so the limit is $2,500, and the app shows the math.",
+  { title:"A yearly limit, explained", body:"Anyone can invest, and the law caps how much each year. Jordan earns $48,000, so the cap is $2,500, and you can see why.",
     run(){ S.ob.step=4; S.ob.savings="yes"; S.ob.verify="done"; go("onboard"); }, spot:"#ob-limit" },
-  { title:"A marketplace with published criteria", body:"Every company meets the same written, objective criteria. There are no countdowns and no \"vetted\" claims, just plain close dates and how much has been raised.",
-    run(){ S.mkFilter="All"; go("marketplace"); }, spot:".mk-grid" },
-  { title:"Standardized profiles, risks first", body:"Every company profile uses the same format: risks first, then the business, terms, documents and the criteria it meets. Investors can compare companies side by side.",
+  { title:"Every raise is open", body:"Each company is open to every investor, with a $25 minimum. No countdowns, no hype.",
+    run(){ go("marketplace"); }, spot:"#mk-head" },
+  { title:"What it is, then the risks", body:"Each page says what the company does, then the risks. Details open when you want them.",
     run(){ go("company",{companyId:"fieldnote"}); }, spot:"#risk-first" },
-  { title:"Fees in dollars, before you commit", body:"A $100 investment costs $4.00 (2% + $2), shown before anything is confirmed. The limit meter shows what Jordan has left for the year.",
-    run(){ go("company",{companyId:"fieldnote"}); openInvest("fieldnote",100); }, spot:"#receipt" },
-  { title:"Money goes to escrow, never to us", body:"Funds go to North Capital's escrow account and are released only if the raise reaches its target. Investors can cancel up to 48 hours before the close.",
-    run(){ go("company",{companyId:"fieldnote"}); openInvest("fieldnote",100); S.modal.acks=[true,true,true,true]; S.modal.step=3; S._keepScroll=true; render(); }, spot:"#escrow-box" },
-  { title:"The Portfolio Dashboard", body:"After investing, everything lives in one place. Values move only when something real happens, like a priced round, so the chart steps instead of wiggling like a stock.",
+  { title:"$25 in. Fee shown first.", body:"At $25 the fee is $2.50. You see every dollar before you confirm.",
+    run(){ go("company",{companyId:"fieldnote"}); delete S.drafts.fieldnote; openInvest("fieldnote",25); }, spot:"#receipt" },
+  { title:"Your money waits in escrow", body:"It goes to North Capital, never to us, and comes back if the raise misses its goal.",
+    run(){ go("company",{companyId:"fieldnote"}); delete S.drafts.fieldnote; openInvest("fieldnote",25); S.modal.acks=[true,true,true,true]; S.modal.step=3; render({keepScroll:true}); }, spot:"#escrow-box" },
+  { title:"Know what you own", body:"Two years in, Jordan's holdings are worth an estimated $2,620. Value changes only when something real happens.",
     run(){ S.range="all"; go("portfolio"); }, spot:"#pf-hero" },
-  { title:"The Ownership Timeline", body:"Competitors go quiet after the investment. When Lumen raised its Series A, Jordan's SAFE converted, and the app explains the dilution in plain English.",
+  { title:"Every event, in dollars", body:"When Lumen raised money, Jordan's SAFE became shares and everyone's slice shrank 20%. You see what it means for you.",
     run(){ S.tlFilter="all"; go("timeline"); }, spot:"#ev-lumen-a" },
-  { title:"Honest outcomes, good and bad", body:"Down rounds, closures and payouts all appear. Tidewater dropped 32%, Pinecone closed, and Brightpath paid out $312. A platform that shows losses earns trust.",
+  { title:"Good news and bad", body:"A down round, a shutdown and a $312 payout all show up. We show losses too.",
     run(){ S.tlFilter="all"; go("timeline"); }, spot:"#ev-tide-down" },
-  { title:"Built for trust", body:"A published fee schedule, two-step sign-in, published criteria and a named compliance contact. Jordan's tracking fee this year is $13.25.",
-    run(){ go("profile"); }, spot:"#pr-fees" },
-  { title:"The business behind it", final:true, body:"Fees are disclosed up front, and the plan reaches profitability in Year 3.",
-    run(){ go("portfolio"); }, spot:null }
+  { title:"Open access. Real opportunity.", final:true, body:"What usually takes $1,000 and accreditation, open to everyone from $25, and you always know what you own.",
+    run(){ go("marketplace"); }, spot:null }
 ];
 let guideEl = null;
 function startGuide(){ S.guide.on = true; S.guide.min = false; guideStep(0); }
-function endGuide(){ S.guide.on = false; if (guideEl){ guideEl.remove(); guideEl=null; } document.querySelectorAll(".spot").forEach(el=>el.classList.remove("spot")); $("#guide-start").textContent="Start guided demo"; }
+function endGuide(){ S.guide.on = false; document.body.classList.remove("guiding"); document.body.style.removeProperty("--gh"); setTimeout(()=>render({keepScroll:true}),0); if (guideEl){ guideEl.remove(); guideEl=null; } document.querySelectorAll(".spot").forEach(el=>el.classList.remove("spot")); $("#guide-start").textContent="Start guided demo"; }
 function guideStep(i){
   if (i<0) i=0; if (i>=GUIDE.length){ endGuide(); return; }
-  S.guide.i = i; S.modal = null;
-  GUIDE[i].run();
-  renderGuide();
+  S.guide.i = i; S.modal = null; S._spotDone = null;
+  GUIDE[i].run(); renderGuide();
   $("#guide-start").textContent = "Restart guided demo";
 }
 function applySpot(){
   if (!S.guide.on) return;
   const g = GUIDE[S.guide.i]; if (!g || !g.spot) return;
   const el = $("#app") && $("#app").querySelector(g.spot);
-  if (el){ el.classList.add("spot"); if (!S._spotDone || S._spotDone!==S.guide.i){ S._spotDone=S.guide.i; setTimeout(()=>el.scrollIntoView({block:"center",behavior:"smooth"}), 60); } }
+  if (!el) return;
+  el.classList.add("spot");
+  if (S._spotDone !== S.guide.i){
+    S._spotDone = S.guide.i;
+    setTimeout(()=>{
+      const sc = el.closest(".scroll, .ob, .sheet-body"); if (!sc) return;
+      const er = el.getBoundingClientRect(), sr = sc.getBoundingClientRect();
+      if (er.top >= sr.top && er.bottom <= sr.bottom) return;
+      const top = el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop;
+      sc.scrollTo({top: Math.max(0, top - sc.clientHeight*0.15), behavior:"smooth"});
+    }, 60);
+  }
 }
 function renderGuide(){
-  if (!guideEl){ guideEl = document.createElement("aside"); guideEl.className="guide"; guideEl.setAttribute("aria-live","polite"); document.body.appendChild(guideEl); }
-  const g = GUIDE[S.guide.i], n = GUIDE.length;
-  guideEl.classList.toggle("min", S.guide.min);
-  if (S.guide.min){ guideEl.innerHTML = `<div class="gtop" style="gap:12px"><span class="gstep">Step ${S.guide.i+1} of ${n}</span><button class="pbtn" data-g-min>Show</button><button class="pbtn primary" data-g-next>${S.guide.i===n-1?"Finish":"Next"}</button></div>`; return; }
-  const nums = g.final ? `<div class="nums">
-      <div><b>2% + $2</b><span>per investment</span></div><div><b>6%</b><span>issuer fee (vs. 7.7–8.1% industry)</span></div>
-      <div><b>$166.5K → $1.15M</b><span>revenue, Year 2 → Year 5</span></div><div><b>5,000</b><span>active investors by Year 5</span></div>
-      <div><b>12.8×</b><span>5-year LTV / CAC (5.9× blended)</span></div><div><b>$600K</b><span>$100K founders + $500K seed</span></div></div>
-      <p class="gfine">Planning estimates from the OpenVenture financial plan, not promises. Assumes portal approval (targeted Oct 2027).</p>` : "";
-  guideEl.innerHTML = `<div class="gtop"><span class="gstep">Guided demo · ${S.guide.i+1} of ${n}</span><div style="display:flex;gap:6px"><button class="pbtn" data-g-min aria-label="Minimize">–</button><button class="pbtn" data-g-exit aria-label="End demo">✕</button></div></div>
-    <div class="gbar">${GUIDE.map((_,k)=>`<i class="${k<=S.guide.i?"on":""}"></i>`).join("")}</div>
-    <h2>${esc(g.title)}</h2><p>${esc(g.body)}</p>${nums}
-    <div class="gbtns">${S.guide.i>0?`<button class="pbtn" data-g-back>Back</button>`:""}<button class="pbtn primary" data-g-next>${S.guide.i===n-1?"Finish":"Next"}</button></div>`;
+  if (!guideEl){ guideEl = document.createElement("aside"); guideEl.className="guide"; guideEl.setAttribute("aria-label","Guided demo"); document.body.appendChild(guideEl); }
+  const g = GUIDE[S.guide.i], n = GUIDE.length, last = S.guide.i===n-1, mini = S.guide.min && !S.native;
+  guideEl.classList.toggle("min", mini);
+  if (mini){
+    guideEl.innerHTML = `<span class="mintitle" aria-live="polite"><span class="gstep">${S.guide.i+1}/${n}</span> ${esc(g.title)}</span>
+      <button class="iconbtn" data-g-min aria-label="Show details">${icon("up","sm")}</button>
+      <button class="pbtn primary" data-g-next>${last?"Finish":"Next"}</button>`;
+  } else {
+    const big = g.final ? `<div class="vs"><div><span>Accredited-only deals</span><b>$1,000+</b><span>open to about 18.5% of households</span></div><div class="us"><span>OpenVenture</span><b>$25</b><span>open to everyone</span></div></div>
+      <button class="btn btn-ghost btn-block" data-waitlist>Join the early-access waitlist</button>` : "";
+    guideEl.innerHTML = `<div class="gtop"><span class="gstep">Guided demo · ${S.guide.i+1} of ${n}</span><div style="display:flex;gap:2px">${S.native?"":`<button class="iconbtn" data-g-min aria-label="Minimize">${icon("down","sm")}</button>`}<button class="iconbtn" data-g-exit aria-label="End demo">${icon("x","sm")}</button></div></div>
+      <div class="gbar" role="group" aria-label="Go to step">${GUIDE.map((g2,k)=>`<button class="${k<=S.guide.i?"on":""}" data-g-to="${k}" aria-label="Step ${k+1}: ${esc(g2.title)}" ${k===S.guide.i?'aria-current="step"':""}></button>`).join("")}</div>
+      <div aria-live="polite"><h2>${esc(g.title)}</h2><p class="gbody">${esc(g.body)}</p></div>${big}
+      <div class="gbtns">${S.guide.i>0?`<button class="pbtn" data-g-back>Back</button>`:""}<button class="pbtn primary" data-g-next>${last?"Finish":"Next"}</button></div>`;
+  }
+  document.body.classList.add("guiding");
+  document.body.style.setProperty("--gh", guideEl.offsetHeight + "px");
+  const nx = guideEl.querySelector("[data-g-next]"); if (nx && S.guideFocus) nx.focus({preventScroll:true});
 }
 document.addEventListener("keydown", e => {
-  if (!S.guide.on || e.target.matches("input,select,textarea")) return;
+  if (!S.guide.on || S.info || (e.target.matches && e.target.matches("input,select,textarea"))) return;
+  S.guideFocus = true;
   if (e.key==="ArrowRight") guideStep(S.guide.i+1);
   if (e.key==="ArrowLeft") guideStep(S.guide.i-1);
 });
@@ -1100,9 +1302,13 @@ mq.addEventListener ? mq.addEventListener("change", setNative) : mq.addListener(
 try { const saved = localStorage.getItem("ov-device"); if (saved==="phone"||saved==="laptop") S.device = saved; } catch(_){}
 const qp = new URLSearchParams(location.search);
 if (qp.get("device")==="phone" || qp.get("device")==="laptop") S.device = qp.get("device");
-if (qp.get("view")) S.view = qp.get("view");
-document.querySelectorAll("[data-device]").forEach(b=>b.addEventListener("click",()=>{ try{ localStorage.setItem("ov-device", b.dataset.device); }catch(_){} }));
+const VIEWS = ["onboard","marketplace","company","portfolio","holding","timeline","documents","profile"];
+let openInv = false;
+if (qp.get("view")){ const v = qp.get("view"); if (v==="invest"){ S.view="company"; openInv=true; } else S.view = VIEWS.includes(v) ? v : "marketplace"; }
+if (S.view==="holding" && !S.holdingId) S.holdingId = "tidewater";
 setNative();
+if (openInv) openInvest("fieldnote");
+const tourN = parseInt(qp.get("tour"),10); if (tourN>=1 && tourN<=GUIDE.length){ S.guide.on = true; guideStep(tourN-1); }
 })();
 </script>
 </body>
