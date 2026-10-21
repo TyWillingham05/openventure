@@ -26,12 +26,12 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--stage);color:var(--text);font-family:var(--ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;caret-color:var(--signal)}
+body{margin:0;background:var(--stage);color:var(--text);font-family:var(--ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;caret-color:var(--signal)}
 ::selection{background:var(--signal);color:var(--signal-ink)}
 *{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:8px}::-webkit-scrollbar-track{background:transparent}
 button,input,select,summary{font-family:inherit;color:inherit}
-button{cursor:pointer}
+button{cursor:pointer;font-size:inherit}
 :focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:8px}
 [tabindex="-1"]:focus{outline:none}
 p{margin:0}
@@ -41,6 +41,7 @@ a{color:var(--signal);text-underline-offset:3px}
 .num{font-variant-numeric:tabular-nums}
 .sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 [hidden]{display:none!important}
+small{font-size:12px}
 svg.i{width:20px;height:20px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 svg.i.sm{width:14px;height:14px}
 svg.i.fill{fill:currentColor;stroke:none}
@@ -53,11 +54,11 @@ svg.i.fill{fill:currentColor;stroke:none}
 .pbar .who svg{width:24px;height:24px;flex-shrink:0}
 .pbar .who small{color:var(--muted);font-weight:600;font-size:12px}
 .seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
-.seg button{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:13px;min-height:34px;padding:6px 14px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.seg button{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:14px;min-height:34px;padding:6px 14px;border-radius:999px;display:flex;align-items:center;gap:6px}
 .seg button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
-.pbtn{border:1px solid var(--line-2);background:transparent;color:var(--text);font-weight:700;font-size:13px;min-height:36px;padding:7px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.pbtn{border:1px solid var(--line-2);background:transparent;color:var(--text);font-weight:700;font-size:14px;min-height:36px;padding:7px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
 .pbtn.primary{background:var(--signal);border-color:var(--signal);color:var(--signal-ink)}
-.jump{background:var(--surface);border:1px solid var(--line);border-radius:999px;min-height:36px;padding:6px 12px;font-weight:600;font-size:13px}
+.jump{background:var(--surface);border:1px solid var(--line);border-radius:999px;min-height:36px;padding:6px 12px;font-weight:600;font-size:14px}
 
 /* ---------------- Device frames ---------------- */
 .floor{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:18px 16px;position:relative}
@@ -68,7 +69,7 @@ svg.i.fill{fill:currentColor;stroke:none}
 .phone{height:min(880px,100%);aspect-ratio:9/19.3;max-width:100%;border-radius:52px;padding:11px;background:#1a1c1a;box-shadow:0 0 0 2px #2c302c,0 24px 70px rgba(0,0,0,.6);position:relative;display:flex}
 .phone .screen{flex:1;border-radius:42px;overflow:hidden;position:relative;display:flex;flex-direction:column;background:var(--bg)}
 .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:34%;height:28px;border-radius:20px;background:#000;z-index:60}
-.sbar{height:46px;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 26px 6px;font-size:13px;font-weight:700}
+.sbar{height:46px;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 26px 6px;font-size:14px;font-weight:700}
 .sbar .icons{display:flex;gap:5px;align-items:center}
 .homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:36%;height:5px;border-radius:3px;background:#F2F5F2;opacity:.8;z-index:60}
 .native .floor{padding:0;align-items:stretch}
@@ -83,10 +84,10 @@ svg.i.fill{fill:currentColor;stroke:none}
 .main{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}
 .demo-strip{flex-shrink:0;font-size:12px;font-weight:600;color:var(--caution);background:var(--caution-wash);padding:5px 16px;text-align:center}
 .topbar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:8px 16px}
-.wm{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:19px;letter-spacing:-.01em}
+.wm{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:20px;letter-spacing:-.01em}
 .wm svg{width:26px;height:26px}
 .wm b{font-weight:400;color:var(--signal)}
-.avatar{width:var(--tap);height:var(--tap);border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--text-2)}
+.avatar{width:var(--tap);height:var(--tap);border-radius:50%;background:var(--surface-2);border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--text-2)}
 .scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;position:relative}
 .view{padding:8px 16px 32px;display:flex;flex-direction:column;gap:20px;max-width:1080px;width:100%;margin:0 auto}
 .tabs{flex-shrink:0;display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:6px 4px 20px;background:var(--bg)}
@@ -103,7 +104,7 @@ svg.i.fill{fill:currentColor;stroke:none}
   .nav:hover{background:var(--surface);color:var(--text)}
   .nav[aria-current="page"]{background:var(--surface);color:var(--text)}
   .nav[aria-current="page"] svg{color:var(--signal)}
-  .side-user{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 8px 4px;border-top:1px solid var(--line);font-size:13px;font-weight:700}
+  .side-user{margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 8px 4px;border-top:1px solid var(--line);font-size:14px;font-weight:700}
   .side-user .avatar{width:34px;height:34px}
   .side-user small{display:block;color:var(--muted);font-weight:600;font-size:12px}
   .topbar,.tabs{display:none}
@@ -111,14 +112,14 @@ svg.i.fill{fill:currentColor;stroke:none}
 }
 
 /* ---------------- Shared ---------------- */
-.h1{font-family:var(--display);font-size:30px;line-height:1.15;letter-spacing:-.01em}
-@container app (min-width: 760px){.h1{font-size:38px}}
-.lead{font-size:17px;color:var(--text-2);max-width:60ch}
+.h1{font-family:var(--ui);font-weight:800;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+@container app (min-width: 760px){.h1{font-size:32px}}
+.lead{font-size:16px;color:var(--text-2);max-width:60ch}
 .sub{color:var(--muted);font-size:14px;max-width:62ch}
 .head{display:flex;flex-direction:column;gap:8px}
-.h2{font-size:15px;font-weight:800;letter-spacing:.05em;font-variant-caps:all-small-caps;color:var(--muted)}
+.h2{font-size:16px;font-weight:800;letter-spacing:.05em;font-variant-caps:all-small-caps;color:var(--muted)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.btn{border:1px solid transparent;border-radius:999px;font-weight:800;font-size:15px;min-height:48px;padding:12px 20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,background .15s}
+.btn{border:1px solid transparent;border-radius:999px;font-weight:800;font-size:16px;min-height:48px;padding:12px 20px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s,background .15s}
 .btn:active{transform:scale(.98)}
 .btn-primary{background:var(--signal);color:var(--signal-ink)}
 .btn-primary:hover{background:#5ad865}
@@ -129,7 +130,7 @@ svg.i.fill{fill:currentColor;stroke:none}
 .link{border:0;background:transparent;color:var(--signal);font-weight:700;font-size:14px;padding:10px 0;min-height:var(--tap);text-align:left;display:inline-flex;align-items:center;gap:4px}
 .back{border:0;background:transparent;color:var(--text-2);font-weight:700;font-size:14px;min-height:var(--tap);padding:0 8px 0 0;display:inline-flex;gap:4px;align-items:center;align-self:flex-start}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:1px solid var(--line);background:var(--surface);color:var(--text-2);font-weight:700;font-size:13px;min-height:var(--tap);padding:8px 16px;border-radius:999px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--text-2);font-weight:700;font-size:14px;min-height:var(--tap);padding:8px 16px;border-radius:999px}
 .chip[aria-pressed="true"]{background:var(--signal-wash);border-color:rgba(74,203,85,.5);color:var(--signal)}
 .pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;white-space:nowrap}
 .pill.ok{background:var(--signal-wash);color:var(--signal)}
@@ -152,15 +153,15 @@ svg.i.fill{fill:currentColor;stroke:none}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 4px;min-height:64px;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;width:100%}
 .list > :last-child .row,.row:last-child{border-bottom:0}
 button.row:hover{background:rgba(255,255,255,.02)}
-.row .n{font-weight:800;font-size:15px}
-.row .s{font-size:13px;color:var(--muted);margin-top:1px}
+.row .n{font-weight:800;font-size:16px}
+.row .s{font-size:14px;color:var(--muted);margin-top:1px}
 .row .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
-.row .v small{display:flex;align-items:center;justify-content:flex-end;gap:2px;font-size:13px;font-weight:700}
+.row .v small{display:flex;align-items:center;justify-content:flex-end;gap:2px;font-size:14px;font-weight:700}
 .logo-tile{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;color:#0B0D0B}
 .rleft{display:flex;align-items:center;gap:12px;min-width:0}
 details.more{border-top:1px solid var(--line)}
 details.more:last-of-type{border-bottom:1px solid var(--line)}
-details.more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px;font-weight:800;font-size:15px}
+details.more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px;font-weight:800;font-size:16px}
 details.more summary::-webkit-details-marker{display:none}
 details.more summary svg{transition:transform .2s}
 details.more[open] summary svg{transform:rotate(180deg)}
@@ -183,7 +184,7 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .ob-count{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
 .ob-hero{display:flex;flex-direction:column;gap:14px;padding-top:4px}
 .ob-hero .mark{width:52px;height:52px}
-.hero-h{font-family:var(--display);font-size:34px;line-height:1.1;letter-spacing:-.015em}
+.hero-h{font-family:var(--ui);font-weight:800;font-size:32px;line-height:1.1;letter-spacing:-.025em}
 .hero-h em{font-style:normal;color:var(--signal)}
 .promise{display:flex;gap:10px;flex-wrap:wrap}
 .promise span{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px}
@@ -196,10 +197,10 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .learn b{display:block;font-size:16px;margin-bottom:2px}
 .learn p{font-size:14px;color:var(--text-2)}
 .choice{display:grid;gap:10px}
-.choice button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:15px}
+.choice button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:16px}
 .choice button[aria-pressed="true"]{border-color:var(--signal);background:var(--signal-wash)}
 .field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:13px;font-weight:700;color:var(--muted)}
+.field label{font-size:14px;font-weight:700;color:var(--muted)}
 .input{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;min-height:48px;font-size:16px;font-weight:700;width:100%}
 .input:focus{outline:2px solid var(--signal);outline-offset:0;border-color:var(--signal)}
 .money{position:relative}
@@ -210,7 +211,7 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .spin{width:22px;height:22px;border-radius:50%;border:3px solid var(--line-2);border-top-color:var(--signal);animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 .calc{font-size:14px;color:var(--text-2)}
-.limit-big{font-size:40px;font-weight:800;letter-spacing:-.02em}
+.limit-big{font-size:44px;font-weight:800;letter-spacing:-.02em}
 
 /* ---------------- Marketplace ---------------- */
 .mk-grid{display:grid;grid-template-columns:1fr;gap:12px;list-style:none}
@@ -218,27 +219,27 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 
 .offer{height:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:14px;text-align:left;transition:border-color .15s,transform .15s}
 .offer:hover{border-color:var(--line-2);transform:translateY(-2px)}
-.offer h2{font-size:18px;font-weight:800}
+.offer h2{font-size:20px;font-weight:800}
 .offer .tagl{font-size:14px;color:var(--text-2)}
 .from{display:flex;align-items:baseline;gap:8px}
 .from b{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--signal)}
-.from span{font-size:13px;color:var(--muted);font-weight:700}
+.from span{font-size:14px;color:var(--muted);font-weight:700}
 .prog{display:flex;flex-direction:column;gap:6px}
-.prog .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.offer-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);margin-top:auto}
+.prog .meta{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.offer-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);margin-top:auto}
 
 /* ---------------- Company ---------------- */
 .co-head{display:flex;gap:14px;align-items:center}
-.co-head .logo-tile{width:52px;height:52px;border-radius:14px;font-size:19px}
-.co-head .s{font-size:13px;color:var(--muted);font-weight:700}
+.co-head .logo-tile{width:52px;height:52px;border-radius:14px;font-size:20px}
+.co-head .s{font-size:14px;color:var(--muted);font-weight:700}
 .co-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
 @container app (min-width: 900px){.co-grid{grid-template-columns:minmax(0,1fr) 320px;align-items:start}.terms{position:sticky;top:0}.investbar{display:none!important}}
 .facts{display:flex;gap:24px;flex-wrap:wrap}
 .facts div b{display:block;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
-.facts div span{font-size:13px;color:var(--muted)}
+.facts div span{font-size:14px;color:var(--muted)}
 .terms .fine{font-size:12px;color:var(--muted);line-height:1.5}
 .investbar{position:sticky;bottom:0;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:rgba(11,13,11,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
-.investbar .from b{font-size:22px}
+.investbar .from b{font-size:20px}
 .co-grid .terms{display:none}
 @container app (min-width: 900px){.co-grid .terms{display:flex}}
 .doc-btn{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;min-height:var(--tap);font-size:14px;font-weight:700;text-align:left;width:100%}
@@ -265,7 +266,7 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .receipt{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:6px 14px}
 .receipt .kv{padding:9px 0}
 .receipt .tot span{color:var(--text)!important;font-size:16px}
-.hint{font-size:13px;color:var(--muted)}
+.hint{font-size:14px;color:var(--muted)}
 .hint.err{color:var(--loss);font-weight:700}
 .ack{display:flex;gap:12px;align-items:flex-start;padding:12px 0;min-height:var(--tap);border-bottom:1px solid var(--line);font-size:14px;color:var(--text-2);cursor:pointer}
 .ack:last-child{border-bottom:0}
@@ -281,21 +282,21 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 @container app (min-width: 900px){.pf-top{grid-template-columns:minmax(0,1fr) 300px;align-items:start}}
 .hero-v .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:6px}
 @container app (min-width: 760px){.hero-v .big{font-size:56px}}
-.hero-v .delta{display:flex;align-items:center;gap:4px;font-weight:800;font-size:15px;margin-top:6px}
-.hero-v .est{font-size:13px;color:var(--muted);margin-top:4px}
+.hero-v .delta{display:flex;align-items:center;gap:4px;font-weight:800;font-size:16px;margin-top:6px}
+.hero-v .est{font-size:14px;color:var(--muted);margin-top:4px}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
-.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.legend{display:flex;gap:16px;font-size:14px;color:var(--muted);flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:6px}
 .legend i{width:16px;height:0;border-top:2.5px solid var(--signal);display:block}
 .legend i.d{border-top:2px dashed var(--muted)}
 .sums{display:flex;flex-direction:column}
-.sums .kv{font-size:15px}
+.sums .kv{font-size:16px}
 .meter{display:flex;flex-direction:column;gap:8px;padding-top:12px}
 .meter .top{display:flex;justify-content:space-between;font-size:14px;font-weight:700}
 .meter .top span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
 .escrow-item{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--caution-wash);border:1px solid rgba(242,184,75,.35);border-radius:var(--r);padding:12px 14px}
 .escrow-item .acts{display:flex;align-items:center;gap:8px}
-.cancel{border:1px solid rgba(242,184,75,.5);background:transparent;color:var(--caution);font-weight:800;font-size:13px;min-height:var(--tap);padding:0 14px;border-radius:999px}
+.cancel{border:1px solid rgba(242,184,75,.5);background:transparent;color:var(--caution);font-weight:800;font-size:14px;min-height:var(--tap);padding:0 14px;border-radius:999px}
 .lock{display:inline-flex;margin-top:4px}
 
 /* ---------------- Timeline ---------------- */
@@ -305,9 +306,9 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .ev:last-child{border-bottom:0}
 .ev::before{content:"";position:absolute;left:-23px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--dot,var(--muted))}
 .ev-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-.ev-date{font-size:13px;color:var(--muted);font-weight:700}
+.ev-date{font-size:14px;color:var(--muted);font-weight:700}
 .ev .ev-t{font-size:16px;font-weight:800}
-.ev .means{font-size:15px;color:var(--text-2)}
+.ev .means{font-size:16px;color:var(--text-2)}
 .ev .means b{color:var(--text)}
 .ev details summary{list-style:none;cursor:pointer;color:var(--signal);font-weight:700;font-size:14px;min-height:var(--tap);display:inline-flex;align-items:center;gap:4px}
 .ev details summary::-webkit-details-marker{display:none}
@@ -321,20 +322,21 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .guide{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:min(380px,calc(100% - 36px));background:#101210;border:1px solid var(--line-2);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.6);z-index:100;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .guide .gtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .guide .gstep{font-size:12px;font-weight:800;color:var(--signal)}
-.guide h2{font-family:var(--display);font-size:22px;line-height:1.2}
+.guide h2{font-family:var(--ui);font-weight:800;font-size:20px;line-height:1.25;letter-spacing:-.01em}
 .guide p{font-size:14px;color:var(--text-2);line-height:1.55}
 .guide .gbar{display:flex;gap:4px}.guide .gbar i{flex:1;height:3px;border-radius:2px;background:var(--line-2);display:block}.guide .gbar i.on{background:var(--signal)}
 .guide .gbtns{display:flex;gap:8px;justify-content:flex-end}
 .guide .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .guide .nums div{background:var(--surface);border-radius:10px;padding:10px}
-.guide .nums b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.guide .nums b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
 .guide .nums span{font-size:12px;color:var(--muted)}
 .guide .gfine{font-size:12px;color:var(--muted)}
 .guide.min{padding:8px 8px 8px 14px;flex-direction:row;align-items:center}
 .guide.min .mintitle{flex:1;min-width:0;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .native .guide{left:10px;right:10px;width:auto;bottom:max(10px,env(safe-area-inset-bottom,0px));padding:12px 14px;gap:6px}
-.native .guide h2{font-size:18px}
-.native .guide .gbody{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.native .guide h2{font-size:20px}
+.native .guide .gbody{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px}
+.native .guide .gbar{display:none}
 .guide .bigstat{display:flex;flex-direction:column;gap:4px;margin-top:6px}.guide .bigstat b{font-size:44px;font-weight:800;color:var(--signal);letter-spacing:-.02em;line-height:1}.guide .bigstat span{font-size:14px;color:var(--text-2)}
 body.guiding #guide-start{display:none}
 .native.guiding .pbar{display:none}
@@ -349,7 +351,7 @@ body.guiding:not(.native) .floor{padding-right:420px}
 .offer-link::after{content:"";position:absolute;inset:0;border-radius:var(--r)}
 .offer-link:focus-visible{outline:none}.offer-link:focus-visible::after{outline:2px solid var(--signal);outline-offset:2px}
 .offer .fact{font-size:14px;color:var(--text-2)}.offer .fact b{color:var(--text);font-size:16px}
-.offer .sec{font-size:13px;color:var(--muted)}
+.offer .sec{font-size:14px;color:var(--muted)}
 small.plain{display:block;font-size:12px;font-weight:600;color:var(--muted)}
 details.inl summary{list-style:none;cursor:pointer;font-weight:700;color:var(--text);min-height:var(--tap);display:inline-flex;align-items:center;gap:4px}
 details.inl summary::-webkit-details-marker{display:none}
@@ -359,25 +361,56 @@ details.inl[open] summary svg{transform:rotate(180deg)}
 .words{display:flex;flex-direction:column;gap:12px}.words dt{font-weight:800}.words dd{margin:0;color:var(--text-2);font-size:14px}
 .toast{display:flex;align-items:center;gap:12px}
 .choice{border:0;margin:0;padding:0}
-.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:15px;cursor:pointer}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:16px;cursor:pointer}
 .opt:has(input:checked){border-color:var(--signal);background:var(--signal-wash)}
 .opt input{width:20px;height:20px;margin:0;flex-shrink:0}
-.founder{font-size:13px;color:var(--text-2);font-weight:600}
+.founder{font-size:14px;color:var(--text-2);font-weight:600}
 .terms-top{display:flex;justify-content:space-between;align-items:center;margin:-10px -10px -6px 0}
 .defpill{border:0;background:transparent;padding:0;min-height:var(--tap);display:inline-flex;align-items:center;cursor:pointer}
 .defpill .pill svg{width:13px;height:13px}
 .legend .mk{width:11px;height:11px;border-radius:50%;border:2.5px solid;display:block}.legend .mk.ok{border-color:var(--signal)}.legend .mk.bad{border-color:var(--loss)}
-.guide .vs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.guide .vs div{background:var(--surface);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px}.guide .vs b{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.guide .vs span{font-size:12px;color:var(--muted)}.guide .vs .us{background:var(--signal-wash)}.guide .vs .us b{color:var(--signal)}
+.guide .vs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.guide .vs div{background:var(--surface);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px}.guide .vs b{font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.guide .vs span{font-size:12px;color:var(--muted)}.guide .vs .us{background:var(--signal-wash)}.guide .vs .us b{color:var(--signal)}
 .native .guide .pbtn{min-height:44px;min-width:64px;justify-content:center}
 .demo-strip .tour{border:0;background:transparent;color:var(--text);font-weight:800;font-size:12px;text-decoration:underline;text-underline-offset:3px;min-height:var(--tap);padding:0 6px}
 .native .demo-strip{display:flex;align-items:center;justify-content:center;gap:2px;padding:0 12px}
-.demo-note{font-size:13px;color:var(--caution);font-weight:600}
+.demo-note{font-size:14px;color:var(--caution);font-weight:600}
 .terms-m{display:flex;flex-direction:column;gap:4px}
 @container app (min-width: 900px){.terms-m{display:none}}
-.wordsbtn{border:1px solid var(--line-2);background:transparent;border-radius:999px;min-height:var(--tap);padding:0 14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;color:var(--text)}
+.main > .demo-strip{display:none}
+@container app (min-width: 760px){.main > .demo-strip{display:block}}
+.demopill{border:1px solid rgba(242,184,75,.45);background:var(--caution-wash);color:var(--caution);font-weight:800;font-size:12px;min-height:32px;padding:0 12px;border-radius:999px;position:relative}
+.demopill::after{content:"";position:absolute;inset:-6px}
+.wordsbtn{border:1px solid var(--line-2);background:transparent;border-radius:999px;min-height:var(--tap);padding:0 14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--text)}
 .app.no-tabs .tabs{display:none}
+.view.pf{max-width:760px;gap:14px}
+.pf-hero{display:flex;flex-direction:column;gap:2px;padding-top:6px}
+.pf-h{font-size:14px;font-weight:700;color:var(--muted);outline:none}
+.pf .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:4px}
+@container app (min-width: 760px){.pf .big{font-size:56px}}
+.pf .delta{display:flex;align-items:center;gap:4px;font-weight:700;font-size:16px;min-height:24px}
+.pf .est{display:flex;align-items:center;gap:2px;font-size:14px;color:var(--muted)}
+.infobtn{border:0;background:transparent;color:var(--muted);width:var(--tap);height:var(--tap);display:inline-flex;align-items:center;justify-content:center;margin:-12px -10px}
+.pf .chart{margin:0 -16px;cursor:crosshair;outline:none;border-radius:0}
+.pf .chart:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
+@container app (min-width: 760px){.pf .chart{margin:0}}
+.ranges{display:flex;gap:4px}
+.rng{border:0;background:transparent;color:var(--muted);font-weight:800;font-size:14px;min-width:var(--tap);min-height:var(--tap);padding:0 14px;border-radius:999px}
+.rng[aria-pressed="true"]{background:var(--signal-wash);color:var(--signal)}
+.rows{list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:64px;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left}
+.hl{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hn{font-size:16px;font-weight:700}
+.hs{font-size:14px;color:var(--muted)}
+.hr{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-weight:700;font-size:16px;white-space:nowrap}
+.hrow .hr svg{display:inline}
+.hrow:not(.esc) .hr{flex-direction:column}
+.hrow.esc .hr,.hrow.inline .hr{flex-direction:row;align-items:center;gap:6px}
+.hc{display:flex;align-items:center;gap:2px;font-size:14px}
+.cau{color:var(--caution)}
+.pf .h2{margin-top:10px}
+.pf details.more summary{font-size:16px}
 .offer .openmark{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--signal)}
-.avatar.big{width:72px;height:72px;font-size:22px}
+.avatar.big{width:72px;height:72px;font-size:20px}
 .offer-foot{flex-wrap:wrap}
 .scroll{scroll-padding-bottom:96px}
 .kv.net dt{color:var(--text);font-weight:800}.kv.net dd{font-size:16px}
@@ -393,7 +426,7 @@ details.inl[open] summary svg{transform:rotate(180deg)}
 .guide .gbar button.on::before{background:var(--signal)}
 body.guiding:not(.native) .guide:not(.min){top:76px;bottom:auto;width:380px;gap:14px;justify-content:flex-start;padding:22px}
 body.guiding:not(.native) .pf-top{grid-template-columns:minmax(0,1fr)}
-body.guiding:not(.native) .guide:not(.min) h2{font-size:28px}
+body.guiding:not(.native) .guide:not(.min) h2{font-size:20px}
 body.guiding:not(.native) .guide:not(.min) .gbody{font-size:16px}
 body.guiding:not(.native) .guide:not(.min) .gbtns{margin-top:4px}
 .toast-act{border:0;background:transparent;color:var(--signal);font-weight:800;min-height:var(--tap);padding:0 6px}
@@ -460,7 +493,7 @@ const CRITERIA = [
 const COMPANIES = [
   { id:"fieldnote", name:"Fieldnote AI", initials:"FN", color:"#7FD1A0", sector:"Construction tech",
     tagline:"Voice-first daily logs and safety reports for construction crews.", hq:"Tampa, FL", founder:"Founded by a former site superintendent",
-    facts:[["$1.1M","yearly revenue pace"],["86","paying contractors"],["+140%","growth, last 12 months"]],
+    facts:[["$1.1M","revenue pace"],["86","contractors"],["+140%","yearly growth"]],
     security:"SAFE", securityPlainLong:"A SAFE turns into shares when the company raises a priced round.", terms:"$15M valuation cap · 20% discount",
     target:1500000, raised:1128000, closes:"2029-11-21", min:25, status:"open",
     about:"Superintendents speak their daily log into a phone at the end of a shift. Fieldnote turns it into the reports contractors, insurers and owners require: safety incidents, weather delays and headcount.",
@@ -469,7 +502,7 @@ const COMPANIES = [
     risks:["Most revenue comes from 10 contractors.","Larger construction-software companies could copy the feature.","Construction slows when interest rates rise."] },
   { id:"northbeam", name:"Northbeam Storage", initials:"NB", color:"#8FB8FF", sector:"Climate & energy",
     tagline:"Battery leasing that cuts peak-hour power bills for small manufacturers.", hq:"Austin, TX", founder:"Founded by a battery-storage engineer",
-    facts:[["$640K","yearly revenue pace"],["19","sites installed"],["11 yrs","average lease"]],
+    facts:[["$640K","revenue pace"],["19","sites installed"],["11 yrs","avg. lease"]],
     security:"SAFE", securityPlainLong:"A SAFE turns into shares when the company raises a priced round.", terms:"$12M valuation cap",
     target:1200000, raised:684000, closes:"2029-12-12", min:25, status:"open",
     about:"Northbeam installs batteries that charge overnight and discharge during expensive peak hours. Customers pay a monthly lease lower than their power-bill savings.",
@@ -478,7 +511,7 @@ const COMPANIES = [
     risks:["Higher interest rates raise equipment-financing costs.","Utility rate changes could shrink savings.","Batteries can fail or underperform."] },
   { id:"copperline", name:"Copperline Dental", initials:"CD", color:"#F2B84B", sector:"Healthcare software",
     tagline:"Scheduling and insurance checks for independent dental offices.", hq:"Orlando, FL", founder:"Founded by a dental practice manager",
-    facts:[["$870K","yearly revenue pace"],["212","dental offices"],["96%","keep using it each year"]],
+    facts:[["$870K","revenue pace"],["212","dental offices"],["96%","stay each year"]],
     security:"Preferred stock", securityPlainLong:"Preferred stock gets paid before common stock if the company is sold.", terms:"$0.84 per share · $9.5M value before this raise",
     target:1000000, raised:412000, closes:"2030-01-30", min:25, status:"open",
     about:"Copperline checks each patient's insurance before the visit and fills cancelled slots from a waitlist, built for single-location offices.",
@@ -487,7 +520,7 @@ const COMPANIES = [
     risks:["Health-data rules add compliance cost.","Selling to small offices is slow.","Insurance-network changes can break integrations."] },
   { id:"loam", name:"Loam Foods", initials:"LF", color:"#E39B7B", sector:"Consumer",
     tagline:"Regenerative-farm pantry staples sold in 400 grocery stores.", hq:"Asheville, NC", founder:"Founded by a third-generation farmer",
-    facts:[["$2.3M","sales, last 12 months"],["400","grocery stores"],["31%","gross margin"]],
+    facts:[["$2.3M","yearly sales"],["400","grocery stores"],["31%","gross margin"]],
     security:"Common stock", securityPlainLong:"Common stock is paid after preferred stock if the company is sold.", terms:"$1.10 per share · $14M value before this raise",
     target:800000, raised:260000, closes:"2030-02-14", min:25, status:"open",
     about:"Loam buys grains and beans from farms using regenerative practices and sells them under its own brand.",
@@ -496,7 +529,7 @@ const COMPANIES = [
     risks:["Thin margins leave little room for cost spikes.","Stores can drop products with little notice.","Common stock is paid last if the company is sold."] },
   { id:"saltmarsh", name:"Saltmarsh Robotics", initials:"SR", color:"#B9A6F2", sector:"Robotics",
     tagline:"Hull-cleaning robots for marinas and shipyards.", hq:"Charleston, SC", founder:"Founded by two robotics engineers",
-    facts:[["$420K","yearly revenue pace"],["7","marinas"],["2","pilot shipyards"]],
+    facts:[["$420K","revenue pace"],["7","marinas"],["2","pilot shipyards"]],
     security:"SAFE", securityPlainLong:"A SAFE turns into shares when the company raises a priced round.", terms:"$10M valuation cap",
     target:900000, raised:900000, closes:"2029-09-30", min:25, status:"closed",
     about:"Saltmarsh's robots clean boat hulls underwater, cutting fuel use and replacing dangerous diver work.",
@@ -686,7 +719,7 @@ function render(opts){
         </nav>
         <div class="main">
           ${demoStrip()}
-          <div class="topbar"><div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div><div style="display:flex;gap:4px;align-items:center"><button class="iconbtn" data-words aria-label="Words to know">${icon("help")}</button><button class="avatar" data-go="profile" aria-label="Profile">JE</button></div></div>
+          <div class="topbar"><div class="wm"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg><span>Open<b>Venture</b></span></div><div style="display:flex;gap:6px;align-items:center"><button class="demopill" data-demo>Demo</button><button class="avatar" data-go="profile" aria-label="Profile">JE</button></div></div>
           <main class="scroll" id="scroll">${renderView()}</main>
           <nav class="tabs" aria-label="Main">${NAV.map(([v,l,i])=>`<button class="tab" data-go="${v}" ${k===v?'aria-current="page"':""}>${icon(i)}${l}</button>`).join("")}</nav>
         </div>
@@ -705,10 +738,30 @@ function render(opts){
 }
 let chartRO;
 function watchChart(){
-  const ch = $("#chart"); if (!ch || !window.ResizeObserver) return;
-  if (chartRO) chartRO.disconnect();
-  chartRO = new ResizeObserver(()=>{ const w = Math.round(ch.clientWidth); if (w && Math.abs(w-(S.chartW||0))>4){ S.chartW = w; ch.innerHTML = chartSVG(); } });
-  chartRO.observe(ch);
+  const ch = $("#chart"); if (!ch) return;
+  if (window.ResizeObserver){
+    if (chartRO) chartRO.disconnect();
+    chartRO = new ResizeObserver(()=>{ const w = Math.round(ch.clientWidth); if (w && Math.abs(w-(S.chartW||0))>4){ S.chartW = w; ch.innerHTML = chartSVG(); } });
+    chartRO.observe(ch);
+  }
+  if (!$("#pf-big")) return;
+  let idx = null;
+  const show = i => {
+    const P = S._chart.pts; if (i==null){ idx=null; $("#pf-big").textContent = S._hero.big; const dl=$("#pf-delta"); dl.innerHTML = S._hero.delta; dl.className = "delta num "+(S._hero.up?"up":"down"); const ln=ch.querySelector("#scrub"), dt=ch.querySelector("#scrubdot"); if(ln){ln.setAttribute("opacity","0"); dt.setAttribute("opacity","0");} return; }
+    idx = Math.max(0, Math.min(P.length-1, i)); const p = P[idx];
+    $("#pf-big").textContent = usd(p.i);
+    const ev = S.events.find(e=>e.date===p.d);
+    const dl = $("#pf-delta"); dl.className = "delta num muted"; dl.textContent = fdate(p.d) + (ev ? " · " + ev.title : "");
+    const ln = ch.querySelector("#scrub"), dt = ch.querySelector("#scrubdot");
+    if (ln){ ln.setAttribute("x1",p.xv); ln.setAttribute("x2",p.xv); ln.setAttribute("opacity","1"); dt.setAttribute("cx",p.xv); dt.setAttribute("cy",p.yv); dt.setAttribute("opacity","1"); }
+  };
+  const fromX = cx => { const sv = ch.querySelector("svg"); const r = sv.getBoundingClientRect(); const vx = (cx - r.left) / r.width * S._chart.W; const P = S._chart.pts; let k = 0; P.forEach((p,j)=>{ if (p.xv <= vx) k = j; }); return k; };
+  ch.addEventListener("pointermove", e => show(fromX(e.clientX)));
+  ch.addEventListener("pointerdown", e => show(fromX(e.clientX)));
+  ch.addEventListener("pointerleave", () => show(null));
+  ch.addEventListener("pointerup", e => { if (e.pointerType !== "mouse") show(null); });
+  ch.addEventListener("keydown", e => { if (e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); e.stopPropagation(); const n = S._chart.pts.length; show(idx==null ? n-1 : idx + (e.key==="ArrowRight"?1:-1)); } if (e.key==="Escape") show(null); });
+  ch.addEventListener("blur", () => show(null));
 }
 function renderView(){
   return ({ marketplace:vMarketplace, company:vCompany, portfolio:vPortfolio, holding:vHolding, timeline:vTimeline, documents:vDocuments, profile:vProfile }[S.view] || (()=>""))();
@@ -729,7 +782,7 @@ function vOnboard(){
   if (st === 0){
     body = `<div class="ob-hero" id="ob-hero"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#mark"/></svg>
       <h1 class="hero-h" tabindex="-1" id="ob-h">Real private companies. <em>Open to you.</em></h1>
-      <p class="proof"><b>Only about 18.5%</b> of U.S. households can join <button class="link inline" data-def="Accredited investor">accredited</button>-only deals. Every raise here is open to you, from $25. <span class="src">(SEC, 2023)</span></p></div>
+      <p class="proof">Most private deals are only for the <button class="link inline" data-def="Accredited investor">accredited</button> 18.5%. These start at $25. <span class="src">(SEC, 2023)</span></p></div>
       <div class="callout risk" id="ob-risk"><b>Risks first</b>
         <ul><li>Startups are risky. You could lose all you invest.</li>
         <li>You can't sell for at least a year, and maybe never.</li>
@@ -739,9 +792,9 @@ function vOnboard(){
   if (st === 1){
     body = `<h1 class="h1" tabindex="-1" id="ob-h">Three things to know</h1>
       <ol class="learn">
-        <li><div class="ic">${icon("layers")}</div><div><b>What you'd own</b><p>A small piece of a private company. Each company page says what kind, in plain words.</p></div></li>
-        <li><div class="ic">${icon("lock")}</div><div><b>Why you can't sell right away</b><p>Shares are locked for a year, and there's usually no market after. Plan to hold for years.</p></div></li>
-        <li><div class="ic">${icon("split")}</div><div><b>Your slice can shrink</b><p>When a company raises more money, your share gets smaller. Your Timeline explains each time.</p></div></li>
+        <li><div class="ic">${icon("layers")}</div><div><b>You'd own a small piece</b><p>Each company page says what kind.</p></div></li>
+        <li><div class="ic">${icon("lock")}</div><div><b>You can't sell right away</b><p>Locked for a year. Plan to hold for years.</p></div></li>
+        <li><div class="ic">${icon("split")}</div><div><b>Your slice can shrink</b><p>New rounds make your share smaller. We explain each one.</p></div></li>
       </ol>`;
     foot = `<button class="btn btn-primary btn-block" data-ob-next>Got it</button>`;
   }
@@ -765,7 +818,7 @@ function vOnboard(){
       : `<span class="pill ok">${icon("check","sm")}Verified</span><span>You're all set.</span>`;
     const ro = edit ? "" : "readonly";
     body = `<h1 class="h1" tabindex="-1" id="ob-h">Confirm it's you</h1>
-      <p class="lead">The law requires a quick identity check. North Capital runs it for us.</p>
+      <p class="lead">A quick check the law requires, run by North Capital.</p>
       <div class="stack">
         <div class="fields2"><div class="field"><label for="f-first">First name</label><input id="f-first" class="input" value="Jordan" ${ro}></div>
         <div class="field"><label for="f-last">Last name</label><input id="f-last" class="input" value="Ellis" ${ro}></div></div>
@@ -781,7 +834,7 @@ function vOnboard(){
   }
   if (st === 4){
     body = `<h1 class="h1" tabindex="-1" id="ob-h">Your yearly investing limit</h1>
-      <p class="lead">Anyone can invest here. The law sets a yearly cap so no one puts in too much.</p>
+      <p class="lead">Anyone can invest. The law caps how much each year.</p>
       <div class="fields2">
         <div class="field"><label for="f-inc">Yearly income</label><div class="money"><span>$</span><input id="f-inc" class="input num" inputmode="numeric" value="${S.ob.income.toLocaleString()}" data-ob-num="income"></div></div>
         <div class="field"><label for="f-nw">Net worth, not counting your home</label><div class="money"><span>$</span><input id="f-nw" class="input num" inputmode="numeric" value="${S.ob.nw.toLocaleString()}" data-ob-num="nw"></div></div>
@@ -808,8 +861,8 @@ function vMarketplace(){
   const list = COMPANIES.filter(c=>c.status==="open").slice().sort((a,b)=> S.sort==="close" ? a.closes.localeCompare(b.closes) : a.name.localeCompare(b.name));
   return `<div class="view">
     <div class="head" id="mk-head"><h1 class="h1" tabindex="-1" id="view-h">Companies</h1>
-      <p class="lead">Every company here is open to you, from $25.</p>
-      <p class="sub">Elsewhere, deals like these are often limited to the 18.5% of households who are <button class="link inline" data-def="Accredited investor">accredited</button>. All of these meet our <button class="link inline" data-criteria>published criteria</button>.</p></div>
+      <p class="lead">Open to you, from $25.</p>
+      <p class="sub">Not just the <button class="link inline" data-def="Accredited investor">accredited</button>. All meet our <button class="link inline" data-criteria>published criteria</button></p></div>
     <div class="chips" role="group" aria-label="Sort raises"><button class="chip" data-sort="az" aria-pressed="${S.sort!=="close"}">A to Z</button><button class="chip" data-sort="close" aria-pressed="${S.sort==="close"}">Closing date</button></div>
     <ul class="mk-grid">${list.map(c=>`<li>${offerCard(c)}</li>`).join("")}</ul>
   </div>`;
@@ -821,8 +874,7 @@ function offerCard(c){
     <p class="fact"><b>${c.facts[0][0]}</b> ${esc(c.facts[0][1])}</p>
     <div class="prog"><div class="track" aria-hidden="true"><i style="width:${p}%;background:var(--muted)"></i></div>
       <div class="meta"><span>${compact(c.raised)} of ${compact(c.target)} raised</span><span>Closes ${fdate(c.closes)}</span></div></div>
-    <p class="openmark">${icon("door","sm")}You can put in ${usd(25)}–${usd(remaining())} here</p>
-    <div class="offer-foot"><span>${esc(c.security)} · ${esc(PLAIN[c.security])}</span></div>
+    <p class="openmark">${icon("door","sm")}You can put in ${usd(25)}–${usd(remaining())}</p>
   </article>`;
 }
 
@@ -936,41 +988,36 @@ function amountLive(){
 
 /* ---------------- Portfolio ---------------- */
 function vPortfolio(){
-  const t = totals(), d = t.ind - t.cost, L = limit();
-  const paid = PAST.reduce((s,h)=>s+h.payout,0);
-  const esc$ = S.pending.reduce((s,x)=>s+x.amount,0), allIn = cumulativeInvested(), net = t.ind + paid - allIn;
-  return `<div class="view">
-    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Your portfolio</h1><p class="demo-note">Demo: Jordan, two years in</p></div>
-    <div class="pf-top">
-      <section class="stack" id="pf-hero" aria-labelledby="pf-val">
-        <div class="hero-v"><p class="muted" id="pf-val" style="font-weight:700">Estimated value</p>
-          <div class="big num">${usd(t.ind)}</div>
-          <p class="delta ${net>=0?"up":"down"} num">${trend(net, `${usd(Math.abs(net))} net, after payouts and losses`)}</p>
-          ${esc$ ? `<p class="delta muted num">Plus ${usd(esc$)} waiting in escrow</p>` : ""}
-          <p class="est">Based on each company's <button class="link inline" data-def="Priced round">latest priced round</button>. Not a price you could sell at today.</p></div>
-        <div class="chart" id="chart">${chartSVG()}</div>
-        <div class="legend" aria-hidden="true"><span><i></i>Estimated value</span><span><i class="d"></i>Money in current holdings</span><span><b class="mk ok"></b>Paid out to your bank</span><span><b class="mk bad"></b>Closed or down round</span></div>
-        <div class="chips" role="group" aria-label="Chart range"><button class="chip" data-range="all" aria-pressed="${S.range==="all"}">Since first investment</button><button class="chip" data-range="12m" aria-pressed="${S.range==="12m"}">Last 12 months</button></div>
-      </section>
-      <section class="card" aria-label="Summary">
-        <dl class="sums">
-          <div class="kv"><dt>Put in, all time</dt><dd>${usd(allIn)}</dd></div>
-          <div class="kv"><dt>Paid back to you</dt><dd>${usd(paid)}</dd></div>
-          <div class="kv"><dt>Estimated value</dt><dd>${usd(t.ind)}</dd></div>
-          <div class="kv net"><dt>Net result</dt><dd class="${net>=0?"up":"down"}">${net>=0?"+":""}${usd(net)}</dd></div></dl>
-        <div class="meter" id="pf-limit"><div class="top"><span>Yearly limit used</span><span>${usd(used())} of ${usd(L)}</span></div>
-          <div class="track" aria-hidden="true"><i style="width:${Math.min(100,used()/L*100)}%;background:var(--signal)"></i></div></div>
-      </section>
-    </div>
-    ${S.pending.length ? `<section class="stack" aria-labelledby="esc-h"><h2 class="h2" id="esc-h">Waiting in escrow</h2>${S.pending.map((pd,ix)=>{const c=co(pd.companyId);return `<div class="escrow-item"><div class="rleft">${tile(c)}<div><div style="font-weight:800">${esc(c.name)} · ${usd(pd.amount)}</div><div style="font-size:13px;color:var(--text-2)">Cancel until ${fdate(addDays(c.closes,-2))}</div></div></div><div class="acts"><button class="cancel" data-cancel="${ix}">Cancel</button></div></div>`}).join("")}</section>` : ""}
-    <section aria-labelledby="hold-h"><div style="display:flex;justify-content:space-between;align-items:center"><h2 class="h2" id="hold-h">Holdings</h2><button class="link" data-go="timeline">Timeline${icon("right","sm")}</button></div>
-      <ul class="list" id="pf-holdings" style="list-style:none">${HOLDINGS.map(h=>{const ch=pct(h.indicated,h.invested);return `<li><button class="row" data-holding="${h.id}">
-        <div class="rleft">${tile(h)}<div style="min-width:0"><div class="n">${esc(h.name)}</div><div class="s">${esc(h.security)} · ${esc(PLAIN[h.security])}</div>
-        ${h.locked?`<span class="pill warn lock">${icon("lock","sm")}Locked until ${fdate(h.locked)}</span>`:""}</div></div>
-        <div class="v">${usd(h.indicated)}<small class="${ch>0?"up":ch<0?"down":"muted"}">${ch===0?"Same as you paid":trend(ch, Math.abs(ch).toFixed(0)+"%")}</small></div></button></li>`}).join("")}</ul></section>
-    <section aria-labelledby="past-h"><h2 class="h2" id="past-h">Past holdings</h2>
-      <ul class="list" style="list-style:none">${PAST.map(h=>`<li><button class="row" data-holding="${h.id}"><div class="rleft">${tile(h)}<div><div class="n">${esc(h.name)}</div><div class="s">Put in ${usd(h.invested)}</div></div></div>
-        <div class="v"><span class="pill ${h.tone}">${esc(h.outcome)}</span></div></button></li>`).join("")}</ul></section>
+  const t = totals(), L = limit();
+  const paid = PAST.reduce((s,h)=>s+h.payout,0), lost = PAST.filter(h=>h.payout===0).reduce((s,h)=>s+h.invested,0);
+  const allIn = cumulativeInvested(), net = t.ind + paid - allIn;
+  S._hero = { big: usd(t.ind), delta: trend(net, `${usd(Math.abs(net))} net, all time`), up: net>=0 };
+  const row = (h, right, sub) => `<li><button class="hrow" data-holding="${h.id}"><span class="hl"><span class="hn">${esc(h.name)}</span><span class="hs">${sub}</span></span><span class="hr">${right}</span></button></li>`;
+  return `<div class="view pf">
+    <section class="pf-hero" id="pf-hero" aria-labelledby="view-h">
+      <h1 class="pf-h" tabindex="-1" id="view-h">Portfolio</h1>
+      <div class="big num" id="pf-big">${S._hero.big}</div>
+      <p class="delta ${net>=0?"up":"down"} num" id="pf-delta" aria-live="polite">${S._hero.delta}</p>
+      <p class="est">Estimated value <button class="infobtn" data-def="Estimated value" aria-label="What is estimated value?">${icon("help","sm")}</button></p>
+    </section>
+    <div class="chart" id="chart" tabindex="0" role="img" aria-label="Value over time. Use left and right arrow keys to explore.">${chartSVG()}</div>
+    <div class="ranges" role="group" aria-label="Chart range">
+      <button class="rng" data-range="12m" aria-pressed="${S.range==="12m"}" aria-label="Last 12 months">1Y</button>
+      <button class="rng" data-range="all" aria-pressed="${S.range==="all"}" aria-label="All time">All</button></div>
+    <ul class="rows">
+      <li><button class="hrow inline" data-go="profile" data-anchor="pr-limit"><span class="hl"><span class="hn">Yearly limit left</span></span><span class="hr">${usd(remaining())}${icon("right","sm")}</span></button></li>
+      ${S.pending.map((pd,ix)=>{const c=co(pd.companyId);return `<li class="hrow esc"><span class="hl"><span class="hn">${esc(c.name)}</span><span class="hs cau">In escrow · cancel by ${fdate(addDays(c.closes,-2))}</span></span><span class="hr">${usd(pd.amount)}<button class="cancel" data-cancel="${ix}">Cancel</button></span></li>`}).join("")}
+    </ul>
+    <section aria-labelledby="hold-h"><h2 class="h2" id="hold-h">Holdings</h2>
+      <ul class="rows" id="pf-holdings">${HOLDINGS.map(h=>{const ch=pct(h.indicated,h.invested);
+        return row(h, `<span class="hv num">${usd(h.indicated)}</span><span class="hc ${ch>0?"up":ch<0?"down":"muted"} num">${ch===0?"Even":trend(ch, Math.abs(ch).toFixed(0)+"%")}</span>`,
+          h.locked ? `<span class="cau">Locked until ${fdate(h.locked)}</span>` : esc(h.security));}).join("")}</ul></section>
+    <section aria-labelledby="past-h"><h2 class="h2" id="past-h">Past</h2>
+      <ul class="rows">${PAST.map(h=>row(h, `<span class="hv num ${h.payout?"up":"down"}">${h.payout?"+"+usd(h.payout-h.invested):usd(-h.invested)}</span>`, h.payout?"Acquired":"Closed")).join("")}</ul></section>
+    <details class="more"><summary>How you got to ${net>=0?"+":""}${usd(net)}${icon("down")}</summary><div class="body">
+      <dl class="sums"><div class="kv"><dt>Put in, all time</dt><dd>${usd(allIn)}</dd></div><div class="kv"><dt>Paid back to you</dt><dd>${usd(paid)}</dd></div>
+      <div class="kv"><dt>Estimated value now</dt><dd>${usd(t.ind)}</dd></div><div class="kv net"><dt>Net result</dt><dd class="${net>=0?"up":"down"}">${net>=0?"+":""}${usd(net)}</dd></div></dl>
+      <p class="sub">Includes the ${usd(lost)} lost when Pinecone Labs closed. Demo: Jordan, two years in.</p></div></details>
   </div>`;
 }
 function chartSVG(){
@@ -980,25 +1027,23 @@ function chartSVG(){
     pts = [{t:start, d:"2028-10-17", c:before.c, i:before.i}, ...pts.filter(p=>p.t>start)];
   }
   const appW = ($("#app")||{}).clientWidth || 1000;
-  const W = Math.max(300, Math.round(S.chartW || (appW < 760 ? appW-32 : 640))), narrow = W < 520;
-  const H = narrow ? 190 : 230, L = 46, R = 14, T = 26, B = 26, fs = 12;
-  const t0=pts[0].t, t1=pts[pts.length-1].t, maxV=3500;
-  const x=t=>L+(t-t0)/(t1-t0)*(W-L-R), y=v=>T+(1-v/maxV)*(H-T-B);
-  const step = key => pts.map((p,k)=> k===0 ? `M${x(p.t).toFixed(1)} ${y(p[key]).toFixed(1)}` : `H${x(p.t).toFixed(1)} V${y(p[key]).toFixed(1)}`).join(" ");
-  const grid = [0,1000,2000,3000].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="${fs}" fill="var(--muted)">${v===0?"$0":"$"+v/1000+"K"}</text>`).join("");
-  const ticks = (S.range==="12m" ? ["2028-10-17","2029-06-01","2029-10-17"] : ["2028-03-14","2028-11-01","2029-10-17"]).map(d=>{const t=new Date(d+"T12:00:00").getTime();return `<text x="${x(t)}" y="${H-6}" text-anchor="${t===t0?"start":t===t1?"end":"middle"}" font-size="${fs}" fill="var(--muted)">${d===TODAY?"Today":new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",year:"numeric"})}</text>`}).join("");
-  const at = d => pts.find(p=>p.d===d);
-  const red = ["2029-06-30","2029-08-14"].map(at).filter(Boolean).map(pt=>`<circle cx="${x(pt.t)}" cy="${y(pt.i)}" r="5" fill="var(--bg)" stroke="var(--loss)" stroke-width="2.5"/>`).join("");
+  const W = Math.max(300, Math.round(S.chartW || Math.min(appW, 760))), H = W < 520 ? 200 : 240, T = 30, B = 10;
+  const t0=pts[0].t, t1=pts[pts.length-1].t, lo = 0, hi = 3400;
+  const x=t=>6+(t-t0)/(t1-t0)*(W-12), y=v=>T+(1-(v-lo)/(hi-lo))*(H-T-B);
+  const d = pts.map((p,k)=> k===0 ? `M${x(p.t).toFixed(1)} ${y(p.i).toFixed(1)}` : `H${x(p.t).toFixed(1)} V${y(p.i).toFixed(1)}`).join(" ");
+  const at = dd => pts.find(p=>p.d===dd);
+  const red = ["2029-06-30","2029-08-14"].map(at).filter(Boolean).map(pt=>`<circle cx="${x(pt.t)}" cy="${y(pt.i)}" r="4.5" fill="var(--bg)" stroke="var(--loss)" stroke-width="2.5"/>`).join("");
   const pay = at("2029-05-22");
-  const payMark = pay ? (()=>{ const cx=x(pay.t), cy=y(pay.i); return `<circle cx="${cx}" cy="${cy}" r="6" fill="var(--signal)"/><path d="M${cx-3} ${cy} l2.2 2.2 4-4.4" stroke="#06210A" stroke-width="1.8" fill="none" stroke-linecap="round"/><text x="${cx}" y="${T-10}" text-anchor="middle" font-size="12" font-weight="700" fill="var(--signal)">$312 to your bank</text><line x1="${cx}" x2="${cx}" y1="${T-6}" y2="${cy-8}" stroke="var(--signal)" stroke-width="1" stroke-dasharray="2 3"/>`; })() : "";
+  const payMark = pay ? `<circle cx="${x(pay.t)}" cy="${y(pay.i)}" r="5" fill="var(--signal)"/><text x="${x(pay.t)}" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="var(--signal)">$312 paid out</text><line x1="${x(pay.t)}" x2="${x(pay.t)}" y1="21" y2="${y(pay.i)-7}" stroke="var(--signal)" stroke-width="1" stroke-dasharray="2 3"/>` : "";
   const last = pts[pts.length-1];
-  const table = `<div class="sr"><table><caption>Estimated value and money in current holdings</caption><tr><th>Date</th><th>Estimated value</th><th>Money in</th></tr>${pts.map(p=>`<tr><td>${fdate(p.d)}</td><td>${usd(p.i)}</td><td>${usd(p.c)}</td></tr>`).join("")}</table></div>`;
-  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="max-width:100%;height:auto" aria-hidden="true">
-    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ACB55" stop-opacity=".2"/><stop offset="1" stop-color="#4ACB55" stop-opacity="0"/></linearGradient></defs>
-    ${grid}<path d="${step("i")} V${y(0)} H${x(t0)} Z" fill="url(#ga)"/>
-    <path d="${step("c")}" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="5 5"/>
-    <path d="${step("i")}" fill="none" stroke="var(--signal)" stroke-width="3" stroke-linejoin="round"/>
-    ${red}${payMark}<circle cx="${x(last.t)}" cy="${y(last.i)}" r="5" fill="var(--signal)"/>${ticks}</svg>${table}`;
+  S._chart = { W, pts: pts.map(p=>({xv:x(p.t), yv:y(p.i), d:p.d, i:p.i})) };
+  const table = `<div class="sr"><table><caption>Estimated value over time</caption><tr><th>Date</th><th>Estimated value</th></tr>${pts.map(p=>`<tr><td>${fdate(p.d)}</td><td>${usd(p.i)}</td></tr>`).join("")}</table></div>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="max-width:100%;height:auto;touch-action:pan-y" aria-hidden="true">
+    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ACB55" stop-opacity=".16"/><stop offset="1" stop-color="#4ACB55" stop-opacity="0"/></linearGradient></defs>
+    <path d="${d} V${H} H${x(t0)} Z" fill="url(#ga)"/>
+    <path d="${d}" fill="none" stroke="var(--signal)" stroke-width="2.5" stroke-linejoin="round"/>
+    ${red}${payMark}<circle cx="${x(last.t)}" cy="${y(last.i)}" r="5" fill="var(--signal)"/>
+    <line id="scrub" x1="0" x2="0" y1="${T-6}" y2="${H}" stroke="var(--text-2)" stroke-width="1" opacity="0"/><circle id="scrubdot" r="5.5" fill="var(--text)" opacity="0"/></svg>${table}`;
 }
 
 /* ---------------- Holding ---------------- */
@@ -1027,7 +1072,7 @@ function vHolding(){
 }
 
 /* ---------------- Timeline ---------------- */
-const TL_FILTERS = [["all","All"],["value","Value changes"],["updates","Updates"],["mine","My investments"]];
+const TL_FILTERS = [["all","All"],["value","Value"],["updates","Updates"],["mine","Mine"]];
 function evItem(e, lvl){
   lvl = lvl || 3;
   const h = anyHolding(e.co) || co(e.co);
@@ -1043,7 +1088,7 @@ function evItem(e, lvl){
 function vTimeline(){
   const list = S.events.filter(e => S.tlFilter==="all" || e.group===S.tlFilter);
   return `<div class="view">
-    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Timeline</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">Everything that happened to what you own, in plain English. Good news and bad.</p></div>
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Timeline</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">What happened to what you own. Good and bad.</p></div>
     <div class="chips" role="group" aria-label="Show">${TL_FILTERS.map(([k,l])=>`<button class="chip" data-tl="${k}" aria-pressed="${S.tlFilter===k}">${l}</button>`).join("")}</div>
     <ol class="tl">${list.map(e=>evItem(e,2)).join("") || `<li class="muted">Nothing here yet.</li>`}</ol>
   </div>`;
@@ -1052,7 +1097,7 @@ function vTimeline(){
 /* ---------------- Documents ---------------- */
 function vDocuments(){
   return `<div class="view">
-    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Documents</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">Every agreement, report and tax form, kept for at least five years.</p></div>
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Documents</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">Agreements, reports and tax forms.</p></div>
     ${[...HOLDINGS, ...PAST].map(h=>`<section class="stack" style="gap:8px" aria-labelledby="d-${h.id}"><div class="rleft">${tile(h)}<h2 id="d-${h.id}" style="font-weight:800;font-size:16px">${esc(h.name)}</h2></div>
       <ul class="docs-mini">${(DOCS[h.id]||[]).map(d=>`<li><button class="doc-btn" data-doc="${esc(d[0])}" data-docdate="${esc(d[1])}"><span>${esc(d[0])}</span><span>${esc(d[1])}</span></button></li>`).join("")}</ul></section>`).join("")}
   </div>`;
@@ -1087,6 +1132,7 @@ function infoSheetHTML(){
   const f = S.info; let title, body;
   if (f.type==="doc"){ title=f.name; body=`<p class="muted">${esc(f.date||"")} · PDF</p><p>${esc(docSummary(f.name))}</p><button class="btn btn-ghost btn-block" disabled>Download PDF (in the live app)</button>`; }
   else if (f.type==="def"){ const g = GLOSSARY.find(x=>x[0]===f.term) || [f.term,""]; title=g[0]; body=`<p class="lead">${esc(g[1])}</p><button class="link" data-words>All words to know</button>`; }
+  else if (f.type==="demo"){ title="This is a demo"; body=`<p class="lead">The companies, people and numbers are made up. OpenVenture Portal, LLC isn't registered yet, and nothing here is an offer of securities.</p><button class="btn btn-primary btn-block" data-tour>Take the tour</button>`; }
   else if (f.type==="criteria"){ title="Our published criteria"; body=`<p class="calc">Every company must meet all of these, applied the same way to each. Meeting them isn't a recommendation.</p><ul class="checks">${CRITERIA.map(x=>`<li>${icon("check","sm")}${esc(x)}</li>`).join("")}</ul><p class="sub">Meeting them isn't an endorsement.</p>`; }
   else { title="Words to know"; body=`<dl class="words">${GLOSSARY.map(([w,dfn])=>`<div><dt>${esc(w)}</dt><dd>${esc(dfn)}</dd></div>`).join("")}</dl>`; }
   return `<div class="scrim"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="info-h"><div class="sheet-head"><span style="width:8px"></span><div class="stepinfo"></div><button class="iconbtn" data-close-info aria-label="Close">${icon("x")}</button></div><div class="sheet-body"><h2 class="sheet-title" tabindex="-1" id="info-h">${esc(title)}</h2>${body}</div></div></div>`;
@@ -1125,7 +1171,8 @@ document.addEventListener("click", e => {
   const d = t.dataset;
   if (d.toastAct != null){ const a = S.toast && S.toast.action; S.toast=null; clearTimeout(toastTimer); if (a) a.fn(); render({keepScroll:true}); return; }
   if (d.toastX != null){ S.toast=null; render({keepScroll:true}); return; }
-  if (d.tour != null){ startGuide(); return; }
+  if (d.tour != null){ S.info = null; startGuide(); return; }
+  if (d.demo != null){ openInfo({type:"demo"}); return; }
   if (d.browse != null){ S.browse = true; go("marketplace"); toast("You're looking around. Finish setup when you're ready to invest."); return; }
   if (d.finishSetup != null){ S.returnTo = S.companyId; S.ob.step = 3; S.ob.verify = "idle"; go("onboard"); return; }
   if (d.criteria != null){ openInfo({type:"criteria"}); return; }
