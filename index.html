@@ -184,7 +184,7 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 .ob-count{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
 .ob-hero{display:flex;flex-direction:column;gap:14px;padding-top:4px}
 .ob-hero .mark{width:52px;height:52px}
-.hero-h{font-family:var(--ui);font-weight:800;font-size:32px;line-height:1.1;letter-spacing:-.025em}
+.hero-h{font-family:var(--ui);font-weight:800;font-size:28px;line-height:1.1;letter-spacing:-.025em}
 .hero-h em{font-style:normal;color:var(--signal)}
 .promise{display:flex;gap:10px;flex-wrap:wrap}
 .promise span{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px}
@@ -251,6 +251,7 @@ details.more .body{padding:0 0 16px;color:var(--text-2);font-size:14px;line-heig
 @keyframes fadein{from{opacity:0}to{opacity:1}}
 .sheet{background:var(--surface);border:1px solid var(--line-2);border-radius:22px 22px 0 0;width:100%;max-height:94%;display:flex;flex-direction:column;animation:up .24s cubic-bezier(.2,.8,.2,1)}
 @keyframes up{from{transform:translateY(24px)}to{transform:none}}
+.scrim.still,.scrim.still .sheet{animation:none}
 @container app (min-width: 760px){.scrim{align-items:center}.sheet{border-radius:20px;max-width:480px;max-height:88%}}
 .sheet-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px 8px 12px;border-bottom:1px solid var(--line)}
 .sheet-head .stepinfo{flex:1;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
@@ -344,7 +345,7 @@ body.guiding:not(.native) .floor{padding-right:420px}
 .native.guiding .floor{padding-bottom:calc(var(--gh,0px) + 14px)}
 .input::placeholder{color:var(--muted);opacity:1}
 .proof{font-size:16px;color:var(--text-2);max-width:46ch}.proof b{color:var(--text)}
-.link.inline{display:inline;padding:13px 2px;margin:-13px -2px;min-height:0}
+.link.inline{display:inline;padding:13px 8px;margin:-13px -8px;min-height:0}
 @container app (min-width: 760px){.ob-foot{margin-top:16px}}
 .offer{position:relative}
 .offer-link{all:unset;cursor:pointer;display:inline-flex;align-items:center;min-height:44px}
@@ -360,6 +361,7 @@ details.inl[open] summary svg{transform:rotate(180deg)}
 .sect{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:10px}
 .words{display:flex;flex-direction:column;gap:12px}.words dt{font-weight:800}.words dd{margin:0;color:var(--text-2);font-size:14px}
 .toast{display:flex;align-items:center;gap:12px}
+@container app (max-width: 759px){.toast{left:16px;right:16px;transform:none;max-width:none;justify-content:space-between;text-align:left}}
 .choice{border:0;margin:0;padding:0}
 .opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;min-height:56px;font-weight:700;font-size:16px;cursor:pointer}
 .opt:has(input:checked){border-color:var(--signal);background:var(--signal-wash)}
@@ -379,7 +381,7 @@ details.inl[open] summary svg{transform:rotate(180deg)}
 .main > .demo-strip{display:none}
 @container app (min-width: 760px){.main > .demo-strip{display:block}}
 .demopill{border:1px solid rgba(242,184,75,.45);background:var(--caution-wash);color:var(--caution);font-weight:800;font-size:12px;min-height:32px;padding:0 12px;border-radius:999px;position:relative}
-.demopill::after{content:"";position:absolute;inset:-6px}
+.demopill::after{content:"";position:absolute;inset:-6px -4px}
 .wordsbtn{border:1px solid var(--line-2);background:transparent;border-radius:999px;min-height:var(--tap);padding:0 14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--text)}
 .app.no-tabs .tabs{display:none}
 .view.pf{max-width:760px;gap:14px}
@@ -387,7 +389,10 @@ details.inl[open] summary svg{transform:rotate(180deg)}
 .pf-h{font-size:14px;font-weight:700;color:var(--muted);outline:none}
 .pf .big{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:4px}
 @container app (min-width: 760px){.pf .big{font-size:56px}}
-.pf .delta{display:flex;align-items:center;gap:4px;font-weight:700;font-size:16px;min-height:24px}
+.pf .delta{display:flex;align-items:center;gap:4px;font-weight:700;font-size:16px;height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf .legend-m{display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--muted);margin-top:-4px}
+.pf .legend-m i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.pf .legend-m i.ok{background:var(--signal)}.pf .legend-m i.bad{border:2px solid var(--loss);width:9px;height:9px}
 .pf .est{display:flex;align-items:center;gap:2px;font-size:14px;color:var(--muted)}
 .infobtn{border:0;background:transparent;color:var(--muted);width:var(--tap);height:var(--tap);display:inline-flex;align-items:center;justify-content:center;margin:-12px -10px}
 .pf .chart{margin:0 -16px;cursor:crosshair;outline:none;border-radius:0}
@@ -705,6 +710,7 @@ function render(opts){
   const fk = focusKey(document.activeElement);
   const sc0 = app.querySelector(".scroll, .ob");
   const keep = sc0 ? sc0.scrollTop : 0;
+  const hadSheets = app.querySelectorAll(".scrim").length;
   if (S.view === "onboard"){
     app.innerHTML = vOnboard() + toastHTML();
   } else {
@@ -727,6 +733,9 @@ function render(opts){
   }
   if (S.modal) app.insertAdjacentHTML("beforeend", modalHTML());
   if (S.info) app.insertAdjacentHTML("beforeend", infoSheetHTML());
+  const sheets = app.querySelectorAll(".scrim");
+  sheets.forEach((el,ix)=>{ if (ix < hadSheets) el.classList.add("still"); });
+  if (S.view==="onboard") app.querySelectorAll("[data-count]").forEach(el=>countUp(el, +el.dataset.count));
   app.classList.toggle("no-tabs", S.view==="company");
   const bg = app.querySelector(".app-grid, .ob"); if (bg){ if (S.modal || S.info) bg.setAttribute("inert",""); else bg.removeAttribute("inert"); }
   if (opts.keepScroll){ const sc = app.querySelector(".scroll, .ob"); if (sc) sc.scrollTop = keep; }
@@ -737,6 +746,12 @@ function render(opts){
   watchChart();
 }
 let chartRO;
+function countUp(el, to){
+  if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+  const t0 = performance.now(), dur = 650;
+  const step = now => { const k = Math.min(1,(now-t0)/dur), e = 1-Math.pow(1-k,3); if (!el.isConnected) return; el.textContent = usd(Math.round(to*e)); if (k<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
 function watchChart(){
   const ch = $("#chart"); if (!ch) return;
   if (window.ResizeObserver){
@@ -745,13 +760,15 @@ function watchChart(){
     chartRO.observe(ch);
   }
   if (!$("#pf-big")) return;
-  let idx = null;
+  if (!S._counted){ S._counted = true; countUp($("#pf-big"), S._hero.n); }
+  let idx = null, prevIdx = null;
   const show = i => {
     const P = S._chart.pts; if (i==null){ idx=null; $("#pf-big").textContent = S._hero.big; const dl=$("#pf-delta"); dl.innerHTML = S._hero.delta; dl.className = "delta num "+(S._hero.up?"up":"down"); const ln=ch.querySelector("#scrub"), dt=ch.querySelector("#scrubdot"); if(ln){ln.setAttribute("opacity","0"); dt.setAttribute("opacity","0");} return; }
     idx = Math.max(0, Math.min(P.length-1, i)); const p = P[idx];
     $("#pf-big").textContent = usd(p.i);
     const ev = S.events.find(e=>e.date===p.d);
-    const dl = $("#pf-delta"); dl.className = "delta num muted"; dl.textContent = fdate(p.d) + (ev ? " · " + ev.title : "");
+    const dl = $("#pf-delta"); dl.className = "delta num muted"; dl.textContent = fdate(p.d) + (ev ? " · " + ev.type.replace("You invested","Invested") + " · " + ((COMPANIES.concat(HOLDINGS,PAST).find(h=>h.id===ev.co)||{name:""}).name.split(" ")[0]) : "");
+    if (prevIdx !== idx && navigator.vibrate) { try{ navigator.vibrate(4); }catch(_){} } prevIdx = idx;
     const ln = ch.querySelector("#scrub"), dt = ch.querySelector("#scrubdot");
     if (ln){ ln.setAttribute("x1",p.xv); ln.setAttribute("x2",p.xv); ln.setAttribute("opacity","1"); dt.setAttribute("cx",p.xv); dt.setAttribute("cy",p.yv); dt.setAttribute("opacity","1"); }
   };
@@ -760,7 +777,7 @@ function watchChart(){
   ch.addEventListener("pointerdown", e => show(fromX(e.clientX)));
   ch.addEventListener("pointerleave", () => show(null));
   ch.addEventListener("pointerup", e => { if (e.pointerType !== "mouse") show(null); });
-  ch.addEventListener("keydown", e => { if (e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); e.stopPropagation(); const n = S._chart.pts.length; show(idx==null ? n-1 : idx + (e.key==="ArrowRight"?1:-1)); } if (e.key==="Escape") show(null); });
+  ch.addEventListener("keydown", e => { if (e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); e.stopPropagation(); const n = S._chart.pts.length; show(idx==null ? (e.key==="ArrowLeft" ? n-2 : n-1) : idx + (e.key==="ArrowRight"?1:-1)); } if (e.key==="Escape") show(null); });
   ch.addEventListener("blur", () => show(null));
 }
 function renderView(){
@@ -843,15 +860,16 @@ function vOnboard(){
         <div class="limit-big num" id="ob-limit-val" aria-live="polite">${usd(limit())}<span class="muted" style="font-size:16px;font-weight:700"> a year</span></div>
         <p class="calc" id="ob-calc">${limitMath(S.ob.income,S.ob.nw)}</p>
       </div>`;
-    foot = `<button class="btn btn-primary btn-block" data-ob-finish>${S.returnTo?"Back to "+esc(co(S.returnTo).name):"See the companies"}</button>`;
+    foot = `<button class="btn btn-primary btn-block" data-ob-finish>${S.returnTo?"Back to "+esc(co(S.returnTo).name):"Continue"}</button>`;
   }
-  const look = (st>0 && !(st===2 && S.ob.savings==="no")) ? `<button class="link" data-browse style="align-self:center">Look around first</button>` : "";
+  const look = (st>0 && st<4 && !(st===2 && S.ob.savings==="no")) ? `<button class="link" data-browse style="align-self:center">Look around first</button>` : "";
   if (st === 5){
     return `<main class="ob">${demoStrip()}<div class="ob-inner"><div class="ob-hero" style="padding-top:28px">
       <div class="avatar big" aria-hidden="true">JE</div>
       <h1 class="hero-h" tabindex="-1" id="ob-h">Two years later…</h1>
-      <p class="proof">Jordan has made 5 investments. The rest of this demo shows what tracking them looks like, the good news and the bad.</p></div>
-      <div class="ob-foot"><button class="btn btn-primary btn-block" data-jump-go="${S.returnTo?"return":"portfolio"}">${S.returnTo?"Back to "+esc(co(S.returnTo).name):"See Jordan's portfolio"}</button>${S.returnTo?"":`<button class="btn btn-ghost btn-block" data-jump-go="marketplace">Browse companies</button>`}</div></div></main>`;
+      <div class="limit-big num" data-count="${totals().ind}">${usd(totals().ind)}</div>
+      <p class="proof">5 investments · 1 payout · 1 loss</p></div>
+      <div class="ob-foot"><button class="btn btn-primary btn-block" data-jump-go="${S.returnTo?"return":"portfolio"}">${S.returnTo?"Back to "+esc(co(S.returnTo).name):"See Jordan's portfolio"}</button></div></div></main>`;
   }
   return `<main class="ob">${demoStrip()}<div class="ob-inner">${top}${body}<div class="ob-foot">${foot}${look}</div></div></main>`;
 }
@@ -950,7 +968,7 @@ function modalHTML(){
   if (m.step===3){
     const f = fee(m.amount);
     body = m.busy ? `<div role="status" style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 0"><div class="spin" style="width:34px;height:34px" aria-hidden="true"></div><p><b>Sending ${usd2(m.amount+f)} to escrow…</b></p></div>` :
-      `<h2 class="sheet-title" tabindex="-1" id="sheet-h">Confirm ${usd2(m.amount+f)}</h2>
+      `<h2 class="sheet-title" tabindex="-1" id="sheet-h">Review</h2>
       <div class="receipt"><div class="kv"><span>What you're buying</span><span><button class="link inline" data-def="${esc(defFor(c.security))}">${esc(c.security)}</button><small class="plain">${esc(PLAIN[c.security])}</small></span></div>
         <div class="kv"><span>Investment</span><span>${usd2(m.amount)}</span></div><div class="kv"><span>Fee (2% + $2)</span><span>${usd2(f)}</span></div>
         <div class="kv tot"><span>Total from checking ••4821</span><span>${usd2(m.amount+f)}</span></div>
@@ -982,7 +1000,7 @@ function amountLive(){
     <div class="stack" style="gap:8px" id="limit-meter">
       <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700"><span>Your yearly limit</span><span class="muted num">${usd(L)}</span></div>
       <div class="track" aria-hidden="true"><i style="width:${wUsed}%;background:var(--muted)"></i><i style="width:${wNew}%;background:${over?"var(--loss)":"var(--signal)"}"></i></div>
-      <p class="hint ${over||under?"err":""}" id="amt-hint" aria-live="polite">${under?"The minimum is $25. Try $25 or more.": over?`That's over your limit. You have ${usd(remaining())} left this year.`:`Jordan's earlier investments ${usd(u)} · this ${usd(a)} · ${usd(Math.max(0,left))} left`}${echo}</p>
+      <p class="hint ${over||under?"err":""}" id="amt-hint" aria-live="polite">${under?"The minimum is $25. Try $25 or more.": over?`That's over your limit. You have ${usd(remaining())} left this year.`:`Used ${usd(u)} · this ${usd(a)} · ${usd(Math.max(0,left))} left`}${echo}</p>
     </div>`;
 }
 
@@ -991,33 +1009,33 @@ function vPortfolio(){
   const t = totals(), L = limit();
   const paid = PAST.reduce((s,h)=>s+h.payout,0), lost = PAST.filter(h=>h.payout===0).reduce((s,h)=>s+h.invested,0);
   const allIn = cumulativeInvested(), net = t.ind + paid - allIn;
-  S._hero = { big: usd(t.ind), delta: trend(net, `${usd(Math.abs(net))} net, all time`), up: net>=0 };
+  S._hero = { n: t.ind, big: usd(t.ind), delta: trend(net, `${usd(Math.abs(net))} net, ${S.range==="12m"?"past year":"all time"}`), up: net>=0 };
   const row = (h, right, sub) => `<li><button class="hrow" data-holding="${h.id}"><span class="hl"><span class="hn">${esc(h.name)}</span><span class="hs">${sub}</span></span><span class="hr">${right}</span></button></li>`;
   return `<div class="view pf">
     <section class="pf-hero" id="pf-hero" aria-labelledby="view-h">
-      <h1 class="pf-h" tabindex="-1" id="view-h">Portfolio</h1>
+      <div class="est"><h1 class="pf-h" tabindex="-1" id="view-h">Estimated value</h1><button class="infobtn" data-def="Estimated value" aria-label="What is estimated value?">${icon("help","sm")}</button></div>
       <div class="big num" id="pf-big">${S._hero.big}</div>
       <p class="delta ${net>=0?"up":"down"} num" id="pf-delta" aria-live="polite">${S._hero.delta}</p>
-      <p class="est">Estimated value <button class="infobtn" data-def="Estimated value" aria-label="What is estimated value?">${icon("help","sm")}</button></p>
     </section>
     <div class="chart" id="chart" tabindex="0" role="img" aria-label="Value over time. Use left and right arrow keys to explore.">${chartSVG()}</div>
     <div class="ranges" role="group" aria-label="Chart range">
       <button class="rng" data-range="12m" aria-pressed="${S.range==="12m"}" aria-label="Last 12 months">1Y</button>
       <button class="rng" data-range="all" aria-pressed="${S.range==="all"}" aria-label="All time">All</button></div>
+    <p class="legend-m" aria-hidden="true"><span><i class="ok"></i>Paid to you</span><span><i class="bad"></i>Loss</span></p>
     <ul class="rows">
       <li><button class="hrow inline" data-go="profile" data-anchor="pr-limit"><span class="hl"><span class="hn">Yearly limit left</span></span><span class="hr">${usd(remaining())}${icon("right","sm")}</span></button></li>
       ${S.pending.map((pd,ix)=>{const c=co(pd.companyId);return `<li class="hrow esc"><span class="hl"><span class="hn">${esc(c.name)}</span><span class="hs cau">In escrow · cancel by ${fdate(addDays(c.closes,-2))}</span></span><span class="hr">${usd(pd.amount)}<button class="cancel" data-cancel="${ix}">Cancel</button></span></li>`}).join("")}
     </ul>
     <section aria-labelledby="hold-h"><h2 class="h2" id="hold-h">Holdings</h2>
       <ul class="rows" id="pf-holdings">${HOLDINGS.map(h=>{const ch=pct(h.indicated,h.invested);
-        return row(h, `<span class="hv num">${usd(h.indicated)}</span><span class="hc ${ch>0?"up":ch<0?"down":"muted"} num">${ch===0?"Even":trend(ch, Math.abs(ch).toFixed(0)+"%")}</span>`,
+        return row(h, `<span class="hv num">${usd(h.indicated)}</span><span class="hc ${ch>0?"up":ch<0?"down":"muted"} num">${ch===0?"No change":trend(ch, Math.abs(ch).toFixed(0)+"%")}</span>`,
           h.locked ? `<span class="cau">Locked until ${fdate(h.locked)}</span>` : esc(h.security));}).join("")}</ul></section>
     <section aria-labelledby="past-h"><h2 class="h2" id="past-h">Past</h2>
       <ul class="rows">${PAST.map(h=>row(h, `<span class="hv num ${h.payout?"up":"down"}">${h.payout?"+"+usd(h.payout-h.invested):usd(-h.invested)}</span>`, h.payout?"Acquired":"Closed")).join("")}</ul></section>
     <details class="more"><summary>How you got to ${net>=0?"+":""}${usd(net)}${icon("down")}</summary><div class="body">
       <dl class="sums"><div class="kv"><dt>Put in, all time</dt><dd>${usd(allIn)}</dd></div><div class="kv"><dt>Paid back to you</dt><dd>${usd(paid)}</dd></div>
       <div class="kv"><dt>Estimated value now</dt><dd>${usd(t.ind)}</dd></div><div class="kv net"><dt>Net result</dt><dd class="${net>=0?"up":"down"}">${net>=0?"+":""}${usd(net)}</dd></div></dl>
-      <p class="sub">Includes the ${usd(lost)} lost when Pinecone Labs closed. Demo: Jordan, two years in.</p></div></details>
+      <p class="sub">Includes the ${usd(lost)} lost when Pinecone Labs closed.</p></div></details>
   </div>`;
 }
 function chartSVG(){
@@ -1034,6 +1052,8 @@ function chartSVG(){
   const at = dd => pts.find(p=>p.d===dd);
   const red = ["2029-06-30","2029-08-14"].map(at).filter(Boolean).map(pt=>`<circle cx="${x(pt.t)}" cy="${y(pt.i)}" r="4.5" fill="var(--bg)" stroke="var(--loss)" stroke-width="2.5"/>`).join("");
   const pay = at("2029-05-22");
+  const payPrev = pay && pts[pts.indexOf(pay)-1];
+  const payDrop = payPrev ? `<line x1="${x(pay.t)}" x2="${x(pay.t)}" y1="${y(payPrev.i)}" y2="${y(pay.i)}" stroke="var(--bg)" stroke-width="4"/><line x1="${x(pay.t)}" x2="${x(pay.t)}" y1="${y(payPrev.i)}" y2="${y(pay.i)}" stroke="var(--muted)" stroke-width="2" stroke-dasharray="3 3"/>` : "";
   const payMark = pay ? `<circle cx="${x(pay.t)}" cy="${y(pay.i)}" r="5" fill="var(--signal)"/><text x="${x(pay.t)}" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="var(--signal)">$312 paid out</text><line x1="${x(pay.t)}" x2="${x(pay.t)}" y1="21" y2="${y(pay.i)-7}" stroke="var(--signal)" stroke-width="1" stroke-dasharray="2 3"/>` : "";
   const last = pts[pts.length-1];
   S._chart = { W, pts: pts.map(p=>({xv:x(p.t), yv:y(p.i), d:p.d, i:p.i})) };
@@ -1042,7 +1062,7 @@ function chartSVG(){
     <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ACB55" stop-opacity=".16"/><stop offset="1" stop-color="#4ACB55" stop-opacity="0"/></linearGradient></defs>
     <path d="${d} V${H} H${x(t0)} Z" fill="url(#ga)"/>
     <path d="${d}" fill="none" stroke="var(--signal)" stroke-width="2.5" stroke-linejoin="round"/>
-    ${red}${payMark}<circle cx="${x(last.t)}" cy="${y(last.i)}" r="5" fill="var(--signal)"/>
+    ${payDrop}${red}${payMark}<circle cx="${x(last.t)}" cy="${y(last.i)}" r="5" fill="var(--signal)"/>
     <line id="scrub" x1="0" x2="0" y1="${T-6}" y2="${H}" stroke="var(--text-2)" stroke-width="1" opacity="0"/><circle id="scrubdot" r="5.5" fill="var(--text)" opacity="0"/></svg>${table}`;
 }
 
@@ -1082,13 +1102,13 @@ function evItem(e, lvl){
   return `<li class="ev" id="${e.id}" style="--dot:${dot}">
     <div class="ev-top"><span class="ev-date">${fdate(e.date)} · ${esc(h?h.name:"")}</span>${pill}</div>
     <h${lvl} class="ev-t">${esc(e.title)}</h${lvl}><p class="means">${e.means}</p>
-    <details><summary>What happened${icon("down","sm")}</summary><p>${esc(e.body)}</p>${doc?`<button class="link" data-doc="${esc(doc)}" data-docdate="${fdate(e.date)}">${icon("docs","sm")}Open the ${esc(doc.toLowerCase())}</button>`:""}</details>
+    <details><summary>What happened${icon("down","sm")}</summary><p>${esc(e.body)}</p>${doc?`<button class="link" data-doc="${esc(doc)}" data-docdate="${fdate(e.date)}">${icon("docs","sm")}Open the ${esc(doc)}</button>`:""}</details>
   </li>`;
 }
 function vTimeline(){
   const list = S.events.filter(e => S.tlFilter==="all" || e.group===S.tlFilter);
   return `<div class="view">
-    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Timeline</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">What happened to what you own. Good and bad.</p></div>
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Timeline</h1><p class="lead">What happened to what you own. Good and bad.</p></div>
     <div class="chips" role="group" aria-label="Show">${TL_FILTERS.map(([k,l])=>`<button class="chip" data-tl="${k}" aria-pressed="${S.tlFilter===k}">${l}</button>`).join("")}</div>
     <ol class="tl">${list.map(e=>evItem(e,2)).join("") || `<li class="muted">Nothing here yet.</li>`}</ol>
   </div>`;
@@ -1097,7 +1117,7 @@ function vTimeline(){
 /* ---------------- Documents ---------------- */
 function vDocuments(){
   return `<div class="view">
-    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Documents</h1><p class="demo-note">Demo: Jordan, two years in</p><p class="lead">Agreements, reports and tax forms.</p></div>
+    <div class="head"><h1 class="h1" tabindex="-1" id="view-h">Documents</h1><p class="lead">Agreements, reports and tax forms.</p></div>
     ${[...HOLDINGS, ...PAST].map(h=>`<section class="stack" style="gap:8px" aria-labelledby="d-${h.id}"><div class="rleft">${tile(h)}<h2 id="d-${h.id}" style="font-weight:800;font-size:16px">${esc(h.name)}</h2></div>
       <ul class="docs-mini">${(DOCS[h.id]||[]).map(d=>`<li><button class="doc-btn" data-doc="${esc(d[0])}" data-docdate="${esc(d[1])}"><span>${esc(d[0])}</span><span>${esc(d[1])}</span></button></li>`).join("")}</ul></section>`).join("")}
   </div>`;
@@ -1280,25 +1300,25 @@ function confirmInvest(){
    GUIDED DEMO
    ========================================================= */
 const GUIDE = [
-  { title:"Open to everyone", body:"Only about 18.5% of U.S. households can join accredited-only deals. Here, every raise is open to you, from $25.",
+  { title:"Open to everyone", body:"Only 18.5% of households can join accredited deals. Here, every raise is open from $25.",
     run(){ resetOnboard(); go("onboard"); }, spot:"#ob-hero" },
   { title:"Risks, right up front", body:"Before any company, you see what can go wrong, in plain words.",
     run(){ resetOnboard(); go("onboard"); }, spot:"#ob-risk" },
-  { title:"A yearly limit, explained", body:"Anyone can invest, and the law caps how much each year. Jordan earns $48,000, so the cap is $2,500, and you can see why.",
+  { title:"A yearly limit, explained", body:"The law caps yearly investing. Jordan earns $48,000, so the cap is $2,500.",
     run(){ S.ob.step=4; S.ob.savings="yes"; S.ob.verify="done"; go("onboard"); }, spot:"#ob-limit" },
-  { title:"Every raise is open", body:"Each company is open to every investor, with a $25 minimum. No countdowns, no hype.",
+  { title:"Every raise is open", body:"Every company is open to every investor, from $25. No countdowns, no hype.",
     run(){ go("marketplace"); }, spot:"#mk-head" },
-  { title:"What it is, then the risks", body:"Each page says what the company does, then the risks. Details open when you want them.",
+  { title:"What it is, then the risks", body:"What the company does, then the risks. Details open when you want them.",
     run(){ go("company",{companyId:"fieldnote"}); }, spot:"#risk-first" },
   { title:"$25 in. Fee shown first.", body:"At $25 the fee is $2.50. You see every dollar before you confirm.",
     run(){ go("company",{companyId:"fieldnote"}); delete S.drafts.fieldnote; openInvest("fieldnote",25); }, spot:"#receipt" },
-  { title:"Your money waits in escrow", body:"It goes to North Capital, never to us, and comes back if the raise misses its goal.",
+  { title:"Your money waits in escrow", body:"It goes to North Capital, not us, and comes back if the raise misses its goal.",
     run(){ go("company",{companyId:"fieldnote"}); delete S.drafts.fieldnote; openInvest("fieldnote",25); S.modal.acks=[true,true,true,true]; S.modal.step=3; render({keepScroll:true}); }, spot:"#escrow-box" },
-  { title:"Know what you own", body:"Two years in, Jordan's holdings are worth an estimated $2,620. Value changes only when something real happens.",
+  { title:"Know what you own", body:"$2,620 today. Value moves only when something real happens.",
     run(){ S.range="all"; go("portfolio"); }, spot:"#pf-hero" },
-  { title:"Every event, in dollars", body:"When Lumen raised money, Jordan's SAFE became shares and everyone's slice shrank 20%. You see what it means for you.",
+  { title:"Every event, in dollars", body:"Lumen raised money: Jordan's value rose $480, and everyone's slice shrank 20%.",
     run(){ S.tlFilter="all"; go("timeline"); }, spot:"#ev-lumen-a" },
-  { title:"Good news and bad", body:"A down round, a shutdown and a $312 payout all show up. We show losses too.",
+  { title:"Good news and bad", body:"A down round, a shutdown and a $312 payout. We show the losses too.",
     run(){ S.tlFilter="all"; go("timeline"); }, spot:"#ev-tide-down" },
   { title:"Open access. Real opportunity.", final:true, body:"Deals that usually need accreditation and $1,000+, open to everyone from $25.",
     run(){ go("marketplace"); }, spot:null }
